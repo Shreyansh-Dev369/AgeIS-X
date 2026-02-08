@@ -97,6 +97,10 @@ export const metadata: Metadata = {
   },
   category: "technology",
   classification: "Cybersecurity Software",
+<<<<<<< HEAD
+=======
+    generator: 'v0.app'
+>>>>>>> 84fbf71e53d016771c893b30f695f950a74a3e2d
 }
 
 export const viewport: Viewport = {
