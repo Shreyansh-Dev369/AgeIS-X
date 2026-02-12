@@ -97,10 +97,6 @@ export const metadata: Metadata = {
   },
   category: "technology",
   classification: "Cybersecurity Software",
-<<<<<<< HEAD
-=======
-    generator: 'v0.app'
->>>>>>> 84fbf71e53d016771c893b30f695f950a74a3e2d
 }
 
 export const viewport: Viewport = {
@@ -169,7 +165,6 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         <script
           type="application/ld+json"
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: SEO structured data
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
