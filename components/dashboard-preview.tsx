@@ -102,7 +102,7 @@ export function DashboardPreview() {
       <div className="absolute inset-0 cyber-grid opacity-20" />
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 blur-[150px] rounded-full" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 page-container">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -351,3 +351,6 @@ export function DashboardPreview() {
     </section>
   )
 }
+
+
+

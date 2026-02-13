@@ -79,10 +79,6 @@ function CyberGrid() {
 
 // Scanning beams
 function ScanningBeams() {
-<<<<<<< HEAD
-
-=======
->>>>>>> 84fbf71e53d016771c893b30f695f950a74a3e2d
   return (
     <>
       <motion.div
@@ -152,11 +148,6 @@ function SecurityRings() {
             {Array.from({ length: ring.nodes }).map((_, i) => {
               const angle = (360 / ring.nodes) * i * (Math.PI / 180)
               const r = ring.size / 2 - 10
-<<<<<<< HEAD
-          
-
-=======
->>>>>>> 84fbf71e53d016771c893b30f695f950a74a3e2d
               return (
                 <motion.circle
                   key={i}
@@ -280,11 +271,6 @@ function HackerConsole({ progress }: { progress: number }) {
   ], [])
 
   const visibleLogs = logs.filter((log) => progress >= log.threshold)
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 84fbf71e53d016771c893b30f695f950a74a3e2d
   return (
     <motion.div
       className="absolute bottom-4 left-4 right-4 sm:bottom-8 sm:left-8 sm:right-8 max-h-28 sm:max-h-36 overflow-hidden rounded-lg border border-border/50 bg-background/95 backdrop-blur-md"
@@ -359,10 +345,6 @@ function DataStreams() {
 
 // Progress status phases
 function ProgressSection({ progress, phase }: { progress: number; phase: string }) {
-<<<<<<< HEAD
-
-=======
->>>>>>> 84fbf71e53d016771c893b30f695f950a74a3e2d
   return (
     <motion.div
       className="absolute bottom-36 sm:bottom-48 left-1/2 -translate-x-1/2 w-72 sm:w-80"
@@ -436,15 +418,9 @@ function ProgressSection({ progress, phase }: { progress: number; phase: string 
 }
 
 export function Preloader({ onComplete, duration = 4500 }: PreloaderProps) {
-<<<<<<< HEAD
-const [mounted, setMounted] = useState(false)
-const [progress, setProgress] = useState(0)
-const [isExiting, setIsExiting] = useState(false)
-
-=======
+  const [mounted, setMounted] = useState(false)
   const [progress, setProgress] = useState(0)
   const [isExiting, setIsExiting] = useState(false)
->>>>>>> 84fbf71e53d016771c893b30f695f950a74a3e2d
 
   const phases = useMemo(() => [
     "Initializing Security Core",
@@ -462,13 +438,10 @@ const [isExiting, setIsExiting] = useState(false)
   }, [onComplete])
 
   useEffect(() => {
-<<<<<<< HEAD
-  setMounted(true)
-}, [])
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
-=======
->>>>>>> 84fbf71e53d016771c893b30f695f950a74a3e2d
     const startTime = Date.now()
     let animationFrame: number
 
@@ -488,40 +461,29 @@ const [isExiting, setIsExiting] = useState(false)
     return () => cancelAnimationFrame(animationFrame)
   }, [duration, handleComplete])
 
+
   return (
     <AnimatePresence>
       {!isExiting && (
         <motion.div
-<<<<<<< HEAD
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center min-h-screen overflow-hidden bg-background"
-=======
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden bg-background"
->>>>>>> 84fbf71e53d016771c893b30f695f950a74a3e2d
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.05, filter: "blur(8px)" }}
           transition={{ duration: 0.7, ease: "easeInOut" }}
         >
           {/* Background layers */}
           <CyberGrid />
-<<<<<<< HEAD
           {mounted && <MatrixRain />}
-=======
-          <MatrixRain />
->>>>>>> 84fbf71e53d016771c893b30f695f950a74a3e2d
+
           <DataStreams />
           <ScanningBeams />
           <FloatingIndicators progress={progress} />
 
           {/* Main content */}
-<<<<<<< HEAD
           <div className="relative z-10 flex flex-col items-center scale-[0.9] sm:scale-100">
 
             {mounted && <SecurityRings />}
 
-=======
-          <div className="relative z-10 flex flex-col items-center">
-            <SecurityRings />
->>>>>>> 84fbf71e53d016771c893b30f695f950a74a3e2d
 
             {/* Logo */}
             <motion.div

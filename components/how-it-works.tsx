@@ -65,7 +65,7 @@ export function HowItWorks() {
       <div className="absolute inset-0 cyber-grid opacity-20" />
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[400px] h-[800px] bg-primary/5 blur-[150px]" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 page-container">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -212,3 +212,6 @@ function StepCard({
     </motion.div>
   )
 }
+
+
+

@@ -95,7 +95,7 @@ export function FeaturesSection() {
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 blur-[150px] rounded-full" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/5 blur-[120px] rounded-full" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 page-container">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -218,3 +218,6 @@ function FeatureCard({
     </motion.div>
   )
 }
+
+
+

@@ -62,7 +62,7 @@ export function ProfileSection() {
       <div className="absolute inset-0 cyber-grid opacity-20" />
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-accent/5 blur-[150px] rounded-full" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 page-container">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Profile Card */}
           <motion.div
@@ -301,3 +301,6 @@ export function ProfileSection() {
     </section>
   )
 }
+
+
+

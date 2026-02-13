@@ -55,7 +55,7 @@ export function Navbar({ isLoggedIn = false, user }: NavbarProps) {
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="page-container">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="relative z-10">
@@ -197,3 +197,6 @@ export function Navbar({ isLoggedIn = false, user }: NavbarProps) {
     </motion.nav>
   )
 }
+
+
+

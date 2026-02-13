@@ -362,7 +362,7 @@ export function TestimonialsSection() {
         backgroundSize: '60px 60px'
       }} />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 page-container">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -597,3 +597,6 @@ export function TestimonialsSection() {
     </section>
   )
 }
+
+
+

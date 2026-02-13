@@ -47,7 +47,7 @@ export function Footer() {
       {/* Background */}
       <div className="absolute inset-0 cyber-grid opacity-10" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 page-container">
         {/* CTA Section */}
         <div className="py-16 border-b border-border">
           <motion.div
@@ -166,3 +166,6 @@ export function Footer() {
     </footer>
   )
 }
+
+
+
