@@ -1,0 +1,19 @@
+Note: Create the table in PostgreSQL:
+
+CREATE TABLE predictions (
+    id SERIAL PRIMARY KEY,
+    url TEXT,
+    label INT,
+    probability FLOAT,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+
+fastapi
+uvicorn
+scikit-learn
+pandas
+numpy
+redis
+psycopg2-binary
+python-jose

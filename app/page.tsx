@@ -1,3 +1,5 @@
+"use client";
+
 import { Navbar } from "@/components/navbar"
 import { HeroSection } from "@/components/hero-section"
 import { URLScanner } from "@/components/url-scanner"
@@ -13,7 +15,7 @@ export default function Home() {
     <main className="min-h-screen bg-background">
       <Navbar />
       <HeroSection />
-      <URLScanner />
+      <URLScanner /> {/* 👈 THIS is where logic will work */}
       <FeaturesSection />
       <HowItWorks />
       <DashboardPreview />
