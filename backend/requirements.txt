@@ -17,3 +17,45 @@ numpy
 redis
 psycopg2-binary
 python-jose
+
+
+
+
+UPDATES NEEDED 
+...
+
+
+AgeIS-X
+
+URL Detection
+SMS Scam Detection
+WhatsApp Scam Detection
+Email Phishing Detection
+Social Media Scam Detection
+Call Fraud Detection
+UPI Fraud Detection
+Threat Intelligence
+AI Security Assistant
+
+OCR
+↓
+Text Extraction
+↓
+Scam Detection
+↓
+Risk Score
+
+AgeIS-X
+
+AI Fraud Detection Platform
+
+✔ URL Scams
+✔ SMS Scams
+✔ WhatsApp Scams
+✔ Email Phishing
+✔ Phone Fraud
+✔ UPI Fraud
+✔ Social Media Scams
+✔ Job Scams
+✔ Browser Protection
+✔ AI Security Assistant
