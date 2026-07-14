@@ -25,7 +25,7 @@ REDIS_EXPIRE = int(os.getenv("REDIS_EXPIRE", 3600))  # seconds
 # ---------------------------
 DB_HOST = os.getenv("DB_HOST", "localhost")
 DB_PORT = int(os.getenv("DB_PORT", 5432))
-DB_NAME = os.getenv("DB_NAME", "ageisx")
+DB_NAME = os.getenv("DB_NAME", "AgeIS-X")
 DB_USER = os.getenv("DB_USER", "postgres")
 DB_PASSWORD = os.getenv("DB_PASSWORD", "password")
 
