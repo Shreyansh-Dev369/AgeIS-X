@@ -278,13 +278,14 @@ export function CinematicHero() {
               {/* Real URL Intelligence Scanner */}
               <div className="pt-2 max-w-xl">
                 <div className="p-4 sm:p-5 bg-[#080D16]/90 backdrop-blur-md border border-white/15 shadow-2xl space-y-3">
-                  <div className="flex items-center justify-between text-[10px] text-[#A6A6A0] uppercase">
-                    <span className="flex items-center gap-1.5 font-bold text-[#F1F0EB]">
+                  <div className="flex items-center justify-between text-[10px] uppercase">
+                    <span className="flex items-center gap-1.5 font-bold text-[#F1F0EB] tracking-wider font-mono">
                       <Globe className="w-3.5 h-3.5 text-[#39FF14]" />
-                      <span>REAL-TIME URL THREAT SCANNER</span>
+                      <span>URL INTELLIGENCE SCANNER</span>
                     </span>
-                    <span className="text-[#39FF14] text-[9px]">
-                      READY // FASTAPI + ML
+                    <span className="text-[#39FF14] text-[10px] font-mono font-bold flex items-center gap-1.5">
+                      <span className="w-2 h-2 bg-[#39FF14] inline-block" />
+                      <span>ENGINE READY</span>
                     </span>
                   </div>
 
@@ -302,7 +303,7 @@ export function CinematicHero() {
                     <Button
                       type="submit"
                       disabled={isScanning || !inputUrl.trim()}
-                      className="bg-[#39FF14] hover:bg-[#32e012] disabled:opacity-50 text-[#04070D] font-mono font-bold text-xs uppercase tracking-wider rounded-none px-5 h-10 shrink-0 cursor-pointer shadow-[2px_2px_0px_#FFFFFF]"
+                      className="bg-[#39FF14] hover:bg-[#32e012] disabled:opacity-50 text-[#04070D] font-mono font-bold text-xs uppercase tracking-wider rounded-none px-6 h-10 shrink-0 cursor-pointer shadow-[2px_2px_0px_#FFFFFF]"
                     >
                       {isScanning ? (
                         <>
@@ -311,22 +312,31 @@ export function CinematicHero() {
                         </>
                       ) : (
                         <>
-                          <span>SCAN</span>
+                          <span>SCAN NOW</span>
                           <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                         </>
                       )}
                     </Button>
                   </form>
 
-                  {/* Sample Test Targets */}
-                  <div className="flex flex-wrap items-center gap-2 pt-1 text-[9px] text-[#6F706D]">
+                  {/* Status strip & Hashing */}
+                  <div className="flex items-center justify-between text-[9px] text-[#6F706D] font-mono pt-1 border-t border-white/5">
+                    <span className="flex items-center gap-1 text-[#A6A6A0]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#39FF14] inline-block" />
+                      <span>READY | REAL-TIME DOMAIN / WEB / PHISHING ANALYSIS</span>
+                    </span>
+                    <span className="uppercase tracking-wider">SHA-256 HASHED</span>
+                  </div>
+
+                  {/* Sample Quick Test Links */}
+                  <div className="flex flex-wrap items-center gap-2 text-[9px] text-[#6F706D]">
                     <span>QUICK TEST:</span>
                     <button
                       type="button"
                       onClick={() => {
                         setInputUrl("https://secure.chase.com/auth/login")
                       }}
-                      className="hover:text-[#39FF14] underline cursor-pointer"
+                      className="hover:text-[#39FF14] underline cursor-pointer font-mono"
                     >
                       Clean Bank Portal
                     </button>
@@ -336,7 +346,7 @@ export function CinematicHero() {
                       onClick={() => {
                         setInputUrl("https://paypаl-verify.secure-update.xyz/token")
                       }}
-                      className="hover:text-[#FF4545] underline cursor-pointer"
+                      className="hover:text-[#FF4545] underline cursor-pointer font-mono"
                     >
                       Homoglyph Phishing
                     </button>
