@@ -4,12 +4,11 @@ import React, { useState, useEffect } from "react"
 import { AppShell } from "@/components/layout/app-shell"
 import { DataTable, Column } from "@/components/ui/data-table"
 import { PixelBadge } from "@/components/ui/pixel-badge"
-import { TacticalFrame } from "@/components/ui/tactical-frame"
 import { Button } from "@/components/ui/button"
 import { Drawer, DrawerContent } from "@/components/ui/drawer"
 import { securityService } from "@/lib/services/security-service"
 import { DataAsset } from "@/types/security"
-import { Database, Download, HardDrive, FileCode, ArrowRight, X, ShieldAlert, CheckCircle2 } from "lucide-react"
+import { Database, Download, HardDrive, FileCode, ArrowUpRight, X, ShieldAlert, CheckCircle2 } from "lucide-react"
 
 export default function DataTelemetryPage() {
   const [dataAssets, setDataAssets] = useState<DataAsset[]>([])
@@ -45,56 +44,57 @@ export default function DataTelemetryPage() {
 
   const columns: Column<DataAsset>[] = [
     {
-      header: "FILE ASSET // IDENTIFIER",
+      header: "File Asset",
       cell: (item) => (
         <button
           onClick={() => handleInspect(item)}
-          className="text-left group focus:outline-none"
+          className="text-left group focus:outline-none block py-0.5"
         >
-          <span className="font-bold text-[#f8fafc] block text-xs group-hover:text-[#00ff66] transition-colors">
+          <span className="font-semibold text-slate-100 block text-xs group-hover:text-[#00e575] transition-colors">
             {item.fileName}
           </span>
-          <span className="text-[10px] font-mono text-[#7e8b9b]">{item.fileType}</span>
+          <span className="text-[11px] font-mono text-slate-400">{item.fileType}</span>
         </button>
       ),
     },
     {
-      header: "LOCATION PATH",
+      header: "Location Path",
       accessorKey: "location",
-      className: "text-xs font-mono text-[#7e8b9b] truncate max-w-xs",
+      className: "text-xs font-mono text-slate-400 truncate max-w-xs",
     },
     {
-      header: "RISK SCORE",
+      header: "Risk Score",
       cell: (item) => (
-        <span className={`font-bold text-xs font-mono ${item.riskScore > 70 ? "text-[#ff3b30]" : item.riskScore > 0 ? "text-[#ffb800]" : "text-[#00ff66]"}`}>
+        <span className={`font-semibold text-xs font-mono ${item.riskScore > 70 ? "text-[#ff4b4b]" : item.riskScore > 0 ? "text-[#ffb800]" : "text-[#00e575]"}`}>
           {item.riskScore}%
         </span>
       ),
     },
     {
-      header: "STATUS",
+      header: "Status",
       cell: (item) => (
         <PixelBadge
           variant={item.status === "QUARANTINED" ? "danger" : item.status === "SENSITIVE_DETECTED" ? "warning" : "phosphor"}
           size="sm"
         >
-          {item.status}
+          {item.status === "QUARANTINED" ? "Quarantined" : item.status === "SENSITIVE_DETECTED" ? "Sensitive" : "Clean"}
         </PixelBadge>
       ),
     },
     {
-      header: "SIZE",
+      header: "Size",
       accessorKey: "fileSize",
-      className: "text-[10px] font-mono text-[#00f0ff]",
+      className: "text-[11px] font-mono text-[#00e5ff]",
     },
     {
-      header: "ACTION",
+      header: "Action",
       cell: (item) => (
         <button
           onClick={() => handleInspect(item)}
-          className="text-[10px] font-mono text-[#00ff66] hover:underline uppercase font-bold"
+          className="text-xs font-medium text-[#00e575] hover:underline flex items-center gap-1"
         >
-          [ INSPECT ]
+          <span>Inspect</span>
+          <ArrowUpRight className="w-3 h-3" />
         </button>
       ),
     },
@@ -104,74 +104,69 @@ export default function DataTelemetryPage() {
 
   return (
     <AppShell
-      title="Data Security & Quarantine Center"
+      title="Data Security & Quarantine"
       breadcrumbs={[{ label: "Overview", href: "/dashboard" }, { label: "Data Telemetry" }]}
     >
-      <div className="space-y-6 font-mono select-none">
+      <div className="space-y-6">
         {/* Header Summary */}
-        <TacticalFrame
-          variant="panel"
-          reticles={true}
-          reticleColor="warning"
-          className="p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 border-white/15 bg-[#080c10]"
-        >
-          <div className="space-y-1">
+        <div className="p-5 rounded-lg border border-slate-800 bg-[#080d16] flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="space-y-1.5">
             <div className="flex items-center gap-2">
               <PixelBadge variant="warning" size="sm" dot>
-                LOCAL QUARANTINE VAULT ACTIVE
+                Local Quarantine Vault Active
               </PixelBadge>
-              <span className="text-[11px] text-[#00ff66]">
-                [ENCRYPTED SANDBOX VAULT]
+              <span className="text-xs font-mono text-slate-400">
+                Encrypted Sandbox Vault
               </span>
             </div>
-            <h2 className="text-base sm:text-lg font-bold uppercase tracking-wider text-[#f8fafc] font-sans">
-              Data Security, DLP & Quarantine Center
-            </h2>
-            <p className="text-xs text-[#7e8b9b] max-w-2xl leading-relaxed">
+            <h1 className="text-lg font-bold text-slate-100">
+              Data Security, DLP & Local Artifact Quarantine
+            </h1>
+            <p className="text-xs text-slate-400 max-w-2xl leading-relaxed">
               Monitors sensitive credential exposures in developer files and manages isolated malware artifacts with revoked execution bits.
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="p-3 bg-[#040608] border border-white/10 text-center">
-              <span className="text-[9px] uppercase text-[#7e8b9b] block">QUARANTINED ARTIFACTS</span>
-              <span className="text-sm font-bold text-[#ff3b30]">{quarantinedCount} IN VAULT</span>
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="p-3 bg-[#04070d] rounded border border-slate-800 text-center min-w-[120px]">
+              <span className="text-[10px] uppercase font-semibold text-slate-400 block tracking-wider">Quarantined</span>
+              <span className="text-sm font-bold text-[#ff4b4b]">{quarantinedCount} in Vault</span>
             </div>
-            <div className="p-3 bg-[#040608] border border-white/10 text-center">
-              <span className="text-[9px] uppercase text-[#7e8b9b] block">VECTOR DB REVISION</span>
-              <span className="text-sm font-bold text-[#00f0ff]">rev-9842.1</span>
+            <div className="p-3 bg-[#04070d] rounded border border-slate-800 text-center min-w-[120px]">
+              <span className="text-[10px] uppercase font-semibold text-slate-400 block tracking-wider">Vector Revision</span>
+              <span className="text-sm font-bold text-[#00e5ff]">rev-9842.1</span>
             </div>
           </div>
-        </TacticalFrame>
+        </div>
 
         {/* 2 Surface Telemetry Tiles */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <TacticalFrame variant="default" className="p-4 bg-[#080c10] border-white/10 flex items-center justify-between">
+          <div className="p-4 rounded-lg bg-[#080d16] border border-slate-800 flex items-center justify-between">
             <div>
-              <p className="text-xs font-bold uppercase text-[#7e8b9b]">LOCAL VECTOR STORE INGESTION</p>
-              <p className="text-2xl font-black text-[#f8fafc] mt-1">14.8 MB</p>
-              <p className="text-[10px] text-[#00ff66] mt-0.5">Encrypted SQLite on-device cache</p>
+              <p className="text-xs font-medium uppercase text-slate-400 tracking-wider">Local Vector Store</p>
+              <p className="text-2xl font-bold text-slate-100 mt-1">14.8 MB</p>
+              <p className="text-xs text-[#00e575] mt-0.5">Encrypted SQLite on-device cache</p>
             </div>
-            <HardDrive className="w-8 h-8 text-[#00f0ff]/30" />
-          </TacticalFrame>
+            <HardDrive className="w-8 h-8 text-[#00e5ff]/40" />
+          </div>
 
-          <TacticalFrame variant="default" className="p-4 bg-[#080c10] border-white/10 flex items-center justify-between">
+          <div className="p-4 rounded-lg bg-[#080d16] border border-slate-800 flex items-center justify-between">
             <div>
-              <p className="text-xs font-bold uppercase text-[#7e8b9b]">DECENTRALIZED IOC REVISION</p>
-              <p className="text-2xl font-black text-[#00ff66] mt-1">98,420 IOCs</p>
-              <p className="text-[10px] text-[#7e8b9b] mt-0.5">Synchronized 4 mins ago via cluster</p>
+              <p className="text-xs font-medium uppercase text-slate-400 tracking-wider">Synchronized IoCs</p>
+              <p className="text-2xl font-bold text-[#00e575] mt-1">98,420 IoCs</p>
+              <p className="text-xs text-slate-400 mt-0.5">Synchronized 4 mins ago via cluster</p>
             </div>
-            <Database className="w-8 h-8 text-[#00ff66]/30" />
-          </TacticalFrame>
+            <Database className="w-8 h-8 text-[#00e575]/40" />
+          </div>
         </div>
 
         {/* Data Assets Table */}
-        <TacticalFrame variant="panel" className="p-4 border-white/15 bg-[#080c10]">
-          <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#f8fafc]">
+        <div className="p-4 rounded-lg border border-slate-800 bg-[#080d16] space-y-3">
+          <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+            <h2 className="text-sm font-bold text-slate-100">
               Audited File Assets & Quarantine Backlog
-            </span>
-            <span className="text-[10px] text-[#7e8b9b]">{dataAssets.length} ASSETS LOGGED</span>
+            </h2>
+            <span className="text-xs text-slate-400 font-mono">{dataAssets.length} assets logged</span>
           </div>
 
           <DataTable
@@ -179,32 +174,32 @@ export default function DataTelemetryPage() {
             columns={columns}
             keyExtractor={(item) => item.id}
           />
-        </TacticalFrame>
+        </div>
 
         {/* Raw Audit Log Stream */}
-        <TacticalFrame variant="panel" className="p-4 border-white/15 bg-[#080c10] space-y-3">
-          <div className="flex items-center justify-between pb-2 border-b border-white/10">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#f8fafc]">
-              Raw Deterministic Audit Telemetry Stream
-            </span>
+        <div className="p-4 rounded-lg border border-slate-800 bg-[#080d16] space-y-3">
+          <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+            <h2 className="text-sm font-bold text-slate-100">
+              Raw Audit Telemetry Stream
+            </h2>
             <Button
               variant="outline"
               size="sm"
               onClick={handleExportRawLogs}
-              className="h-7 text-xs font-mono uppercase tracking-wider gap-1.5 border-white/20"
+              className="h-7 text-xs border-slate-700 bg-slate-900 gap-1.5"
             >
-              <Download className="w-3.5 h-3.5 text-[#00ff66]" />
-              <span>{exported ? "[ EXPORTED ]" : "[ EXPORT JSON ]"}</span>
+              <Download className="w-3.5 h-3.5 text-[#00e575]" />
+              <span>{exported ? "Exported" : "Export JSON"}</span>
             </Button>
           </div>
 
-          <pre className="text-xs font-mono text-[#00ff66] p-3 bg-[#040608] border border-white/10 overflow-x-auto leading-relaxed">
+          <pre className="text-xs font-mono text-[#00e575] p-3.5 rounded-md bg-[#04070d] border border-slate-800 overflow-x-auto leading-relaxed">
 {`[2026-10-02T11:15:32Z] [KERNEL_EBPF] Probed execve syscall: pid=4921 comm="curl" status=ALLOW
 [2026-10-02T11:18:24Z] [NEURAL_VEC] Ingested URI: host="secure-sso.internal" score=0.01 verdict=SAFE
 [2026-10-02T11:21:55Z] [SOCKET_TRAP] Outbound syn to 185.220.101.5:443 flagged: C2_BEACON action=TERMINATE
 [2026-10-02T11:22:01Z] [SYNC_ENGINE] Propagated vector hash e9b2...841f to cluster`}
           </pre>
-        </TacticalFrame>
+        </div>
       </div>
 
       {/* Asset Detail Drawer */}
@@ -212,82 +207,82 @@ export default function DataTelemetryPage() {
         <Drawer open={drawerOpen} onOpenChange={(open) => !open && setDrawerOpen(false)}>
           <DrawerContent
             side="right"
-            className="w-full sm:max-w-xl bg-[#040608] border-l border-white/15 p-0 text-[#f8fafc] flex flex-col h-full font-mono select-none"
+            className="w-full sm:max-w-xl bg-[#04070d] border-l border-slate-800 p-0 text-slate-100 flex flex-col h-full"
           >
-            <div className="p-4 sm:p-5 border-b border-white/10 bg-[#080c10] flex items-start justify-between">
-              <div className="space-y-1">
+            <div className="p-5 border-b border-slate-800 bg-[#080d16] flex items-start justify-between">
+              <div className="space-y-1.5">
                 <div className="flex items-center gap-2">
                   <PixelBadge variant="danger" size="sm" dot>
-                    DATA ASSET // {selectedAsset.id.toUpperCase()}
+                    Asset: {selectedAsset.id}
                   </PixelBadge>
                   <PixelBadge variant="cyan" size="sm">
                     {selectedAsset.fileType}
                   </PixelBadge>
                 </div>
-                <h2 className="text-sm sm:text-base font-bold uppercase tracking-wider text-[#f8fafc] pt-1">
+                <h2 className="text-base font-bold text-slate-100">
                   {selectedAsset.fileName}
                 </h2>
               </div>
               <button
                 onClick={() => setDrawerOpen(false)}
-                className="p-1 border border-white/10 hover:border-white/30 text-[#7e8b9b] hover:text-white transition-colors"
+                className="p-1 rounded border border-slate-800 hover:border-slate-700 text-slate-400 hover:text-white transition-colors"
                 aria-label="Close inspector"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 text-xs">
-              <TacticalFrame variant="default" className="p-3.5 border-white/10 bg-[#080c10] space-y-1">
-                <span className="text-[10px] text-[#ff3b30] font-bold uppercase block">
-                  DETECTION REASON // HEURISTIC
+            <div className="flex-1 overflow-y-auto p-5 space-y-4 text-xs">
+              <div className="p-4 rounded-lg border border-slate-800 bg-[#080d16] space-y-1.5">
+                <span className="text-[11px] font-semibold text-[#ff4b4b] uppercase tracking-wider block">
+                  Detection Reason
                 </span>
-                <p className="text-[#f8fafc] text-xs font-bold">{selectedAsset.detectionReason}</p>
-                <p className="text-[#7e8b9b] text-[11px] pt-1">
-                  Path: <code className="text-white">{selectedAsset.location}</code>
+                <p className="text-slate-100 text-xs font-semibold">{selectedAsset.detectionReason}</p>
+                <p className="text-slate-400 text-xs pt-1">
+                  Location: <code className="text-slate-200 font-mono text-[11px]">{selectedAsset.location}</code>
                 </p>
-              </TacticalFrame>
+              </div>
 
               {/* Hashes */}
-              <div className="p-3.5 border border-white/10 bg-[#080c10] space-y-2">
-                <span className="text-[10px] text-[#00f0ff] font-bold uppercase block">
-                  CRYPTOGRAPHIC CHECKSUMS (LOCAL DISK)
+              <div className="p-4 rounded-lg border border-slate-800 bg-[#080d16] space-y-2.5">
+                <span className="text-[11px] text-[#00e5ff] font-semibold uppercase tracking-wider block">
+                  Cryptographic Checksums (Local Disk)
                 </span>
-                <div className="space-y-1">
+                <div className="space-y-2">
                   <div>
-                    <span className="text-[10px] text-white/40 block">SHA-256</span>
-                    <code className="text-[10px] text-[#00ff66] break-all select-all block">
+                    <span className="text-[11px] text-slate-400 block font-medium">SHA-256</span>
+                    <code className="text-[11px] font-mono text-[#00e575] break-all select-all block bg-[#04070d] p-2 rounded border border-slate-800 mt-0.5">
                       {selectedAsset.hashes.sha256}
                     </code>
                   </div>
                   <div>
-                    <span className="text-[10px] text-white/40 block">MD5</span>
-                    <code className="text-[10px] text-white/70 break-all select-all block">
+                    <span className="text-[11px] text-slate-400 block font-medium">MD5</span>
+                    <code className="text-[11px] font-mono text-slate-300 break-all select-all block bg-[#04070d] p-2 rounded border border-slate-800 mt-0.5">
                       {selectedAsset.hashes.md5}
                     </code>
                   </div>
                 </div>
               </div>
 
-              <div className="p-3.5 border border-[#ff3b30]/30 bg-[#ff3b30]/5 space-y-1">
-                <div className="flex items-center gap-2 text-[#ff3b30] font-bold uppercase text-[11px]">
-                  <ShieldAlert className="w-3.5 h-3.5" />
-                  <span>ACTION EXECUTED</span>
+              <div className="p-4 rounded-lg border border-[#ff4b4b]/30 bg-[#ff4b4b]/5 space-y-1 text-xs">
+                <div className="flex items-center gap-2 text-[#ff4b4b] font-semibold">
+                  <ShieldAlert className="w-4 h-4" />
+                  <span>Action Executed</span>
                 </div>
-                <p className="text-[#f8fafc] font-bold text-xs pt-0.5">{selectedAsset.actionTaken}</p>
+                <p className="text-slate-200 font-semibold text-xs pt-0.5">{selectedAsset.actionTaken}</p>
               </div>
             </div>
 
-            <div className="p-4 border-t border-white/10 bg-[#080c10] flex items-center justify-between">
+            <div className="p-4 border-t border-slate-800 bg-[#080d16] flex items-center justify-between">
               <PixelBadge variant="danger" size="sm">
-                STATUS: {selectedAsset.status}
+                Status: {selectedAsset.status}
               </PixelBadge>
               <Button
                 size="sm"
                 onClick={() => setDrawerOpen(false)}
-                className="text-xs font-mono uppercase tracking-wider font-bold h-8 px-4"
+                className="text-xs font-medium h-8 px-4"
               >
-                [ CLOSE ASSET AUDIT ]
+                Close Audit
               </Button>
             </div>
           </DrawerContent>

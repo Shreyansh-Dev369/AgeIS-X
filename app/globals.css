@@ -5,126 +5,86 @@
 
 :root {
   /* ==========================================================================
-     AGEIS-X CORE COLOR SYSTEM (Obsidian / Phosphor / Editorial)
+     AGEIS-X EDITORIAL ART-DIRECTION DESIGN SYSTEM (Reference-Driven)
      ========================================================================== */
-  --background: #020408;
-  --background-alt: #060a10;
-  --foreground: #f8fafc;
-  --foreground-muted: #7e8b9b;
+  --background: #050505;
+  --background-alt: #080808;
+  --foreground: #F1F0EB;
+  --foreground-muted: #A6A6A0;
   
-  /* Layered Tactical Surface System */
-  --surface-0: #020408;
-  --surface-1: #060a10;
-  --surface-2: #090e16;
-  --surface-3: #0e1522;
-  --surface-4: #141e30;
+  /* Layered Surface System */
+  --surface-0: #050505;
+  --surface-1: #080808;
+  --surface-2: #0B0B0B;
+  --surface-3: #141414;
+  --surface-4: #242424;
 
-  --card: #080d14;
-  --card-foreground: #f8fafc;
-  --popover: #080d14;
-  --popover-foreground: #f8fafc;
+  --card: #080808;
+  --card-foreground: #F1F0EB;
+  --popover: #0B0B0B;
+  --popover-foreground: #F1F0EB;
 
-  /* Primary Interactive Brand: Electric Security Phosphor */
-  --primary: #00ff66;
-  --primary-hover: #39ff14;
-  --primary-foreground: #020408;
+  /* Primary Interactive Brand: AgeIS-X Signal Green */
+  --primary: #39FF14;
+  --primary-hover: #32e012;
+  --primary-foreground: #050505;
 
-  /* Secondary Actions & Tactical Elements */
-  --secondary: #080d14;
-  --secondary-foreground: #f8fafc;
+  /* Secondary Actions */
+  --secondary: #141414;
+  --secondary-foreground: #F1F0EB;
 
   /* Muted Text & Elements */
-  --muted: #080d14;
-  --muted-foreground: #7e8b9b;
+  --muted: #141414;
+  --muted-foreground: #A6A6A0;
 
   /* Diagnostic Accent Tone */
-  --accent: #00f0ff;
-  --accent-foreground: #020408;
+  --accent: #00E5FF;
+  --accent-foreground: #050505;
 
   /* Security Status Colors */
-  --destructive: #ff003c;
-  --destructive-foreground: #ffffff;
-  --status-protected: #00ff66;
-  --status-info: #00f0ff;
-  --status-warning: #ffb800;
-  --status-high-risk: #ff6b00;
-  --status-critical: #ff003c;
-  --status-blocked: #ff003c;
-  --status-quarantined: #b356ff;
-  --status-isolated: #8b5cf6;
-  --status-resolved: #00ff66;
-  --status-offline: #64748b;
+  --destructive: #FF4545;
+  --destructive-foreground: #FFFFFF;
+  --status-protected: #39FF14;
+  --status-info: #00E5FF;
+  --status-warning: #FFB800;
+  --status-high-risk: #FF7A00;
+  --status-critical: #FF4545;
+  --status-blocked: #FF4545;
+  --status-quarantined: #B55FE6;
+  --status-isolated: #8B5CF6;
+  --status-resolved: #39FF14;
+  --status-offline: #6F706D;
 
-  /* Hairline Tactical Borders */
+  /* Borders & Focus Rings */
   --border-subtle: rgba(255, 255, 255, 0.05);
-  --border: rgba(255, 255, 255, 0.12);
-  --border-strong: rgba(0, 255, 102, 0.35);
-  --border-phosphor: rgba(0, 255, 102, 0.50);
+  --border: rgba(255, 255, 255, 0.10);
+  --border-strong: rgba(255, 255, 255, 0.20);
+  --border-signal: rgba(57, 255, 20, 0.40);
   --input: rgba(255, 255, 255, 0.08);
-  --ring: #00ff66;
+  --ring: #39FF14;
 
   /* Telemetry Chart Palette */
-  --chart-1: #00ff66;
-  --chart-2: #00f0ff;
-  --chart-3: #ffb800;
-  --chart-4: #b356ff;
-  --chart-5: #ff003c;
+  --chart-1: #39FF14;
+  --chart-2: #00E5FF;
+  --chart-3: #FFB800;
+  --chart-4: #B55FE6;
+  --chart-5: #FF4545;
 
-  /* Radii (Sharp & Controlled Neo-Brutalist) */
-  --radius: 0.125rem;
-  --radius-sm: 0.0625rem;
-  --radius-md: 0.125rem;
-  --radius-lg: 0.25rem;
-  --radius-xl: 0.375rem;
+  /* Radii - Minimal, Precise, Non-Pill */
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.375rem;
+  --radius-xl: 0.5rem;
 
   /* Sidebar Tokens */
-  --sidebar: #060a10;
-  --sidebar-foreground: #e2e8f0;
-  --sidebar-primary: #00ff66;
-  --sidebar-primary-foreground: #020408;
-  --sidebar-accent: #080d14;
-  --sidebar-accent-foreground: #f8fafc;
-  --sidebar-border: rgba(255, 255, 255, 0.10);
-  --sidebar-ring: #00ff66;
-}
-
-/* ==========================================================================
-   CYBER THEME VARIANTS (MATRIX / CYBERPUNK / REDTEAM / GHOST)
-   ========================================================================== */
-html.theme-cyberpunk,
-.theme-cyberpunk {
-  --primary: #00f0ff;
-  --primary-hover: #5eead4;
-  --accent: #ff007f;
-  --ring: #00f0ff;
-  --border-strong: rgba(0, 240, 255, 0.40);
-  --border-phosphor: rgba(0, 240, 255, 0.60);
-  --status-protected: #00f0ff;
-  --sidebar-primary: #00f0ff;
-}
-
-html.theme-redteam,
-.theme-redteam {
-  --primary: #ff003c;
-  --primary-hover: #ff3366;
-  --accent: #ffaa00;
-  --ring: #ff003c;
-  --border-strong: rgba(255, 0, 60, 0.40);
-  --border-phosphor: rgba(255, 0, 60, 0.60);
-  --status-protected: #ff003c;
-  --sidebar-primary: #ff003c;
-}
-
-html.theme-ghost,
-.theme-ghost {
-  --primary: #f1f5f9;
-  --primary-hover: #ffffff;
-  --accent: #38bdf8;
-  --ring: #38bdf8;
-  --border-strong: rgba(241, 245, 249, 0.40);
-  --border-phosphor: rgba(56, 189, 248, 0.60);
-  --status-protected: #38bdf8;
-  --sidebar-primary: #38bdf8;
+  --sidebar: #050505;
+  --sidebar-foreground: #E8E7E2;
+  --sidebar-primary: #39FF14;
+  --sidebar-primary-foreground: #050505;
+  --sidebar-accent: #0B0B0B;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #39FF14;
 }
 
 @theme inline {
@@ -167,7 +127,7 @@ html.theme-ghost,
   --color-border-subtle: var(--border-subtle);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
-  --color-border-phosphor: var(--border-phosphor);
+  --color-border-signal: var(--border-signal);
   --color-input: var(--input);
   --color-ring: var(--ring);
   
@@ -223,195 +183,84 @@ html.theme-ghost,
 }
 
 /* ==========================================================================
-   CSS VISUAL UTILITIES & TACTICAL ATMOSPHERICS
+   BACKGROUND MODES & EDITORIAL UTILITIES
    ========================================================================== */
-
-/* Atmospheric Fine Technical Grid */
-.system-grid {
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-
-.technical-grid {
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-}
-
-.technical-dots {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-
-/* CRT Scanline Overlay */
-.has-scanlines::before {
-  content: " ";
-  display: block;
-  position: fixed;
-  top: 0; left: 0; bottom: 0; right: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-  z-index: 9999;
-  background-size: 100% 3px, 6px 100%;
-  pointer-events: none;
-  opacity: 0.65;
-}
-
-/* Screen Glitch on High Alert */
-.cyber-screen-glitch {
-  animation: screen-shake 0.35s ease-in-out infinite;
-  filter: contrast(1.15) brightness(1.1);
-}
-
-@keyframes screen-shake {
-  0% { transform: translate(0, 0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(2px, -1px); }
-  60% { transform: translate(-1px, 1px); }
-  80% { transform: translate(1px, -2px); }
-  100% { transform: translate(0, 0); }
-}
-
-/* Phosphor Glow Utilities */
-.phosphor-glow {
-  text-shadow: 0 0 10px rgba(0, 255, 102, 0.8), 0 0 20px rgba(0, 255, 102, 0.3);
-}
-.phosphor-glow-subtle {
-  text-shadow: 0 0 5px rgba(0, 255, 102, 0.5);
-}
-.phosphor-box-glow {
-  box-shadow: 0 0 15px rgba(0, 255, 102, 0.2), inset 0 0 15px rgba(0, 255, 102, 0.08);
-}
-
-/* Pixel Border Utilities */
-.pixel-border {
-  box-shadow: 
-    0 -1px 0 0 var(--primary),
-    0 1px 0 0 var(--primary),
-    -1px 0 0 0 var(--primary),
-    1px 0 0 0 var(--primary);
-}
-
-.pixel-border-subtle {
-  box-shadow: 
-    0 -1px 0 0 rgba(255, 255, 255, 0.15),
-    0 1px 0 0 rgba(255, 255, 255, 0.15),
-    -1px 0 0 0 rgba(255, 255, 255, 0.15),
-    1px 0 0 0 rgba(255, 255, 255, 0.15);
-}
-
-/* Reticle Corner Visual Classes */
-.reticle-corner {
-  position: relative;
-}
-.reticle-corner::before {
-  content: "";
-  position: absolute;
-  top: -1px;
-  left: -1px;
-  width: 7px;
-  height: 7px;
-  border-top: 2px solid var(--primary);
-  border-left: 2px solid var(--primary);
-  pointer-events: none;
-}
-.reticle-corner::after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  right: -1px;
-  width: 7px;
-  height: 7px;
-  border-bottom: 2px solid var(--primary);
-  border-right: 2px solid var(--primary);
-  pointer-events: none;
-}
-
-/* Stepped / Notched Brutalist Tactical Frame */
-.stepped-frame {
-  position: relative;
-  clip-path: polygon(
-    0 8px,
-    8px 0,
-    calc(100% - 8px) 0,
-    100% 8px,
-    100% calc(100% - 8px),
-    calc(100% - 8px) 100%,
-    8px 100%,
-    0 calc(100% - 8px)
-  );
-}
-
-/* Blinking Terminal Block Cursor */
-.terminal-cursor {
-  display: inline-block;
-  width: 0.6em;
-  height: 1.15em;
-  background-color: var(--primary);
-  vertical-align: -0.18em;
-  margin-left: 2px;
-  animation: cursor-blink 0.9s step-start infinite;
-}
-
-@keyframes cursor-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
 
 /* Page container */
 .page-container {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1240px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
 }
 
-@media (min-width: 640px) {
-  .page-container {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .page-container {
     padding-left: 2rem;
     padding-right: 2rem;
   }
 }
 
-/* Custom Tactical Cyber Scrollbar */
+/* Fine Technical Grid (Mode A - Dark Lab) */
+.technical-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Subtle Paper Texture Overlay */
+.paper-texture {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* 1-Bit Bitmap Texture */
+.bitmap-texture {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+/* Editorial Heading Styling */
+.editorial-hero-text {
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+/* Razor 1px Rule */
+.editorial-border {
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+/* Refined Dark Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--surface-0);
+  background: #050505;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 255, 102, 0.35);
-  border-radius: 0px;
+  background: #242424;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
+  background: #39FF14;
 }
 
-/* Strict Reduced Motion Preference Respect */
+/* Strict Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-  .has-scanlines::before {
-    display: none !important;
   }
 }

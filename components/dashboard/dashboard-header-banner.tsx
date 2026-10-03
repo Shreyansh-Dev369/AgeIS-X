@@ -2,10 +2,10 @@
 
 import React, { useState } from "react"
 import { useAuth } from "@/lib/auth/auth-context"
-import { ShieldCheck, RefreshCw, Terminal, Cpu } from "lucide-react"
+import { RefreshCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { PixelBadge } from "@/components/ui/pixel-badge"
-import { TacticalFrame } from "@/components/ui/tactical-frame"
+import { TechnicalLabel, SignalMarker } from "@/components/design-system/editorial-primitives"
+import { SecuritySticker } from "@/components/design-system/pixel-art-system"
 
 interface DashboardHeaderBannerProps {
   onSync?: () => void
@@ -27,47 +27,36 @@ export function DashboardHeaderBanner({
     setTimeout(() => setSyncedRecently(false), 3000)
   }
 
-  const primaryNode = (onboardingProgress?.selectedPlatform || "macOS").toUpperCase()
+  const primaryNode = onboardingProgress?.selectedPlatform || "macOS"
 
   return (
-    <TacticalFrame
-      variant="panel"
-      reticles={true}
-      reticleColor="phosphor"
-      className="p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 border-white/15 bg-[#080c10] select-none font-mono"
-    >
-      <div className="space-y-1.5">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-[#00ff66] font-bold text-xs tracking-wider">
-            AGEIS-X://SECURITY_COMMAND
+    <div className="p-5 border border-white/10 bg-[#080808] flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-xs">
+      <div className="space-y-2">
+        <div className="flex flex-wrap items-center gap-3 text-[11px]">
+          <SignalMarker status="active" label="ENVIRONMENT ENCLAVE ACTIVE" />
+          <span className="text-white/20">|</span>
+          <span className="text-[#A6A6A0]">
+            HOST NODE: <strong className="text-[#F1F0EB]">{primaryNode.toUpperCase()}</strong>
           </span>
-          <span className="text-white/20">•</span>
-          <PixelBadge variant="phosphor" size="sm" dot>
-            ONLINE
-          </PixelBadge>
-          <span className="text-white/20">•</span>
-          <span className="text-[11px] text-[#00f0ff]">
-            NODE: {primaryNode}
-          </span>
-          <span className="text-white/20">•</span>
-          <span className="text-[10px] text-white/50 border border-white/10 px-1.5 py-0.2">
-            LOCAL-FIRST INGESTION
+          <span className="text-white/20">|</span>
+          <span className="text-[#39FF14]">
+            INFERENCE: 100% LOCAL
           </span>
         </div>
 
-        <h1 className="text-base sm:text-lg font-bold tracking-tight text-[#f8fafc] uppercase font-sans">
-          Central Security Intelligence System
-          {user?.name && <span className="text-[#7e8b9b] font-normal font-mono text-xs"> — {user.name}</span>}
+        <h1 className="font-mono text-lg sm:text-xl font-bold tracking-tight text-[#F1F0EB] uppercase">
+          OPERATIONAL SECURITY RUNTIME
+          {user?.name && <span className="text-[#A6A6A0] font-normal text-xs"> // {user.name}</span>}
         </h1>
-        <p className="text-xs text-[#7e8b9b] max-w-2xl leading-relaxed">
-          Autonomous zero-trust protection synchronized across network, endpoint, identity, and AI surfaces.
+        <p className="text-xs text-[#A6A6A0] max-w-2xl leading-relaxed font-sans font-normal">
+          Autonomous zero-trust protection actively shielding socket ingress, communications, identity enclaves, and endpoints.
         </p>
       </div>
 
-      <div className="flex items-center gap-2.5 shrink-0">
-        <div className="text-right hidden sm:block text-[11px]">
-          <span className="text-[10px] uppercase text-[#7e8b9b] block">TELEMETRY_SYNC</span>
-          <span className="text-[#00ff66] font-bold">{isSyncing ? "SYNCING..." : lastSyncTime}</span>
+      <div className="flex items-center gap-4 shrink-0">
+        <div className="text-right hidden sm:block text-[11px] font-mono">
+          <span className="text-[#6F706D] block">TELEMETRY SYNC</span>
+          <span className="text-[#39FF14]">{isSyncing ? "SYNCING..." : lastSyncTime}</span>
         </div>
 
         <Button
@@ -75,12 +64,12 @@ export function DashboardHeaderBanner({
           size="sm"
           onClick={handleSyncClick}
           disabled={isSyncing}
-          className="text-xs font-mono uppercase tracking-wider h-9 px-3 border-white/15 bg-[#040608] hover:border-[#00ff66]/50"
+          className="text-xs font-mono rounded-none h-10 px-4 border-white/20 bg-transparent hover:bg-white/5 text-[#F1F0EB]"
         >
-          <RefreshCw className={`w-3 h-3 text-[#00ff66] mr-1.5 ${isSyncing ? "animate-spin" : ""}`} />
-          <span>{isSyncing ? "SYNCHRONIZING..." : syncedRecently ? "SYNCHRONIZED" : "SYNC TELEMETRY"}</span>
+          <RefreshCw className={`w-3.5 h-3.5 text-[#39FF14] mr-2 ${isSyncing ? "animate-spin" : ""}`} />
+          <span>{isSyncing ? "SYNCING..." : syncedRecently ? "SYNCED" : "SYNC TELEMETRY"}</span>
         </Button>
       </div>
-    </TacticalFrame>
+    </div>
   )
 }

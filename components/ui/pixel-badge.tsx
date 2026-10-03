@@ -24,27 +24,27 @@ export function PixelBadge({
   ...props
 }: PixelBadgeProps) {
   const variantStyles = {
-    phosphor: "border-[#00ff66]/40 bg-[#00ff66]/10 text-[#00ff66]",
-    cyan: "border-[#00f0ff]/40 bg-[#00f0ff]/10 text-[#00f0ff]",
-    warning: "border-[#ffb800]/40 bg-[#ffb800]/10 text-[#ffb800]",
-    danger: "border-[#ff3b30]/40 bg-[#ff3b30]/10 text-[#ff3b30]",
-    neutral: "border-white/10 bg-white/5 text-[#7e8b9b]",
-    outline: "border-white/20 bg-transparent text-[#f8fafc]",
+    phosphor: "border-emerald-500/30 bg-emerald-500/10 text-emerald-400 font-medium",
+    cyan: "border-sky-500/30 bg-sky-500/10 text-sky-400 font-medium",
+    warning: "border-amber-500/30 bg-amber-500/10 text-amber-400 font-medium",
+    danger: "border-rose-500/30 bg-rose-500/10 text-rose-400 font-medium",
+    neutral: "border-white/10 bg-white/5 text-slate-400 font-medium",
+    outline: "border-white/20 bg-transparent text-slate-200",
   }
 
   const dotColors = {
-    phosphor: "bg-[#00ff66]",
-    cyan: "bg-[#00f0ff]",
-    warning: "bg-[#ffb800]",
-    danger: "bg-[#ff3b30]",
-    neutral: "bg-[#7e8b9b]",
+    phosphor: "bg-emerald-400",
+    cyan: "bg-sky-400",
+    warning: "bg-amber-400",
+    danger: "bg-rose-400",
+    neutral: "bg-slate-400",
     outline: "bg-white",
   }
 
   const sizeStyles = {
-    sm: "text-[10px] px-1.5 py-0.2 tracking-wider",
-    md: "text-xs px-2 py-0.5 tracking-wider",
-    lg: "text-xs px-2.5 py-1 tracking-widest",
+    sm: "text-[10px] px-2 py-0.5 rounded",
+    md: "text-xs px-2.5 py-0.5 rounded-md",
+    lg: "text-xs px-3 py-1 rounded-md",
   }
 
   return (
@@ -59,13 +59,11 @@ export function PixelBadge({
     >
       {dot && (
         <span
-          className={cn("inline-block w-1.5 h-1.5 rounded-none shrink-0", dotColors[variant])}
+          className={cn("inline-block w-1.5 h-1.5 rounded-full shrink-0", dotColors[variant])}
           aria-hidden="true"
         />
       )}
-      <span>[</span>
       <span className="font-semibold">{children}</span>
-      <span>]</span>
     </span>
   )
 }

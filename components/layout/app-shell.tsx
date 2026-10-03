@@ -20,17 +20,14 @@ export function AppShell({ title, breadcrumbs, children }: AppShellProps) {
     setIsScanning(true)
     setTimeout(() => {
       setIsScanning(false)
-    }, 1500)
+    }, 1200)
   }
 
   return (
     <AuthGuard requireVerified={true} requireOnboarded={true}>
-      <div className="min-h-screen bg-[#040608] text-[#f8fafc] flex font-mono antialiased relative selection:bg-[#00ff66]/30 selection:text-[#00ff66]">
-        {/* Background Ambience / Grid Overlay */}
-        <div className="fixed inset-0 bg-[linear-gradient(to_right,#00ff6606_1px,transparent_1px),linear-gradient(to_bottom,#00ff6606_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none opacity-40 z-0" />
-
+      <div className="min-h-screen bg-[#050505] technical-grid text-[#F1F0EB] flex font-mono antialiased selection:bg-[#39FF14]/20 selection:text-[#39FF14]">
         {/* Fixed Desktop Sidebar */}
-        <div className="hidden lg:block h-screen sticky top-0 z-20">
+        <div className="hidden lg:block h-screen sticky top-0 z-20 shrink-0">
           <AppSidebar />
         </div>
 
@@ -43,7 +40,7 @@ export function AppShell({ title, breadcrumbs, children }: AppShellProps) {
             isScanning={isScanning}
             onOpenSearch={() => setCommandPaletteOpen(true)}
           />
-          <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
+          <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-8">
             {children}
           </main>
         </div>

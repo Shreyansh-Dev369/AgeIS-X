@@ -4,13 +4,12 @@ import React, { useState, useEffect } from "react"
 import { AppShell } from "@/components/layout/app-shell"
 import { DataTable, Column } from "@/components/ui/data-table"
 import { PixelBadge } from "@/components/ui/pixel-badge"
-import { TacticalFrame } from "@/components/ui/tactical-frame"
 import { Toggle } from "@/components/ui/toggle"
 import { Drawer, DrawerContent } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button"
 import { securityService } from "@/lib/services/security-service"
 import { PrivacyEvent } from "@/types/security"
-import { EyeOff, ShieldCheck, Globe, ArrowRight, X, Lock, CheckCircle2 } from "lucide-react"
+import { EyeOff, ShieldCheck, Globe, ArrowUpRight, X, Lock, CheckCircle2 } from "lucide-react"
 
 export default function PrivacyPage() {
   const [privacyEvents, setPrivacyEvents] = useState<PrivacyEvent[]>([])
@@ -35,21 +34,21 @@ export default function PrivacyPage() {
 
   const columns: Column<PrivacyEvent>[] = [
     {
-      header: "TRACKER DOMAIN",
+      header: "Tracker Domain",
       cell: (item) => (
         <button
           onClick={() => handleInspect(item)}
-          className="text-left group focus:outline-none"
+          className="text-left group focus:outline-none block py-0.5"
         >
-          <span className="font-bold text-[#f8fafc] block text-xs group-hover:text-[#00ff66] transition-colors">
+          <span className="font-semibold text-slate-100 block text-xs group-hover:text-[#00e575] transition-colors">
             {item.originDomain}
           </span>
-          <span className="text-[10px] font-mono text-[#7e8b9b]">{item.trackerType}</span>
+          <span className="text-[11px] font-mono text-slate-400">{item.trackerType}</span>
         </button>
       ),
     },
     {
-      header: "ACTION TAKEN",
+      header: "Action Taken",
       cell: (item) => (
         <PixelBadge variant="phosphor" size="sm">
           {item.actionTaken}
@@ -57,31 +56,32 @@ export default function PrivacyPage() {
       ),
     },
     {
-      header: "BROWSER / CLIENT",
+      header: "Client / Browser",
       accessorKey: "affectedBrowser",
-      className: "text-xs font-mono text-[#00f0ff]",
+      className: "text-xs font-mono text-[#00e5ff]",
     },
     {
-      header: "RISK RATING",
+      header: "Risk Rating",
       cell: (item) => (
         <PixelBadge variant={item.riskLevel === "High" ? "danger" : "warning"} size="sm">
-          {item.riskLevel.toUpperCase()}
+          {item.riskLevel}
         </PixelBadge>
       ),
     },
     {
-      header: "DETECTED",
+      header: "Timestamp",
       accessorKey: "timestamp",
-      className: "text-[10px] font-mono text-[#7e8b9b]",
+      className: "text-[11px] font-mono text-slate-400",
     },
     {
-      header: "ACTION",
+      header: "Action",
       cell: (item) => (
         <button
           onClick={() => handleInspect(item)}
-          className="text-[10px] font-mono text-[#00ff66] hover:underline uppercase font-bold"
+          className="text-xs font-medium text-[#00e575] hover:underline flex items-center gap-1"
         >
-          [ INSPECT ]
+          <span>Inspect</span>
+          <ArrowUpRight className="w-3 h-3" />
         </button>
       ),
     },
@@ -89,57 +89,52 @@ export default function PrivacyPage() {
 
   return (
     <AppShell
-      title="Privacy & Anti-Fingerprinting Shield"
-      breadcrumbs={[{ label: "Overview", href: "/dashboard" }, { label: "Privacy Shield" }]}
+      title="Privacy Shield"
+      breadcrumbs={[{ label: "Overview", href: "/dashboard" }, { label: "Privacy" }]}
     >
-      <div className="space-y-6 font-mono select-none">
+      <div className="space-y-6">
         {/* Top Header Banner */}
-        <TacticalFrame
-          variant="panel"
-          reticles={true}
-          reticleColor="phosphor"
-          className="p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 border-white/15 bg-[#080c10]"
-        >
-          <div className="space-y-1">
+        <div className="p-5 rounded-lg border border-slate-800 bg-[#080d16] flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="space-y-1.5">
             <div className="flex items-center gap-2">
               <PixelBadge variant="phosphor" size="sm" dot>
-                ANTI-FINGERPRINTING ACTIVE
+                Anti-Fingerprinting Active
               </PixelBadge>
-              <span className="text-[11px] text-[#00f0ff]">
-                [ZERO OUTBOUND PAYLOAD INGESTION]
+              <span className="text-xs font-mono text-slate-400">
+                Zero outbound payload ingestion
               </span>
             </div>
-            <h2 className="text-base sm:text-lg font-bold uppercase tracking-wider text-[#f8fafc] font-sans">
+            <h1 className="text-lg font-bold text-slate-100">
               Privacy Sovereignty & Tracker Defanging
-            </h2>
-            <p className="text-xs text-[#7e8b9b] max-w-2xl leading-relaxed">
-              Injects synthetic micro-noise into HTML5 canvas/audio buffers to prevent cross-site identity reconstruction.
+            </h1>
+            <p className="text-xs text-slate-400 max-w-2xl leading-relaxed">
+              Injects synthetic micro-noise into HTML5 canvas/audio buffers to prevent cross-site identity profiling and supercookie tracking.
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="p-3 bg-[#040608] border border-white/10 text-center">
-              <span className="text-[9px] uppercase text-[#7e8b9b] block">TRACKERS DEFANGED</span>
-              <span className="text-sm font-bold text-[#00ff66]">1,284 TODAY</span>
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="p-3 bg-[#04070d] rounded border border-slate-800 text-center min-w-[120px]">
+              <span className="text-[10px] uppercase font-semibold text-slate-400 block tracking-wider">Trackers Defanged</span>
+              <span className="text-sm font-bold text-[#00e575]">1,284 Today</span>
             </div>
-            <div className="p-3 bg-[#040608] border border-white/10 text-center">
-              <span className="text-[9px] uppercase text-[#7e8b9b] block">SOVEREIGNTY SCORE</span>
-              <span className="text-sm font-bold text-[#00f0ff]">98% STRICT</span>
+            <div className="p-3 bg-[#04070d] rounded border border-slate-800 text-center min-w-[120px]">
+              <span className="text-[10px] uppercase font-semibold text-slate-400 block tracking-wider">Privacy Rating</span>
+              <span className="text-sm font-bold text-[#00e5ff]">98% Strict</span>
             </div>
           </div>
-        </TacticalFrame>
+        </div>
 
         {/* Privacy Controls Panel */}
-        <TacticalFrame variant="panel" className="p-5 space-y-4 border-white/15 bg-[#080c10]">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-[#f8fafc] pb-2 border-b border-white/10">
-            Real-Time Anti-Fingerprinting Defense Controls
-          </h3>
+        <div className="p-5 rounded-lg space-y-4 border border-slate-800 bg-[#080d16]">
+          <h2 className="text-sm font-bold text-slate-100 pb-2 border-b border-slate-800">
+            Real-Time Anti-Fingerprinting Controls
+          </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 text-xs">
-            <div className="p-3.5 bg-[#040608] border border-white/10 flex items-start justify-between gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div className="p-4 bg-[#04070d] rounded-lg border border-slate-800 flex items-start justify-between gap-3">
               <div>
-                <p className="font-bold text-[#f8fafc] uppercase">CANVAS NOISE RANDOMIZATION</p>
-                <p className="text-[11px] text-[#7e8b9b] mt-0.5">Injects +/- 1-bit pixel noise to destroy GPU render uniqueness.</p>
+                <p className="font-semibold text-slate-200">Canvas Noise Randomization</p>
+                <p className="text-xs text-slate-400 mt-1">Injects +/- 1-bit pixel noise to destroy GPU render uniqueness.</p>
               </div>
               <Toggle
                 checked={toggles.canvasNoise}
@@ -148,10 +143,10 @@ export default function PrivacyPage() {
               />
             </div>
 
-            <div className="p-3.5 bg-[#040608] border border-white/10 flex items-start justify-between gap-3">
+            <div className="p-4 bg-[#04070d] rounded-lg border border-slate-800 flex items-start justify-between gap-3">
               <div>
-                <p className="font-bold text-[#f8fafc] uppercase">AUDIO FREQUENCY MASKING</p>
-                <p className="text-[11px] text-[#7e8b9b] mt-0.5">Perturbs oscillator response values against acoustic fingerprinting.</p>
+                <p className="font-semibold text-slate-200">Audio Frequency Masking</p>
+                <p className="text-xs text-slate-400 mt-1">Perturbs oscillator response values against acoustic fingerprinting.</p>
               </div>
               <Toggle
                 checked={toggles.audioNoise}
@@ -160,10 +155,10 @@ export default function PrivacyPage() {
               />
             </div>
 
-            <div className="p-3.5 bg-[#040608] border border-white/10 flex items-start justify-between gap-3">
+            <div className="p-4 bg-[#04070d] rounded-lg border border-slate-800 flex items-start justify-between gap-3">
               <div>
-                <p className="font-bold text-[#f8fafc] uppercase">HSTS SUPERCOOKIE STRIPPER</p>
-                <p className="text-[11px] text-[#7e8b9b] mt-0.5">Sanitizes cached HSTS flags to prevent cross-site identifier storage.</p>
+                <p className="font-semibold text-slate-200">HSTS Supercookie Stripper</p>
+                <p className="text-xs text-slate-400 mt-1">Sanitizes cached HSTS flags to prevent cross-site identifier storage.</p>
               </div>
               <Toggle
                 checked={toggles.supercookieBlock}
@@ -172,10 +167,10 @@ export default function PrivacyPage() {
               />
             </div>
 
-            <div className="p-3.5 bg-[#040608] border border-white/10 flex items-start justify-between gap-3">
+            <div className="p-4 bg-[#04070d] rounded-lg border border-slate-800 flex items-start justify-between gap-3">
               <div>
-                <p className="font-bold text-[#f8fafc] uppercase">ZERO-LOG LOCAL ENFORCEMENT</p>
-                <p className="text-[11px] text-[#7e8b9b] mt-0.5">Discards visited URI history immediately following threat evaluation.</p>
+                <p className="font-semibold text-slate-200">Zero-Log Local Enforcement</p>
+                <p className="text-xs text-slate-400 mt-1">Discards visited URI history immediately following threat evaluation.</p>
               </div>
               <Toggle
                 checked={toggles.zeroLogLocal}
@@ -184,16 +179,16 @@ export default function PrivacyPage() {
               />
             </div>
           </div>
-        </TacticalFrame>
+        </div>
 
         {/* Privacy Interception Events Table */}
-        <TacticalFrame variant="panel" className="p-4 border-white/15 bg-[#080c10]">
+        <div className="p-4 rounded-lg border border-slate-800 bg-[#080d16]">
           <DataTable
             data={privacyEvents}
             columns={columns}
             keyExtractor={(item) => item.id}
           />
-        </TacticalFrame>
+        </div>
       </div>
 
       {/* Privacy Event Inspector Drawer */}
@@ -201,61 +196,61 @@ export default function PrivacyPage() {
         <Drawer open={drawerOpen} onOpenChange={(open) => !open && setDrawerOpen(false)}>
           <DrawerContent
             side="right"
-            className="w-full sm:max-w-xl bg-[#040608] border-l border-white/15 p-0 text-[#f8fafc] flex flex-col h-full font-mono select-none"
+            className="w-full sm:max-w-xl bg-[#04070d] border-l border-slate-800 p-0 text-slate-100 flex flex-col h-full"
           >
-            <div className="p-4 sm:p-5 border-b border-white/10 bg-[#080c10] flex items-start justify-between">
-              <div className="space-y-1">
+            <div className="p-5 border-b border-slate-800 bg-[#080d16] flex items-start justify-between">
+              <div className="space-y-1.5">
                 <div className="flex items-center gap-2">
                   <PixelBadge variant="phosphor" size="sm" dot>
-                    PRIVACY INTERCEPT // {selectedEvent.id.toUpperCase()}
+                    Privacy Intercept
                   </PixelBadge>
                   <PixelBadge variant="cyan" size="sm">
                     {selectedEvent.affectedBrowser}
                   </PixelBadge>
                 </div>
-                <h2 className="text-sm sm:text-base font-bold uppercase tracking-wider text-[#f8fafc] pt-1 font-sans">
+                <h2 className="text-base font-bold text-slate-100">
                   {selectedEvent.originDomain}
                 </h2>
               </div>
               <button
                 onClick={() => setDrawerOpen(false)}
-                className="p-1 border border-white/10 hover:border-white/30 text-[#7e8b9b] hover:text-white transition-colors"
+                className="p-1 rounded border border-slate-800 hover:border-slate-700 text-slate-400 hover:text-white transition-colors"
                 aria-label="Close inspector"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 text-xs">
-              <TacticalFrame variant="default" className="p-3.5 border-white/10 bg-[#080c10] space-y-1">
-                <span className="text-[10px] text-[#00ff66] font-bold uppercase block">
-                  TRACKER VECTOR CLASSIFICATION
+            <div className="flex-1 overflow-y-auto p-5 space-y-5 text-xs">
+              <div className="p-4 rounded-lg border border-slate-800 bg-[#080d16] space-y-1.5">
+                <span className="text-[11px] font-semibold text-[#00e575] uppercase tracking-wider block">
+                  Tracker Vector Classification
                 </span>
-                <p className="text-[#f8fafc] text-xs font-bold">{selectedEvent.trackerType}</p>
-                <p className="text-[#7e8b9b] text-[11px] leading-relaxed pt-1">
+                <p className="text-slate-100 font-semibold text-xs">{selectedEvent.trackerType}</p>
+                <p className="text-slate-400 text-xs leading-relaxed mt-1">
                   {selectedEvent.explanation}
                 </p>
-              </TacticalFrame>
+              </div>
 
-              <div className="p-3.5 border border-[#00ff66]/30 bg-[#00ff66]/5 space-y-1">
-                <div className="flex items-center gap-2 text-[#00ff66] font-bold uppercase text-[11px]">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>ACTION EXECUTED</span>
+              <div className="p-4 rounded-lg border border-[#00e575]/30 bg-[#00e575]/5 space-y-1 text-xs">
+                <div className="flex items-center gap-2 text-[#00e575] font-semibold">
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>Defanging Action Applied</span>
                 </div>
-                <p className="text-[#f8fafc] font-bold text-xs pt-0.5">{selectedEvent.actionTaken}</p>
+                <p className="text-slate-200 font-semibold text-xs pt-1">{selectedEvent.actionTaken}</p>
               </div>
             </div>
 
-            <div className="p-4 border-t border-white/10 bg-[#080c10] flex items-center justify-between">
+            <div className="p-4 border-t border-slate-800 bg-[#080d16] flex items-center justify-between">
               <PixelBadge variant="phosphor" size="sm">
-                STATUS: DEFANGED
+                Status: Defanged
               </PixelBadge>
               <Button
                 size="sm"
                 onClick={() => setDrawerOpen(false)}
-                className="text-xs font-mono uppercase tracking-wider font-bold h-8 px-4"
+                className="text-xs font-medium h-8 px-4"
               >
-                [ CLOSE INSPECTOR ]
+                Close Inspector
               </Button>
             </div>
           </DrawerContent>

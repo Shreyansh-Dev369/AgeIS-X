@@ -3,7 +3,6 @@
 import React, { useState } from "react"
 import { AppShell } from "@/components/layout/app-shell"
 import { PixelBadge } from "@/components/ui/pixel-badge"
-import { TacticalFrame } from "@/components/ui/tactical-frame"
 import { Toggle } from "@/components/ui/toggle"
 import { Button } from "@/components/ui/button"
 import { Drawer, DrawerContent } from "@/components/ui/drawer"
@@ -20,7 +19,7 @@ import {
   EyeOff,
   Database,
   Brain,
-  ArrowRight,
+  ArrowUpRight,
   X,
   CheckCircle2,
   Info,
@@ -67,48 +66,43 @@ export default function ProtectionDashboardPage() {
 
   return (
     <AppShell
-      title="Protection Center"
+      title="Protection Controls"
       breadcrumbs={[{ label: "Overview", href: "/dashboard" }, { label: "Protection" }]}
     >
-      <div className="space-y-6 font-mono select-none">
+      <div className="space-y-6">
         {/* Protection Banner Header */}
-        <TacticalFrame
-          variant="panel"
-          reticles={true}
-          reticleColor="phosphor"
-          className="p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 border-white/15 bg-[#080c10]"
-        >
+        <div className="p-5 rounded-lg border border-slate-800 bg-[#080d16] flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1.5">
             <div className="flex items-center gap-2">
               <PixelBadge variant="phosphor" size="sm" dot>
-                STATUS: {activeCount === domains.length ? "OPTIMAL SHIELD" : "PARTIAL SHIELD"}
+                {activeCount === domains.length ? "Optimal Protection" : "Partial Protection"}
               </PixelBadge>
-              <span className="text-[11px] text-[#00f0ff]">
-                [{activeCount} OF {domains.length} DOMAINS ACTIVE]
+              <span className="text-xs font-mono text-slate-400">
+                {activeCount} of {domains.length} surfaces active
               </span>
             </div>
-            <h2 className="text-base sm:text-lg font-bold uppercase tracking-wider text-[#f8fafc] font-sans">
-              10-Domain Autonomous Defense Grid
-            </h2>
-            <p className="text-xs text-[#7e8b9b] max-w-2xl leading-relaxed">
-              Synchronized heuristic interception engines operating in isolated user-space with hardware enclave attestation.
+            <h1 className="text-lg font-bold text-slate-100">
+              Autonomous Defense Surfaces & Heuristic Policies
+            </h1>
+            <p className="text-xs text-slate-400 max-w-2xl leading-relaxed">
+              Synchronized interception modules operating in isolated user-space with hardware enclave attestation.
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="p-3 bg-[#040608] border border-white/10 text-center">
-              <span className="text-[9px] uppercase text-[#7e8b9b] block">INGESTION LATENCY</span>
-              <span className="text-sm font-bold text-[#00ff66]">&lt; 9.4 MS</span>
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="p-3 bg-[#04070d] rounded border border-slate-800 text-center min-w-[120px]">
+              <span className="text-[10px] uppercase font-semibold text-slate-400 block tracking-wider">Ingestion Latency</span>
+              <span className="text-sm font-bold text-[#00e575]">&lt; 9.4 ms</span>
             </div>
-            <div className="p-3 bg-[#040608] border border-white/10 text-center">
-              <span className="text-[9px] uppercase text-[#7e8b9b] block">SIGNATURE CONSENSUS</span>
-              <span className="text-sm font-bold text-[#00f0ff]">98.4K IOCS</span>
+            <div className="p-3 bg-[#04070d] rounded border border-slate-800 text-center min-w-[120px]">
+              <span className="text-[10px] uppercase font-semibold text-slate-400 block tracking-wider">Local Signatures</span>
+              <span className="text-sm font-bold text-[#00e5ff]">98.4K IoCs</span>
             </div>
           </div>
-        </TacticalFrame>
+        </div>
 
         {/* 10 Domains Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {domains.map((domain) => {
             const Icon = DOMAIN_ICONS[domain.id] || ShieldCheck
             const isActive = domain.status === "ACTIVE"
@@ -116,27 +110,27 @@ export default function ProtectionDashboardPage() {
             return (
               <div
                 key={domain.id}
-                className="p-4 border border-white/10 bg-[#080c10] hover:border-white/25 transition-all flex flex-col justify-between gap-3"
+                className="p-4 rounded-lg border border-slate-800 bg-[#080d16] hover:border-slate-700 transition-all flex flex-col justify-between gap-3.5"
               >
-                <div className="space-y-2.5">
+                <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 border border-[#00ff66]/30 bg-[#00ff66]/10 text-[#00ff66] flex items-center justify-center">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-lg border border-[#00e575]/30 bg-[#00e575]/10 text-[#00e575] flex items-center justify-center">
                         <Icon className="w-4 h-4" />
                       </div>
                       <div>
-                        <h3 className="text-xs font-bold uppercase tracking-wider text-[#f8fafc]">
+                        <h2 className="text-sm font-semibold text-slate-100">
                           {domain.name}
-                        </h3>
-                        <span className="text-[10px] text-[#00f0ff] uppercase">
-                          COVERAGE: {domain.coverageLevel}
+                        </h2>
+                        <span className="text-[11px] text-slate-400">
+                          Coverage: <strong className="text-[#00e5ff] font-medium">{domain.coverageLevel}</strong>
                         </span>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2">
                       <PixelBadge variant={isActive ? "phosphor" : "warning"} size="sm">
-                        {domain.status}
+                        {domain.status === "ACTIVE" ? "Active" : "Monitoring"}
                       </PixelBadge>
                       <Toggle
                         checked={isActive}
@@ -146,37 +140,37 @@ export default function ProtectionDashboardPage() {
                     </div>
                   </div>
 
-                  <p className="text-[11px] text-[#7e8b9b] leading-relaxed">
+                  <p className="text-xs text-slate-400 leading-relaxed">
                     {domain.description}
                   </p>
 
-                  <div className="grid grid-cols-3 gap-2 pt-2 border-t border-white/10 text-[10px]">
+                  <div className="grid grid-cols-3 gap-2 pt-2.5 border-t border-slate-800 text-[11px]">
                     <div>
-                      <span className="text-white/40 uppercase block">FILTERED (24H)</span>
-                      <span className="text-[#f8fafc] font-bold">{domain.eventsCount24h}</span>
+                      <span className="text-slate-500 block text-[10px]">Filtered (24h)</span>
+                      <span className="text-slate-200 font-mono font-medium">{domain.eventsCount24h}</span>
                     </div>
                     <div>
-                      <span className="text-white/40 uppercase block">BLOCKED (24H)</span>
-                      <span className="text-[#00ff66] font-bold">{domain.blockedCount24h}</span>
+                      <span className="text-slate-500 block text-[10px]">Blocked (24h)</span>
+                      <span className="text-[#00e575] font-mono font-medium">{domain.blockedCount24h}</span>
                     </div>
                     <div>
-                      <span className="text-white/40 uppercase block">RISK POSTURE</span>
-                      <span className="text-[#00f0ff] font-bold">{domain.riskLevel}</span>
+                      <span className="text-slate-500 block text-[10px]">Risk Posture</span>
+                      <span className="text-[#00e5ff] font-mono font-medium">{domain.riskLevel}</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-white/10 flex items-center justify-between">
-                  <span className="text-[9px] text-[#7e8b9b] uppercase">
-                    CAPABILITY: [{domain.capability}]
+                <div className="pt-2.5 border-t border-slate-800 flex items-center justify-between">
+                  <span className="text-[11px] text-slate-400">
+                    Capability: <strong className="text-slate-300">{domain.capability}</strong>
                   </span>
                   <button
                     type="button"
                     onClick={() => handleInspect(domain)}
-                    className="text-[11px] text-[#00ff66] hover:underline uppercase font-bold flex items-center gap-1"
+                    className="text-xs text-[#00e575] hover:underline font-medium flex items-center gap-1"
                   >
-                    <span>[ INSPECT POLICIES ]</span>
-                    <ArrowRight className="w-3 h-3" />
+                    <span>Inspect Policies</span>
+                    <ArrowUpRight className="w-3 h-3" />
                   </button>
                 </div>
               </div>
@@ -190,63 +184,63 @@ export default function ProtectionDashboardPage() {
         <Drawer open={drawerOpen} onOpenChange={(open) => !open && setDrawerOpen(false)}>
           <DrawerContent
             side="right"
-            className="w-full sm:max-w-xl bg-[#040608] border-l border-white/15 p-0 text-[#f8fafc] flex flex-col h-full font-mono select-none"
+            className="w-full sm:max-w-xl bg-[#04070d] border-l border-slate-800 p-0 text-slate-100 flex flex-col h-full"
           >
-            <div className="p-4 sm:p-5 border-b border-white/10 bg-[#080c10] flex items-start justify-between">
-              <div className="space-y-1">
+            <div className="p-5 border-b border-slate-800 bg-[#080d16] flex items-start justify-between">
+              <div className="space-y-1.5">
                 <div className="flex items-center gap-2">
                   <PixelBadge variant="phosphor" size="sm" dot>
-                    DOMAIN // {selectedDomain.id.toUpperCase()}
+                    Domain: {selectedDomain.name}
                   </PixelBadge>
                   <PixelBadge variant="cyan" size="sm">
                     {selectedDomain.capability}
                   </PixelBadge>
                 </div>
-                <h2 className="text-sm sm:text-base font-bold uppercase tracking-wider text-[#f8fafc] pt-1 font-sans">
+                <h2 className="text-base font-bold text-slate-100">
                   {selectedDomain.name}
                 </h2>
               </div>
               <button
                 onClick={() => setDrawerOpen(false)}
-                className="p-1 border border-white/10 hover:border-white/30 text-[#7e8b9b] hover:text-white transition-colors"
+                className="p-1 rounded border border-slate-800 hover:border-slate-700 text-slate-400 hover:text-white transition-colors"
                 aria-label="Close inspector"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 text-xs">
-              <TacticalFrame variant="default" className="p-3.5 border-white/10 bg-[#080c10] space-y-1">
-                <span className="text-[10px] text-[#00ff66] font-bold uppercase block">
-                  ARCHITECTURE SPECIFICATION
+            <div className="flex-1 overflow-y-auto p-5 space-y-5 text-xs">
+              <div className="p-4 rounded-lg border border-slate-800 bg-[#080d16] space-y-1.5">
+                <span className="text-[11px] font-semibold text-[#00e575] uppercase tracking-wider block">
+                  Architecture Specification
                 </span>
-                <p className="text-[#f8fafc] text-[11px] leading-relaxed">
+                <p className="text-slate-300 text-xs leading-relaxed">
                   {selectedDomain.description}
                 </p>
-              </TacticalFrame>
+              </div>
 
               {selectedDomain.details && (
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="p-3 border border-white/10 bg-[#080c10] space-y-1">
-                    <span className="text-[10px] text-[#7e8b9b] uppercase block">INFERENCE ENGINE</span>
-                    <span className="text-[#00f0ff] font-bold text-xs">{selectedDomain.details.engine}</span>
+                  <div className="p-3.5 rounded-lg border border-slate-800 bg-[#080d16] space-y-1">
+                    <span className="text-[10px] text-slate-400 uppercase font-semibold block">Inference Engine</span>
+                    <span className="text-[#00e5ff] font-semibold text-xs font-mono">{selectedDomain.details.engine}</span>
                   </div>
-                  <div className="p-3 border border-white/10 bg-[#080c10] space-y-1">
-                    <span className="text-[10px] text-[#7e8b9b] uppercase block">P99 LATENCY</span>
-                    <span className="text-[#00ff66] font-bold text-xs">{selectedDomain.details.latency}</span>
+                  <div className="p-3.5 rounded-lg border border-slate-800 bg-[#080d16] space-y-1">
+                    <span className="text-[10px] text-slate-400 uppercase font-semibold block">P99 Latency</span>
+                    <span className="text-[#00e575] font-semibold text-xs font-mono">{selectedDomain.details.latency}</span>
                   </div>
                 </div>
               )}
 
               {selectedDomain.details?.activeRules && (
-                <div className="p-3.5 border border-white/10 bg-[#080c10] space-y-2">
-                  <span className="text-[10px] text-[#7e8b9b] uppercase font-bold block">
-                    ACTIVE HEURISTIC ENFORCEMENT RULES
+                <div className="p-4 rounded-lg border border-slate-800 bg-[#080d16] space-y-2.5">
+                  <span className="text-[11px] text-slate-300 uppercase font-semibold block">
+                    Active Heuristic Rules
                   </span>
-                  <div className="space-y-1.5">
+                  <div className="space-y-2">
                     {selectedDomain.details.activeRules.map((rule, idx) => (
-                      <div key={idx} className="flex items-center gap-2 text-[11px] text-[#f8fafc]">
-                        <span className="text-[#00ff66] font-bold">[✓]</span>
+                      <div key={idx} className="flex items-center gap-2 text-xs text-slate-200">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#00e575] shrink-0" />
                         <span>{rule}</span>
                       </div>
                     ))}
@@ -254,27 +248,27 @@ export default function ProtectionDashboardPage() {
                 </div>
               )}
 
-              <div className="p-3.5 border border-[#00ff66]/30 bg-[#00ff66]/5 space-y-1 text-[11px]">
-                <div className="flex items-center gap-2 text-[#00ff66] font-bold uppercase">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>ZERO-KNOWLEDGE SOVEREIGNTY GUARANTEE</span>
+              <div className="p-4 rounded-lg border border-[#00e575]/30 bg-[#00e575]/5 space-y-1 text-xs">
+                <div className="flex items-center gap-2 text-[#00e575] font-semibold">
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>Zero-Knowledge Guarantee</span>
                 </div>
-                <p className="text-[#f8fafc]/90 leading-relaxed pt-0.5">
+                <p className="text-slate-300 leading-relaxed text-[11px]">
                   All lexical token parsing and bytecode heuristics execute locally in user-space. No raw payload telemetry leaves your machine.
                 </p>
               </div>
             </div>
 
-            <div className="p-4 border-t border-white/10 bg-[#080c10] flex items-center justify-between">
+            <div className="p-4 border-t border-slate-800 bg-[#080d16] flex items-center justify-between">
               <PixelBadge variant="phosphor" size="sm">
-                ENFORCEMENT: ACTIVE
+                Enforcement: Active
               </PixelBadge>
               <Button
                 size="sm"
                 onClick={() => setDrawerOpen(false)}
-                className="text-xs font-mono uppercase tracking-wider font-bold h-8 px-4"
+                className="text-xs font-medium h-8 px-4"
               >
-                [ CLOSE INSPECTOR ]
+                Close Inspector
               </Button>
             </div>
           </DrawerContent>

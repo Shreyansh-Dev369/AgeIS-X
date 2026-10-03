@@ -3,10 +3,8 @@
 import React, { useState } from "react"
 import Link from "next/link"
 import { ActivityFeedItem } from "@/types/security"
-import { PixelBadge } from "@/components/ui/pixel-badge"
-import { TacticalFrame } from "@/components/ui/tactical-frame"
 import { WhatHappenedDrawer } from "@/components/dashboard/what-happened-drawer"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Activity } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface ActivityTimelineSectionProps {
@@ -29,37 +27,33 @@ export function ActivityTimelineSection({ items }: ActivityTimelineSectionProps)
   })
 
   return (
-    <TacticalFrame
-      variant="panel"
-      reticles={true}
-      reticleColor="cyan"
-      className="p-5 space-y-4 border-white/15 bg-[#080c10] font-mono select-none"
-    >
+    <div className="p-5 rounded-lg border border-white/10 bg-[#080d16] space-y-4 font-sans select-none">
       {/* Header with category filters */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/10">
         <div>
-          <h3 className="text-sm font-bold uppercase tracking-wider text-[#f8fafc]">
-            Live Security Activity Timeline
+          <h3 className="text-sm font-semibold text-slate-100">
+            Recent Security Activity
           </h3>
-          <p className="text-[11px] text-[#7e8b9b]">Click any event to inspect plain-language explainability and signals.</p>
+          <p className="text-xs text-slate-400">Click any event to view why it occurred and evidence.</p>
         </div>
 
-        <div className="flex items-center gap-1 overflow-x-auto pb-1 sm:pb-0">
+        <div className="flex items-center gap-1 overflow-x-auto pb-1 sm:pb-0 text-xs">
           {[
-            { id: "all", label: "ALL" },
-            { id: "phishing", label: "PHISHING" },
-            { id: "network", label: "NETWORK" },
-            { id: "device", label: "DEVICE" },
-            { id: "identity", label: "IDENTITY" },
-            { id: "data", label: "DATA" },
+            { id: "all", label: "All" },
+            { id: "phishing", label: "Phishing" },
+            { id: "network", label: "Network" },
+            { id: "device", label: "Device" },
+            { id: "identity", label: "Identity" },
+            { id: "data", label: "Data" },
           ].map((cat) => (
             <button
               key={cat.id}
+              type="button"
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-2 py-0.5 text-[10px] font-bold uppercase transition-colors shrink-0 ${
+              className={`px-2.5 py-1 rounded text-xs font-medium transition-colors shrink-0 ${
                 selectedCategory === cat.id
-                  ? "bg-[#00ff66]/10 border border-[#00ff66] text-[#00ff66]"
-                  : "text-[#7e8b9b] hover:text-[#f8fafc] border border-transparent"
+                  ? "bg-emerald-500/10 text-emerald-400 font-semibold"
+                  : "text-slate-400 hover:text-slate-200"
               }`}
             >
               {cat.label}
@@ -71,8 +65,8 @@ export function ActivityTimelineSection({ items }: ActivityTimelineSectionProps)
       {/* Scannable Activity List */}
       <div className="space-y-2 max-h-[380px] overflow-y-auto pr-1">
         {filteredItems.length === 0 ? (
-          <div className="py-8 text-center text-xs text-[#7e8b9b]">
-            [ NO EVENTS MATCH CATEGORY FILTER ]
+          <div className="py-8 text-center text-xs text-slate-400">
+            No events match the selected category.
           </div>
         ) : (
           filteredItems.map((item) => {
@@ -91,42 +85,48 @@ export function ActivityTimelineSection({ items }: ActivityTimelineSectionProps)
                     handleItemClick(item)
                   }
                 }}
-                className="group p-3 border border-white/10 bg-[#040608] hover:bg-[#0b1017] hover:border-[#00ff66]/50 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs cursor-pointer focus:outline-none"
+                className="group p-3 rounded-md border border-white/5 bg-[#04070d] hover:bg-[#0c1320] hover:border-white/15 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400"
               >
                 <div className="flex items-start gap-3 min-w-0">
                   <div className="mt-0.5 shrink-0">
-                    <PixelBadge
-                      variant={isCritical ? "danger" : isHigh ? "warning" : "cyan"}
-                      size="sm"
+                    <span
+                      className={cn(
+                        "text-[10px] font-mono px-2 py-0.5 rounded font-medium",
+                        isCritical
+                          ? "bg-rose-500/15 text-rose-400 border border-rose-500/30"
+                          : isHigh
+                          ? "bg-amber-500/15 text-amber-400 border border-amber-500/30"
+                          : "bg-sky-500/15 text-sky-400 border border-sky-500/30"
+                      )}
                     >
                       {item.severity.toUpperCase()}
-                    </PixelBadge>
+                    </span>
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-[#f8fafc] group-hover:text-[#00ff66] transition-colors truncate">
+                      <span className="font-medium text-slate-100 group-hover:text-emerald-400 transition-colors truncate">
                         {item.title}
                       </span>
                     </div>
-                    <p className="text-[11px] text-[#7e8b9b] line-clamp-1 leading-tight mt-0.5">
+                    <p className="text-xs text-slate-400 line-clamp-1 leading-tight mt-0.5">
                       {item.description}
                     </p>
                     {item.entity && (
-                      <span className="text-[10px] text-white/40 mt-1 block">
-                        TARGET: {item.entity}
+                      <span className="text-[11px] text-slate-400 font-mono mt-0.5 block">
+                        Target: {item.entity}
                       </span>
                     )}
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-white/10">
-                  <span className="text-[10px] text-[#7e8b9b]">{item.timestamp}</span>
-                  <PixelBadge variant="phosphor" size="sm">
+                <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-white/5">
+                  <span className="text-xs text-slate-400">{item.timestamp}</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                     {item.status}
-                  </PixelBadge>
-                  <span className="text-[10px] text-[#00ff66] opacity-0 group-hover:opacity-100 transition-opacity hidden sm:inline flex items-center gap-0.5 font-bold">
-                    <span>[ EXPLAIN ]</span>
-                    <ArrowRight className="w-3 h-3" />
+                  </span>
+                  <span className="text-xs text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity hidden sm:inline flex items-center gap-0.5 font-medium">
+                    <span>Inspect</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </span>
                 </div>
               </div>
@@ -135,13 +135,14 @@ export function ActivityTimelineSection({ items }: ActivityTimelineSectionProps)
         )}
       </div>
 
-      <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs">
-        <span className="text-[10px] text-[#7e8b9b]">SHOWING {filteredItems.length} RECENT TELEMETRY EVENTS</span>
+      <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs">
+        <span className="text-xs text-slate-400">{filteredItems.length} events logged</span>
         <Link
           href="/dashboard/threats"
-          className="text-xs text-[#00ff66] hover:underline uppercase font-bold inline-flex items-center gap-1"
+          className="text-xs text-emerald-400 hover:underline font-medium inline-flex items-center gap-1"
         >
-          <span>[ VIEW THREAT CENTER → ]</span>
+          <span>View all threats</span>
+          <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </div>
 
@@ -150,6 +151,6 @@ export function ActivityTimelineSection({ items }: ActivityTimelineSectionProps)
         onClose={() => setDrawerOpen(false)}
         item={activeItem}
       />
-    </TacticalFrame>
+    </div>
   )
 }

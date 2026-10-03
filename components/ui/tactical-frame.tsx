@@ -1,6 +1,5 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
-import { ReticleCorners } from "./reticle-corners"
 
 export interface TacticalFrameProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: "default" | "panel" | "elevated" | "stepped" | "highlight"
@@ -19,11 +18,11 @@ export function TacticalFrame({
   ...props
 }: TacticalFrameProps) {
   const variantStyles = {
-    default: "bg-[#040608] border border-white/10",
-    panel: "bg-[#080c10] border border-white/10",
-    elevated: "bg-[#0b1017] border border-[#00ff66]/20",
-    stepped: "bg-[#080c10] border border-white/15 stepped-frame",
-    highlight: "bg-[#0b1017] border border-[#00ff66]/40 phosphor-box-glow",
+    default: "bg-[#080d16] border border-white/10 rounded-lg",
+    panel: "bg-[#080d16] border border-white/10 rounded-lg",
+    elevated: "bg-[#0c1320] border border-white/15 rounded-lg shadow-lg",
+    stepped: "bg-[#080d16] border border-white/10 rounded-lg",
+    highlight: "bg-[#0c1320] border border-emerald-500/30 rounded-lg shadow-md",
   }
 
   return (
@@ -31,12 +30,10 @@ export function TacticalFrame({
       className={cn(
         "relative transition-all duration-150 text-[#f8fafc]",
         variantStyles[variant],
-        glow && "phosphor-box-glow",
         className
       )}
       {...props}
     >
-      {reticles && <ReticleCorners color={reticleColor} />}
       {children}
     </div>
   )

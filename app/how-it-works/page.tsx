@@ -1,106 +1,158 @@
+"use client"
+
 import React from "react"
 import Link from "next/link"
 import { PublicShell } from "@/components/layout/public-shell"
+import { Button } from "@/components/ui/button"
+import {
+  EditorialSection,
+  EditorialHeading,
+  EditorialRule,
+  TechnicalLabel,
+  SignalMarker,
+  DataStrip,
+} from "@/components/design-system/editorial-primitives"
 import { HowItWorksPipeline } from "@/components/marketing/how-it-works-pipeline"
 import { AIEngineBreakdown } from "@/components/marketing/ai-engine-breakdown"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Terminal, ShieldCheck, Zap } from "lucide-react"
+import { SecuritySticker } from "@/components/design-system/pixel-art-system"
+import { RevealOnScroll } from "@/components/cinematic/reveal-on-scroll"
+import { DepthCard } from "@/components/cinematic/depth-card"
+import { ArrowRight, Terminal, ShieldAlert, Cpu } from "lucide-react"
+
+const walkthroughSteps = [
+  {
+    step: "01",
+    phase: "PASSIVE SOCKET HOOK",
+    title: "Ingress Interception Before Handshake",
+    desc: "When a socket connection is initiated (e.g. clicking https://auth-portal-verify.cc in an email), AgeIS-X edge hooks pause the raw TCP handshake before DNS resolution completes.",
+  },
+  {
+    step: "02",
+    phase: "LOCAL INFERENCE LOOP",
+    title: "Sliding Window N-Gram Tokenization (< 15ms)",
+    desc: "The character vectorizer extracts 3-to-5 gram substrings on-device. Risk features—such as brand token entropy, newly observed TLD, and keyword clusters—are scored against the local model.",
+  },
+  {
+    step: "03",
+    phase: "DETERMINISTIC QUARANTINE",
+    title: "Connection Severed & Evidence Captured",
+    desc: "The socket is terminated. Cryptographic artifacts are written to the local isolated vault, and a clean explainability card is rendered to the user without confusing technical jargon.",
+  },
+]
 
 export default function HowItWorksPage() {
   return (
     <PublicShell>
-      {/* Page Header */}
-      <section className="py-16 md:py-20 border-b border-slate-800/80 bg-slate-950">
-        <div className="page-container max-w-4xl text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-mono">
-            <span>Autonomous Intelligence Pipeline</span>
+      {/* 1. HERO (MODE B - EDITORIAL BLACK) */}
+      <EditorialSection mode="editorial-black" className="pt-10 pb-16 md:pt-16 md:pb-24 border-b border-white/10 font-mono">
+        <div className="space-y-8">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
+            <div className="flex items-center gap-3">
+              <SignalMarker status="active" label="PIPELINE SPECIFICATION" />
+              <span className="text-white/30 text-xs font-mono">/</span>
+              <TechnicalLabel>AUTONOMOUS EXECUTION FLOW</TechnicalLabel>
+            </div>
+            <div className="flex items-center gap-3">
+              <SecuritySticker type="access_granted" size="sm" />
+            </div>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-100">
-            How AgeIS-X Analyzes and Neutralizes Threats
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            From the moment a network request is initiated or a background process executes, AgeIS-X evaluates signals in parallel to make deterministic, sub-28ms security decisions.
-          </p>
-        </div>
-      </section>
 
-      {/* Complete Lifecycle Pipeline */}
-      <section className="py-16 bg-slate-900/40 border-b border-slate-800/80">
-        <div className="page-container space-y-8">
-          <div className="max-w-2xl">
-            <h2 className="text-xl font-bold text-slate-100">The 6-Stage Autonomous Lifecycle</h2>
-            <p className="text-xs text-slate-400 mt-1">
-              Detailed step-by-step breakdown from passive sensor capture to transparent human context.
+          <div className="max-w-4xl space-y-6">
+            <EditorialHeading level={1} className="leading-[0.92]">
+              HOW AGEIS-X DEFENDS
+              <br />
+              <span className="text-[#39FF14]">IN SUB-20 MILLISECONDS.</span>
+            </EditorialHeading>
+
+            <p className="text-base sm:text-lg text-[#A6A6A0] max-w-2xl leading-relaxed font-sans font-normal">
+              From the instant a network request is initiated to forensic containment, signals are evaluated locally without latency or remote surveillance.
             </p>
           </div>
-
-          <HowItWorksPipeline />
         </div>
-      </section>
+      </EditorialSection>
 
-      {/* Multi-Model Classification Architecture */}
-      <section className="py-16 bg-slate-950 border-b border-slate-800/80">
-        <div className="page-container">
-          <AIEngineBreakdown />
-        </div>
-      </section>
-
-      {/* Real-World Scenario Walkthrough */}
-      <section className="py-16 bg-slate-900/30 border-b border-slate-800/80">
-        <div className="page-container space-y-8">
-          <div className="max-w-2xl">
-            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400">
-              Concrete Example
-            </span>
-            <h2 className="text-xl font-bold text-slate-100 mt-1">
-              Case Study: Intercepting a Credential Phishing Link
-            </h2>
-            <p className="text-xs text-slate-400 mt-1">
-              See what happens under the hood when a user clicks a deceptively crafted banking login link.
-            </p>
+      {/* 2. WALKTHROUGH PIPELINE (MODE C - OFF-WHITE PAPER TEXTURE) */}
+      <EditorialSection mode="off-white-editorial" className="py-20 md:py-28 border-b border-white/10">
+        <div className="space-y-12 font-mono">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#242424]/15 pb-6">
+            <div className="space-y-2">
+              <TechnicalLabel className="text-[#6F706D] font-bold">01 / FORENSIC WALKTHROUGH</TechnicalLabel>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#050505] tracking-tight leading-tight uppercase">
+                CASE STUDY: INTERCEPTING A PHISHING ATTACK
+              </h2>
+            </div>
+            <span className="text-xs text-[#6F706D]">VERIFIED DETERMINISTIC</span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-5 rounded-xl border border-slate-800 bg-slate-950 space-y-2">
-              <span className="text-[11px] font-mono text-slate-500">Stage 1 • Intercept</span>
-              <h4 className="text-sm font-semibold text-slate-200">Deceptive Link Clicked</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                User clicks <code className="text-rose-400 font-mono text-[11px]">https://auth-portal-verify.cc</code> in an email. AgeIS-X network hook pauses socket connection before DNS resolution.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-xl border border-slate-800 bg-slate-950 space-y-2">
-              <span className="text-[11px] font-mono text-slate-500">Stage 2 • Inference</span>
-              <h4 className="text-sm font-semibold text-slate-200">Neural Scoring (14ms)</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                The lexical model tokenizes n-grams, noting <code className="text-amber-400 font-mono text-[11px]">verify</code> keyword and <code className="text-amber-400 font-mono text-[11px]">.cc</code> TLD registered &lt; 48 hours ago. Risk score calculated at 94/100.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-xl border border-slate-800 bg-slate-950 space-y-2">
-              <span className="text-[11px] font-mono text-slate-500">Stage 3 • Action</span>
-              <h4 className="text-sm font-semibold text-slate-200">Blocked & Explained</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                The connection is dropped. The user sees a clear modal explaining the brand impersonation without fear-mongering jargon.
-              </p>
-            </div>
+          <div className="divide-y divide-[#242424]/15 border-t border-b border-[#242424]/15">
+            {walkthroughSteps.map((s, idx) => (
+              <RevealOnScroll key={idx} delay={idx * 80}>
+                <div className="py-8 px-2 sm:px-4 grid grid-cols-1 md:grid-cols-12 gap-6 items-start font-mono">
+                  <div className="md:col-span-1 text-xl font-bold text-[#050505]">
+                    {s.step}
+                  </div>
+                  <div className="md:col-span-4 space-y-1">
+                    <span className="text-[10px] tracking-widest text-[#6F706D] uppercase block font-bold">
+                      {s.phase}
+                    </span>
+                    <h3 className="text-base font-bold text-[#050505] uppercase">
+                      {s.title}
+                    </h3>
+                  </div>
+                  <div className="md:col-span-7 text-sm text-[#242424] font-sans leading-relaxed">
+                    {s.desc}
+                  </div>
+                </div>
+              </RevealOnScroll>
+            ))}
           </div>
         </div>
-      </section>
+      </EditorialSection>
 
-      {/* Call to Action */}
-      <section className="py-16 bg-slate-950 text-center">
-        <div className="page-container max-w-xl space-y-4">
-          <h3 className="text-2xl font-bold text-slate-100">Experience autonomous defense in action</h3>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            Test the live URL classifier with any suspicious link or explore the management console.
+      {/* 3. MULTI-LAYER INTERACTIVE PIPELINE */}
+      <EditorialSection mode="dark-lab" className="py-20 md:py-28 border-b border-white/10">
+        <div className="space-y-12 font-mono">
+          <div className="space-y-2 border-b border-white/10 pb-6">
+            <TechnicalLabel className="text-[#39FF14]">02 / ARCHITECTURAL PIPELINE</TechnicalLabel>
+            <EditorialHeading level={2}>FULL-SPECTRUM ENGINE TRACE</EditorialHeading>
+          </div>
+          <RevealOnScroll direction="up">
+            <HowItWorksPipeline />
+          </RevealOnScroll>
+        </div>
+      </EditorialSection>
+
+      {/* 4. AI ENGINE INFERENCE DEEP-DIVE */}
+      <EditorialSection mode="editorial-black" className="py-20 md:py-28">
+        <div className="space-y-12 font-mono">
+          <div className="space-y-2 border-b border-white/10 pb-6">
+            <TechnicalLabel className="text-[#39FF14]">03 / INFERENCE METHODOLOGY</TechnicalLabel>
+            <EditorialHeading level={2}>ON-DEVICE VECTOR CLASSIFICATION</EditorialHeading>
+          </div>
+          <RevealOnScroll direction="up">
+            <AIEngineBreakdown />
+          </RevealOnScroll>
+        </div>
+      </EditorialSection>
+
+      {/* 5. COMMISSION CALL TO ACTION */}
+      <section className="py-16 sm:py-20 bg-[#080808] text-center font-mono border-t border-white/10">
+        <div className="page-container max-w-xl space-y-6">
+          <h3 className="text-2xl sm:text-3xl font-black text-[#F1F0EB] uppercase">
+            CHOOSE YOUR DEFENSE UNIT
+          </h3>
+          <p className="text-xs sm:text-sm text-[#A6A6A0] font-sans leading-relaxed">
+            Select a dedicated AgeIS-X security unit calibrated for your specific devices and operational requirements.
           </p>
-          <div className="flex justify-center gap-3 pt-2">
-            <Button className="bg-blue-600 hover:bg-blue-500 text-white" asChild>
-              <Link href="/#live-analyzer">Try Live URL Analyzer</Link>
-            </Button>
-            <Button variant="outline" className="border-slate-700 bg-slate-900/60" asChild>
-              <Link href="/dashboard">View Dashboard</Link>
+          <div className="flex flex-wrap justify-center gap-4 pt-2">
+            <Button
+              className="bg-[#39FF14] hover:bg-[#32e012] text-[#050505] font-mono font-bold text-xs uppercase tracking-wider rounded-none px-7 h-11 shadow-[2px_2px_0px_#FFFFFF]"
+              asChild
+            >
+              <Link href="/pricing">
+                <span>VIEW ROBOT ROSTER</span>
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
             </Button>
           </div>
         </div>

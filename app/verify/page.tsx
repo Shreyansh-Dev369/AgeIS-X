@@ -5,7 +5,6 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { AuthLayout } from "@/components/auth/auth-layout"
 import { AuthErrorBanner } from "@/components/auth/auth-error-banner"
-import { TerminalPrompt } from "@/components/ui/terminal-prompt"
 import { PixelBadge } from "@/components/ui/pixel-badge"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -51,36 +50,28 @@ export default function VerifyPage() {
 
   return (
     <AuthLayout
-      title="Verify Security Identity"
-      subtitle={`Cryptographic verification challenge dispatched to ${emailDisplay}`}
+      title="Verify Your Identity"
+      subtitle={`Enter the 6-digit verification code sent to ${emailDisplay}`}
       footerPrompt={{
-        text: "Switch operator context?",
-        linkText: "[ RETURN TO LOGIN ]",
+        text: "Switch account?",
+        linkText: "Return to sign in",
         href: "/login",
       }}
     >
-      <div className="space-y-4 font-mono text-xs">
+      <div className="space-y-4 text-xs">
         <AuthErrorBanner error={error} onDismiss={clearError} />
 
-        {/* Terminal Command Header */}
-        <div className="pb-2 border-b border-white/10 flex items-center justify-between">
-          <TerminalPrompt command="identity.verify --challenge=2FA" />
-          <PixelBadge variant={code.length === 6 ? "phosphor" : "cyan"} size="sm">
-            {code.length === 6 ? "READY" : "AWAITING CODE"}
-          </PixelBadge>
-        </div>
-
         {resendSuccess && (
-          <div className="p-3 border border-[#00ff66]/40 bg-[#00ff66]/10 text-[#00ff66] text-xs flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-[#00ff66] shrink-0" />
-            <span>[ SUCCESS ]: Fresh verification code token dispatched.</span>
+          <div className="p-3.5 rounded-lg border border-[#00e575]/40 bg-[#00e575]/10 text-[#00e575] text-xs flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-[#00e575] shrink-0" />
+            <span>A fresh verification code has been dispatched.</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="space-y-2 text-center">
-            <label className="text-[11px] uppercase tracking-wider text-[#7e8b9b] block">
-              ENTER 6-DIGIT VERIFICATION TOKEN
+            <label className="text-xs text-slate-400 font-medium block">
+              6-Digit Verification Code
             </label>
             <div className="relative">
               <Input
@@ -91,29 +82,29 @@ export default function VerifyPage() {
                 placeholder="• • • • • •"
                 value={code}
                 onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
-                className="text-center font-mono text-2xl tracking-[0.5em] h-14 bg-[#040608] border-white/20 text-[#00ff66] focus-visible:border-[#00ff66]"
+                className="text-center font-mono text-2xl tracking-[0.4em] h-14 bg-[#04070d] border-slate-800 text-[#00e575] focus-visible:border-[#00e575]"
                 autoFocus
                 required
               />
             </div>
-            <span className="text-[10px] text-[#7e8b9b] block">
-              // TEST MODE: Enter any 6 digits (e.g. 123456)
+            <span className="text-[11px] text-slate-500 block">
+              Demo mode: Enter any 6 digits (e.g. 123456)
             </span>
           </div>
 
           <Button
             type="submit"
             disabled={isLoading || code.length < 6}
-            className="w-full h-10 font-mono text-xs uppercase tracking-wider font-bold"
+            className="w-full h-10 text-xs font-semibold bg-[#00e575] text-[#04070d] hover:bg-[#00c966]"
           >
             {isLoading ? (
               <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin text-[#040608]" />
-                VALIDATING CHALLENGE...
+                <Loader2 className="w-4 h-4 mr-2 animate-spin text-[#04070d]" />
+                Verifying...
               </>
             ) : (
               <>
-                [ VERIFY & PROCEED TO ONBOARDING ]
+                Verify & Continue
                 <ArrowRight className="w-4 h-4 ml-2" />
               </>
             )}
@@ -124,14 +115,14 @@ export default function VerifyPage() {
               type="button"
               onClick={handleResend}
               disabled={cooldown > 0 || isResending}
-              className="text-xs text-[#7e8b9b] hover:text-[#00ff66] disabled:text-white/20 font-mono transition-colors uppercase tracking-wider"
+              className="text-xs text-slate-400 hover:text-[#00e575] disabled:text-slate-600 transition-colors"
             >
               {cooldown > 0 ? (
-                <span>[ RESEND TOKEN IN {cooldown}S ]</span>
+                <span>Resend code in {cooldown}s</span>
               ) : isResending ? (
-                <span>[ DISPATCHING TOKEN... ]</span>
+                <span>Sending new code...</span>
               ) : (
-                <span className="text-[#00ff66] hover:underline">[ DISPATCH NEW TOKEN ]</span>
+                <span className="text-[#00e575] hover:underline">Resend verification code</span>
               )}
             </button>
           </div>

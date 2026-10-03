@@ -1,136 +1,199 @@
+"use client"
+
 import React from "react"
 import Link from "next/link"
 import { PublicShell } from "@/components/layout/public-shell"
 import { Button } from "@/components/ui/button"
-import { Building2, ShieldCheck, Users, Server, HardDrive, Key, ArrowRight, CheckCircle2 } from "lucide-react"
+import {
+  EditorialSection,
+  EditorialHeading,
+  EditorialRule,
+  TechnicalLabel,
+  SignalMarker,
+  DataStrip,
+} from "@/components/design-system/editorial-primitives"
+import { SecuritySticker } from "@/components/design-system/pixel-art-system"
+import { Building2, Server, Key, ArrowRight, Check } from "lucide-react"
+
+const capabilities = [
+  {
+    num: "01",
+    title: "CENTRALIZED SEC-OPS CONSOLE",
+    tagline: "FLEET POSTURE SYNCHRONIZATION",
+    desc: "Aggregates fleet security scores, pending OS updates, and anomalous process executions into a centralized high-signal console without privacy leakage.",
+    icon: Building2,
+  },
+  {
+    num: "02",
+    title: "RAW SIEM & JSON AUDIT STREAMS",
+    tagline: "HIGH-THROUGHPUT PIPELINES",
+    desc: "Stream raw audit events directly to Splunk, Datadog, or Elasticsearch with standardized CEF and JSON log formats with sub-50ms dispatch latency.",
+    icon: Server,
+  },
+  {
+    num: "03",
+    title: "SAML 2.0 / OIDC ENCLAVE INTEGRATION",
+    tagline: "IDENTITY PROVIDER DELEGATION",
+    desc: "Integrate with Okta, Azure AD, or Google Workspace to automate daemon provisioning and policy assignment per user group.",
+    icon: Key,
+  },
+]
 
 export default function BusinessPage() {
   return (
     <PublicShell>
-      {/* Header */}
-      <section className="py-16 md:py-20 border-b border-slate-800/80 bg-slate-950">
-        <div className="page-container max-w-4xl text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-mono">
-            <span>Enterprise & Fleet Orchestration</span>
+      {/* 1. HERO (MODE B - EDITORIAL BLACK) */}
+      <EditorialSection mode="editorial-black" className="pt-10 pb-16 md:pt-16 md:pb-24">
+        <div className="space-y-8">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
+            <div className="flex items-center gap-3">
+              <SignalMarker status="active" label="ORGANIZATION & ENCLAVES" />
+              <span className="text-white/30 text-xs font-mono">/</span>
+              <TechnicalLabel>ENTERPRISE SPECIFICATION</TechnicalLabel>
+            </div>
+            <div className="flex items-center gap-3">
+              <SecuritySticker type="access_granted" size="sm" />
+            </div>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-100">
-            AgeIS-X for Organizations & Teams
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            The same zero-overhead autonomous security engine that protects personal workstations, scaled for fleet visibility, SIEM integration, and centralized policy enforcement.
-          </p>
-        </div>
-      </section>
 
-      {/* Fleet Capabilities Grid */}
-      <section className="py-16 bg-slate-900/40 border-b border-slate-800/80">
-        <div className="page-container space-y-8">
-          <div className="max-w-2xl">
-            <h2 className="text-xl font-bold text-slate-100">Fleet Security Architecture</h2>
-            <p className="text-xs text-slate-400 mt-1">
-              Engineered to fit into existing SecOps workflows without requiring heavy agent deployments.
+          <div className="max-w-4xl space-y-6">
+            <EditorialHeading level={1} className="leading-[0.92]">
+              FLEET SOVEREIGNTY.
+              <br />
+              <span className="text-[#A6A6A0]">ZERO AGENT FRICTION.</span>
+            </EditorialHeading>
+
+            <p className="text-base sm:text-lg text-[#A6A6A0] max-w-2xl leading-relaxed font-sans font-normal">
+              The same zero-overhead autonomous security engine that protects personal workstations, scaled for fleet visibility, SIEM integration, and centralized policy enforcement.
             </p>
           </div>
+        </div>
+      </EditorialSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-xl border border-slate-800 bg-slate-950/80 space-y-3">
-              <div className="p-2 w-fit rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400">
-                <Building2 className="w-5 h-5 stroke-[1.75]" />
-              </div>
-              <h3 className="text-sm font-semibold text-slate-100">Unified Posture Dashboard</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Aggregates fleet security scores, pending OS updates, and anomalous process executions into a centralized single-pane console.
+      {/* 2. FLEET CAPABILITIES (MODE A - DARK LAB / CONTINUOUS ROWS) */}
+      <EditorialSection mode="dark-lab" className="py-20 md:py-28 border-b border-white/10">
+        <div className="space-y-12 font-mono">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-6">
+            <div className="space-y-2">
+              <TechnicalLabel className="text-[#39FF14]">ORCHESTRATION LAYER</TechnicalLabel>
+              <EditorialHeading level={2}>FLEET SECURITY ARCHITECTURE</EditorialHeading>
+            </div>
+            <span className="text-xs text-[#A6A6A0]">MDM READY (JAMF / INTUNE)</span>
+          </div>
+
+          <div className="divide-y divide-white/10 border-t border-b border-white/10">
+            {capabilities.map((c, idx) => {
+              const Icon = c.icon
+              return (
+                <div
+                  key={idx}
+                  className="py-8 px-2 sm:px-4 grid grid-cols-1 md:grid-cols-12 gap-6 items-start hover:bg-white/[0.02] transition-colors group font-mono"
+                >
+                  <div className="md:col-span-1 text-base font-bold text-[#39FF14]">
+                    {c.num}
+                  </div>
+                  <div className="md:col-span-4 space-y-1">
+                    <span className="text-[10px] tracking-widest text-[#A6A6A0] uppercase block">
+                      {c.tagline}
+                    </span>
+                    <h3 className="text-base font-bold text-[#F1F0EB] group-hover:text-[#39FF14] transition-colors flex items-center gap-2">
+                      <Icon className="w-4 h-4 text-[#A6A6A0] group-hover:text-[#39FF14]" />
+                      {c.title}
+                    </h3>
+                  </div>
+                  <div className="md:col-span-7 text-xs sm:text-sm text-[#A6A6A0] leading-relaxed font-sans">
+                    {c.desc}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </EditorialSection>
+
+      {/* 3. DEPLOYMENT MODELS (MODE C - OFF-WHITE PAPER TEXTURE) */}
+      <EditorialSection mode="off-white-editorial" className="py-20 md:py-28">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start font-mono">
+          <div className="lg:col-span-4 space-y-3">
+            <TechnicalLabel className="text-[#6F706D] font-bold">SECTOR TARGETING</TechnicalLabel>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#050505] tracking-tight leading-tight uppercase">
+              DESIGNED FOR HIGH-RISK ENVIRONMENTS.
+            </h2>
+          </div>
+
+          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="p-6 border border-[#242424]/20 bg-[#F1F0EB] space-y-4">
+              <h3 className="text-base font-bold text-[#050505] uppercase">ENGINEERING ORGANIZATIONS</h3>
+              <p className="text-xs text-[#6F706D] leading-relaxed font-sans">
+                Developers frequently compile raw code and hold high-value cloud credentials. AgeIS-X protects API keys and shell sessions without compiler throttling.
               </p>
+              <div className="space-y-1 text-xs text-[#050505]">
+                <div className="flex items-center gap-2">
+                  <Check className="w-3.5 h-3.5 text-[#050505]" />
+                  <span>0% slowdown on C++ / Rust builds</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check className="w-3.5 h-3.5 text-[#050505]" />
+                  <span>Enclave-isolated SSH keys</span>
+                </div>
+              </div>
             </div>
 
-            <div className="p-6 rounded-xl border border-slate-800 bg-slate-950/80 space-y-3">
-              <div className="p-2 w-fit rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
-                <Server className="w-5 h-5 stroke-[1.75]" />
-              </div>
-              <h3 className="text-sm font-semibold text-slate-100">Real-Time SIEM & JSON Logs</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Stream raw audit events directly to Splunk, Datadog, or Elasticsearch with standardized CEF and JSON log formats.
+            <div className="p-6 border border-[#242424]/20 bg-[#F1F0EB] space-y-4">
+              <h3 className="text-base font-bold text-[#050505] uppercase">DISTRIBUTED WORKFORCES</h3>
+              <p className="text-xs text-[#6F706D] leading-relaxed font-sans">
+                Equip remote personnel with autonomous phishing and credential harvesting defenses without routing all traffic through slow VPN bottlenecks.
               </p>
-            </div>
-
-            <div className="p-6 rounded-xl border border-slate-800 bg-slate-950/80 space-y-3">
-              <div className="p-2 w-fit rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-400">
-                <Key className="w-5 h-5 stroke-[1.75]" />
+              <div className="space-y-1 text-xs text-[#050505]">
+                <div className="flex items-center gap-2">
+                  <Check className="w-3.5 h-3.5 text-[#050505]" />
+                  <span>Silent MDM rollout</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check className="w-3.5 h-3.5 text-[#050505]" />
+                  <span>SAML 2.0 / Okta directory sync</span>
+                </div>
               </div>
-              <h3 className="text-sm font-semibold text-slate-100">SAML 2.0 / OIDC Single Sign-On</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Integrate with Okta, Azure AD, or Google Workspace to automate agent provisioning and policy assignment per user group.
-              </p>
             </div>
           </div>
         </div>
-      </section>
+      </EditorialSection>
 
-      {/* Target Audiences */}
-      <section className="py-16 bg-slate-950 border-b border-slate-800/80">
-        <div className="page-container space-y-8">
-          <div className="max-w-2xl">
-            <h2 className="text-xl font-bold text-slate-100">Scalable Deployment Models</h2>
-            <p className="text-xs text-slate-400 mt-1">
-              Deployable across small developer teams to enterprise IT fleets.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-6 rounded-xl border border-slate-800 bg-slate-900/60 space-y-3">
-              <h3 className="text-base font-semibold text-slate-100">Engineering & Tech Teams</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Developers frequently run raw code and interact with cloud APIs. AgeIS-X protects API credentials and shell environments without degrading compiler performance.
-              </p>
-              <ul className="space-y-1.5 text-xs text-slate-300 pt-2">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Zero CPU throttling on builds and tests</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Local credential vault and SSH key shielding</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="p-6 rounded-xl border border-slate-800 bg-slate-900/60 space-y-3">
-              <h3 className="text-base font-semibold text-slate-100">Enterprise & Distributed Fleets</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Equip remote and hybrid workforces with autonomous phishing, malicious link, and C2 malware protection without complicated VPN bottlenecks.
-              </p>
-              <ul className="space-y-1.5 text-xs text-slate-300 pt-2">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Silent MDM rollout via Jamf, Intune, or Ansible</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Role-based access delegation for tier-1 helpdesk</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="py-16 bg-slate-900/30 text-center">
-        <div className="page-container max-w-xl space-y-4">
-          <h3 className="text-2xl font-bold text-slate-100">Inquire About Enterprise Pilot Deployment</h3>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            Speak with our engineering team to evaluate AgeIS-X for your organization.
+      {/* 4. CALL TO ACTION */}
+      <EditorialSection mode="editorial-black" className="py-20 text-center border-t border-white/10">
+        <div className="max-w-2xl mx-auto space-y-6 font-mono">
+          <TechnicalLabel>ENTERPRISE ONBOARDING</TechnicalLabel>
+          <EditorialHeading level={2}>
+            SCHEDULE AN ARCHITECTURE PILOT.
+          </EditorialHeading>
+          <p className="text-sm text-[#A6A6A0] leading-relaxed font-sans">
+            Deploy an isolated fleet sandbox or consult our security architects.
           </p>
-          <div className="flex justify-center gap-3 pt-2">
-            <Button className="bg-blue-600 hover:bg-blue-500 text-white" asChild>
-              <Link href="/pricing">View Enterprise Tiers</Link>
+
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+            <Button
+              size="lg"
+              asChild
+              className="bg-[#39FF14] hover:bg-[#32e012] text-[#050505] font-mono font-bold text-xs uppercase tracking-wider rounded-none px-8 h-12"
+            >
+              <Link href="/pricing">
+                <span>VIEW ENTERPRISE TIERS</span>
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
             </Button>
-            <Button variant="outline" className="border-slate-700 bg-slate-950" asChild>
-              <Link href="/dashboard">View SecOps Console</Link>
+            <Button
+              size="lg"
+              variant="outline"
+              asChild
+              className="border-white/20 bg-transparent hover:bg-white/5 text-[#F1F0EB] font-mono text-xs uppercase tracking-wider rounded-none h-12 px-6"
+            >
+              <Link href="/dashboard">
+                OPEN SEC-OPS CONSOLE
+              </Link>
             </Button>
           </div>
         </div>
-      </section>
+      </EditorialSection>
     </PublicShell>
   )
 }

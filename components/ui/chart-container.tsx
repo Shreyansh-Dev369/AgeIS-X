@@ -28,7 +28,7 @@ export function ChartContainer({
   empty = false,
   emptyMessage = "No telemetry metrics recorded for this timeframe",
   onRetry,
-  minHeight = 280,
+  minHeight = 260,
   children,
   className,
   ...props
@@ -36,13 +36,13 @@ export function ChartContainer({
   return (
     <div
       className={cn(
-        "rounded-xl border border-slate-800 bg-slate-900/70 p-5 sm:p-6 flex flex-col",
+        "rounded-lg border border-white/10 bg-[#080d16] p-5 flex flex-col",
         className
       )}
       {...props}
     >
       {(title || subtitle || action) && (
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 pb-3 border-b border-slate-800/80">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-white/10">
           <div>
             {title && (
               <h3 className="text-sm font-semibold text-slate-100 tracking-tight">

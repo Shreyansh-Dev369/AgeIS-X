@@ -6,35 +6,33 @@ import { useSearchParams } from "next/navigation"
 import { AuthLayout } from "@/components/auth/auth-layout"
 import { GuestGuard } from "@/components/auth/auth-guard"
 import { AuthErrorBanner } from "@/components/auth/auth-error-banner"
-import { TerminalPrompt } from "@/components/ui/terminal-prompt"
 import { Input } from "@/components/ui/input"
 import { PasswordInput } from "@/components/ui/password-input"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useAuth } from "@/lib/auth/auth-context"
-import { cyberAudio } from "@/lib/cyber-sound"
-import { Mail, Loader2, ArrowRight, ShieldCheck, Zap, UserCheck, Key, Copy, Check } from "lucide-react"
+import { Mail, Loader2, ArrowRight, ShieldCheck, Zap, Copy, Check } from "lucide-react"
 
 const DEMO_ACCOUNTS = [
   {
-    role: "SECOPS ANALYST",
+    role: "SecOps Analyst",
     email: "analyst@ageis-x.corp",
     password: "Password@123",
-    badge: "SOC OPERATOR",
-    desc: "Full access to threat radar, telemetry charts, and incident response.",
+    badge: "SOC Operator",
+    desc: "Full access to threat center, telemetry charts, and incident response.",
   },
   {
-    role: "PERSONAL USER",
+    role: "Personal User",
     email: "alex.defense@gmail.com",
     password: "Password@123",
-    badge: "FREE TIER",
+    badge: "Free Tier",
     desc: "Personal device shield, dark web monitor, and password vault.",
   },
   {
-    role: "ENTERPRISE CISO",
+    role: "Enterprise CISO",
     email: "ciso@enterprise-mesh.io",
     password: "Password@123",
-    badge: "ENTERPRISE",
+    badge: "Enterprise",
     desc: "Fleet posture overview, SAML SSO, and compliance audit logs.",
   },
 ]
@@ -52,7 +50,6 @@ function LoginForm() {
   const handleSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault()
     clearError()
-    cyberAudio.playShield()
     await signIn({ email, password, rememberDevice })
   }
 
@@ -60,83 +57,81 @@ function LoginForm() {
     setEmail(demoEmail)
     setPassword(demoPass)
     clearError()
-    cyberAudio.playShield()
     await signIn({ email: demoEmail, password: demoPass, rememberDevice: true })
   }
 
   return (
     <div className="space-y-5">
-      {/* 1-CLICK DEMO ACCESS BOX (PROMINENT AT TOP) */}
-      <div className="p-4 border-2 border-[#00ff66]/50 bg-[#00ff66]/10 text-xs font-mono space-y-3 relative shadow-[0_0_25px_rgba(0,255,102,0.15)]">
-        <div className="flex items-center justify-between border-b border-[#00ff66]/30 pb-2">
+      {/* 1-CLICK DEMO ACCESS BOX */}
+      <div className="p-4 rounded-lg border border-[#00e575]/40 bg-[#00e575]/10 text-xs space-y-3">
+        <div className="flex items-center justify-between border-b border-[#00e575]/20 pb-2">
           <div className="flex items-center gap-2">
-            <Zap className="w-4 h-4 text-[#00ff66] animate-pulse" />
-            <span className="font-bold text-[#f8fafc] text-xs uppercase tracking-wider">
-              ⚡ 1-CLICK DEMO LOGIN (INSTANT ACCESS)
+            <Zap className="w-4 h-4 text-[#00e575]" />
+            <span className="font-semibold text-slate-100 text-xs">
+              1-Click Demo Login (Instant Access)
             </span>
           </div>
-          <span className="text-[10px] px-1.5 py-0.2 bg-[#00ff66] text-[#040608] font-bold">
-            READY
+          <span className="text-[10px] px-2 py-0.5 rounded bg-[#00e575] text-[#04070d] font-semibold">
+            Ready
           </span>
         </div>
 
-        <p className="text-[11px] text-[#94a3b8] font-sans">
+        <p className="text-[11px] text-slate-300">
           Click any persona below to immediately log into the AgeIS-X security console without registering:
         </p>
 
         {/* Demo Persona Buttons */}
-        <div className="space-y-1.5">
+        <div className="space-y-2">
           {DEMO_ACCOUNTS.map((acc) => (
             <button
               key={acc.email}
               type="button"
               onClick={() => handleQuickDemoLogin(acc.email, acc.password)}
               disabled={isLoading}
-              className="w-full p-2.5 border border-[#00ff66]/30 bg-[#04080e] hover:bg-[#00ff66]/20 hover:border-[#00ff66] transition-all text-left flex items-center justify-between group min-h-[44px]"
+              className="w-full p-2.5 rounded-md border border-[#00e575]/30 bg-[#04070d] hover:bg-[#00e575]/15 hover:border-[#00e575] transition-all text-left flex items-center justify-between group min-h-[44px]"
             >
               <div className="min-w-0 pr-2">
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-white text-xs">{acc.role}</span>
-                  <span className="text-[9px] px-1 border border-white/20 text-[#7e8b9b] font-mono">
+                  <span className="font-semibold text-slate-100 text-xs">{acc.role}</span>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-300">
                     {acc.badge}
                   </span>
                 </div>
-                <div className="text-[10px] text-[#00ff66] font-mono truncate">{acc.email}</div>
+                <div className="text-[11px] text-[#00e575] font-mono truncate">{acc.email}</div>
               </div>
 
-              <span className="text-[11px] font-bold text-[#00ff66] group-hover:translate-x-1 transition-transform shrink-0 flex items-center gap-1 font-mono">
-                [ LOG IN ] &rarr;
+              <span className="text-xs font-semibold text-[#00e575] group-hover:translate-x-0.5 transition-transform shrink-0 flex items-center gap-1">
+                Log In &rarr;
               </span>
             </button>
           ))}
         </div>
 
-        {/* Pre-fill Credentials Info */}
-        <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[10px] text-[#7e8b9b]">
-          <span>DEMO CREDENTIALS: <strong className="text-white">analyst@ageis-x.corp</strong> / <strong className="text-white">Password@123</strong></span>
+        {/* Pre-fill Info */}
+        <div className="pt-2 border-t border-[#00e575]/20 flex items-center justify-between text-[11px] text-slate-400">
+          <span>Demo: <strong className="text-slate-200">analyst@ageis-x.corp</strong> / <strong className="text-slate-200">Password@123</strong></span>
           <button
             type="button"
             onClick={() => {
               setEmail("analyst@ageis-x.corp")
               setPassword("Password@123")
               setCopied(true)
-              cyberAudio.playKeyClick()
               setTimeout(() => setCopied(false), 2000)
             }}
-            className="text-[#00ff66] hover:underline flex items-center gap-1"
+            className="text-[#00e575] hover:underline flex items-center gap-1"
           >
             {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-            <span>{copied ? "FILLED" : "AUTO-FILL"}</span>
+            <span>{copied ? "Filled" : "Auto-Fill"}</span>
           </button>
         </div>
       </div>
 
       {/* Session Expired Alert */}
       {isSessionExpired && (
-        <div className="p-3 border border-[#ffb800]/40 bg-[#ffb800]/10 text-[#ffb800] font-mono text-xs space-y-0.5">
-          <div className="font-bold uppercase tracking-wider text-[11px]">[ SESSION TIMEOUT ]</div>
-          <p className="text-[#f8fafc]/90 text-[11px]">
-            Previous security session expired. Please re-authenticate your identity.
+        <div className="p-3.5 rounded-lg border border-[#ffb800]/40 bg-[#ffb800]/10 text-[#ffb800] text-xs space-y-0.5">
+          <div className="font-semibold text-xs">Session Timed Out</div>
+          <p className="text-slate-200 text-[11px]">
+            Your previous security session expired. Please re-authenticate your identity.
           </p>
         </div>
       )}
@@ -145,40 +140,40 @@ function LoginForm() {
       <AuthErrorBanner error={error} onDismiss={clearError} />
 
       {/* Manual Credentials Form */}
-      <div className="space-y-4 pt-2">
-        <div className="text-[10px] text-[#7e8b9b] uppercase tracking-widest font-mono flex items-center gap-2">
-          <span className="w-2 h-px bg-white/20" />
-          <span>OR LOG IN MANUALLY</span>
-          <span className="flex-1 h-px bg-white/20" />
+      <div className="space-y-4 pt-1">
+        <div className="text-[11px] text-slate-500 uppercase tracking-wider font-medium flex items-center gap-2">
+          <span className="w-4 h-px bg-slate-800" />
+          <span>Or sign in manually</span>
+          <span className="flex-1 h-px bg-slate-800" />
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4 font-mono text-xs">
+        <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           <div className="space-y-1.5">
-            <label className="text-[11px] uppercase tracking-wider text-[#7e8b9b] block">
-              EMAIL ADDRESS
+            <label className="text-xs text-slate-400 font-medium block">
+              Email Address
             </label>
             <Input
               type="email"
               placeholder="analyst@ageis-x.corp"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              icon={<Mail className="w-4 h-4 text-[#7e8b9b]" />}
+              icon={<Mail className="w-4 h-4 text-slate-400" />}
               autoComplete="email"
               required
-              className="bg-[#040608] min-h-[42px]"
+              className="bg-[#04070d] min-h-[42px]"
             />
           </div>
 
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
-              <label className="text-[11px] uppercase tracking-wider text-[#7e8b9b]">
-                PASSPHRASE
+              <label className="text-xs text-slate-400 font-medium">
+                Password
               </label>
               <Link
                 href="/forgot-password"
-                className="text-[10px] text-[#00ff66] hover:text-[#39ff14] hover:underline uppercase tracking-wider"
+                className="text-xs text-[#00e575] hover:underline"
               >
-                [ RECOVER KEY ]
+                Forgot password?
               </Link>
             </div>
             <PasswordInput
@@ -187,7 +182,7 @@ function LoginForm() {
               placeholder="Password@123"
               autoComplete="current-password"
               required
-              className="bg-[#040608] min-h-[42px]"
+              className="bg-[#04070d] min-h-[42px]"
             />
           </div>
 
@@ -199,7 +194,7 @@ function LoginForm() {
             />
             <label
               htmlFor="remember"
-              className="text-[11px] text-[#7e8b9b] cursor-pointer select-none tracking-tight"
+              className="text-xs text-slate-400 cursor-pointer select-none"
             >
               Remember this device for 30 days
             </label>
@@ -208,16 +203,16 @@ function LoginForm() {
           <Button
             type="submit"
             disabled={isLoading || !email || !password}
-            className="w-full h-11 font-mono text-xs uppercase tracking-wider font-bold mt-2 bg-[#00ff66] hover:bg-[#39ff14] text-[#040608] shadow-[0_0_15px_rgba(0,255,102,0.3)]"
+            className="w-full h-10 text-xs font-semibold mt-2 bg-[#00e575] text-[#04070d] hover:bg-[#00c966]"
           >
             {isLoading ? (
               <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin text-[#040608]" />
-                AUTHENTICATING IDENTITY...
+                <Loader2 className="w-4 h-4 mr-2 animate-spin text-[#04070d]" />
+                Authenticating...
               </>
             ) : (
               <>
-                [ INITIALIZE ACCESS ]
+                Sign In to Console
                 <ArrowRight className="w-4 h-4 ml-2" />
               </>
             )}
@@ -235,15 +230,15 @@ export default function LoginPage() {
         title="Security Console Access"
         subtitle="Sign in or use 1-click demo access to enter the operations dashboard"
         footerPrompt={{
-          text: "Want to create a new profile?",
-          linkText: "[ SIGN UP FREE ]",
+          text: "Don't have an account?",
+          linkText: "Sign up free",
           href: "/signup",
         }}
       >
         <Suspense
           fallback={
-            <div className="h-40 flex items-center justify-center font-mono text-xs text-[#7e8b9b]">
-              INITIALIZING AUTH MODULE...
+            <div className="h-40 flex items-center justify-center text-xs text-slate-400">
+              Initializing...
             </div>
           }
         >

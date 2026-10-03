@@ -2,12 +2,10 @@
 
 import React, { useState } from "react"
 import { SecurityScoreData } from "@/types/security"
-import { PixelBadge } from "@/components/ui/pixel-badge"
-import { PixelStatusBar } from "@/components/ui/pixel-status-bar"
-import { TacticalFrame } from "@/components/ui/tactical-frame"
 import { ScoreExplainabilityDrawer } from "@/components/dashboard/score-explainability-drawer"
-import { ArrowUpRight, ArrowDownRight, HelpCircle, ChevronRight, Zap } from "lucide-react"
+import { ArrowUpRight, ArrowDownRight, HelpCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { TechnicalLabel } from "@/components/design-system/editorial-primitives"
 
 interface SecurityPostureHeroProps {
   data: SecurityScoreData
@@ -18,114 +16,96 @@ export function SecurityPostureHero({ data, className = "" }: SecurityPostureHer
   const [explainOpen, setExplainOpen] = useState(false)
   const { score, maxScore = 100, status, trend, breakdown = [], recommendation } = data
 
-  const percentage = Math.min(100, Math.max(0, Math.round((score / maxScore) * 100)))
-
   return (
     <>
-      <TacticalFrame
-        variant="panel"
-        reticles={true}
-        reticleColor="phosphor"
-        className={`p-5 sm:p-6 border-white/15 bg-[#080c10] font-mono select-none flex flex-col justify-between ${className}`}
-      >
+      <div className={`p-5 border border-white/10 bg-[#080808] font-mono flex flex-col justify-between ${className}`}>
         {/* Top Header Row */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/10">
+        <div className="flex items-center justify-between gap-3 pb-3 border-b border-white/10">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#7e8b9b]">
-                POSTURE // TELEMETRY
-              </span>
-              <PixelBadge variant="phosphor" size="sm" dot>
-                SYNCHRONIZED
-              </PixelBadge>
-            </div>
-            <h2 className="text-sm sm:text-base font-bold uppercase tracking-wider text-[#f8fafc] mt-0.5 font-sans">
-              Overall Security Posture
+            <TechnicalLabel className="text-[#6F706D]">HEALTH COEFFICIENT</TechnicalLabel>
+            <h2 className="text-sm font-bold text-[#F1F0EB] uppercase mt-0.5">
+              POSTURE EVALUATION
             </h2>
           </div>
 
           <div className="flex items-center gap-2">
-            <PixelBadge variant="phosphor" size="md">
-              {status}
-            </PixelBadge>
+            <span className="px-2 py-0.5 bg-[#39FF14]/10 text-[#39FF14] border border-[#39FF14]/20 text-[10px] font-bold">
+              {status.toUpperCase()}
+            </span>
             <Button
               variant="outline"
               size="sm"
               onClick={() => setExplainOpen(true)}
-              className="text-xs font-mono uppercase tracking-wider h-8 gap-1.5 border-white/20 bg-[#040608] hover:border-[#00ff66]/50"
+              className="text-[11px] font-mono h-8 gap-1.5 rounded-none border-white/20 bg-transparent hover:bg-white/5 text-[#F1F0EB]"
             >
-              <HelpCircle className="w-3.5 h-3.5 text-[#00ff66]" />
-              <span>[ EXPLAIN ]</span>
+              <HelpCircle className="w-3.5 h-3.5 text-[#A6A6A0]" />
+              <span>EXPLAIN</span>
             </Button>
           </div>
         </div>
 
         {/* Main Score Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center py-4">
-          {/* Big Monospace Score Display */}
-          <div className="md:col-span-4 flex flex-col items-center justify-center text-center p-3 bg-[#040608] border border-white/10">
-            <span className="text-[10px] uppercase text-[#7e8b9b]">POSTURE_RATING</span>
-            <div className="text-4xl sm:text-5xl font-black text-[#00ff66] tracking-tight my-1">
+        <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-center py-4">
+          {/* Big Score Display */}
+          <div className="sm:col-span-4 flex flex-col items-center justify-center text-center p-4 border border-white/10 bg-[#050505]">
+            <span className="text-[10px] text-[#A6A6A0] uppercase">SCORE INDEX</span>
+            <div className="text-4xl sm:text-5xl font-bold text-[#39FF14] tracking-tight my-1 font-mono">
               {score}
             </div>
-            <span className="text-[10px] text-white/40 font-mono">/ {maxScore} PTS</span>
+            <span className="text-[11px] text-[#6F706D] font-mono">/ {maxScore} MAX</span>
 
-            <div className="mt-2 flex items-center gap-1.5 text-[11px] text-[#7e8b9b]">
+            <div className="mt-2 flex items-center gap-1 text-[11px] font-mono">
               {trend.direction === "up" ? (
-                <span className="flex items-center text-[#00ff66] font-bold">
+                <span className="flex items-center text-[#39FF14]">
                   <ArrowUpRight className="w-3.5 h-3.5" />+{trend.delta} PTS
                 </span>
               ) : trend.direction === "down" ? (
-                <span className="flex items-center text-[#ff3b30] font-bold">
+                <span className="flex items-center text-rose-400">
                   <ArrowDownRight className="w-3.5 h-3.5" />-{trend.delta} PTS
                 </span>
               ) : (
-                <span className="text-white/40">0 PTS</span>
+                <span className="text-[#A6A6A0]">0 PTS</span>
               )}
-              <span className="text-[10px]">vs {trend.period}</span>
+              <span className="text-[#6F706D]">({trend.period})</span>
             </div>
           </div>
 
           {/* Breakdown Bars */}
-          <div className="md:col-span-8 space-y-2.5">
-            <div className="flex items-center justify-between text-[11px] text-[#7e8b9b] pb-1 border-b border-white/5">
+          <div className="sm:col-span-8 space-y-2.5 text-xs">
+            <div className="flex items-center justify-between text-[10px] text-[#6F706D] uppercase pb-1 border-b border-white/10">
               <span>DOMAIN VECTOR</span>
-              <span>CONFIDENCE READINESS</span>
+              <span>INDEX</span>
             </div>
 
-            <div className="space-y-2">
-              {breakdown.map((item, idx) => (
+            <div className="space-y-2.5">
+              {breakdown.slice(0, 4).map((item, idx) => (
                 <div key={idx} className="space-y-1">
-                  <PixelStatusBar
-                    value={item.score}
-                    label={item.category}
-                    variant={item.score >= 90 ? "phosphor" : item.score >= 70 ? "cyan" : "warning"}
-                  />
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="text-[#A6A6A0] truncate max-w-[200px] uppercase">{item.category}</span>
+                    <span className="font-mono text-[#F1F0EB]">{item.score}%</span>
+                  </div>
+                  <div className="w-full h-1 bg-[#151515] overflow-hidden border border-white/5">
+                    <div
+                      className={`h-full ${
+                        item.score >= 90 ? "bg-[#39FF14]" : item.score >= 70 ? "bg-sky-400" : "bg-amber-400"
+                      }`}
+                      style={{ width: `${item.score}%` }}
+                    />
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Footer recommendation callout */}
+        {/* Bottom Recommendation */}
         {recommendation && (
-          <div className="pt-3 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-            <div className="flex items-start sm:items-center gap-2 text-[#7e8b9b]">
-              <Zap className="w-3.5 h-3.5 text-[#00ff66] shrink-0 mt-0.5 sm:mt-0" />
-              <span className="text-[11px]">
-                <strong className="text-[#f8fafc]">RECOMMENDED ACTION:</strong> {recommendation}
-              </span>
-            </div>
-            <button
-              onClick={() => setExplainOpen(true)}
-              className="inline-flex items-center gap-1 text-[11px] text-[#00ff66] hover:underline shrink-0 uppercase font-bold"
-            >
-              <span>[ VIEW 7 FACTORS ]</span>
-              <ChevronRight className="w-3 h-3" />
-            </button>
+          <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-[#A6A6A0]">
+            <span className="text-[#6F706D] uppercase">ACTION:</span>
+            <span className="truncate max-w-[340px] text-[#F1F0EB]">{recommendation}</span>
           </div>
         )}
-      </TacticalFrame>
+      </div>
 
       <ScoreExplainabilityDrawer
         isOpen={explainOpen}

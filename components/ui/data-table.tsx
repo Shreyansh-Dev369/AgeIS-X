@@ -24,9 +24,9 @@ export function DataTable<T>({
   className = "",
 }: DataTableProps<T>) {
   return (
-    <div className={cn("w-full overflow-x-auto rounded-lg border border-slate-800 bg-slate-900/60", className)}>
-      <table className="w-full text-left text-xs text-slate-300">
-        <thead className="bg-slate-950/60 text-slate-400 font-semibold uppercase tracking-wider text-[11px] border-b border-slate-800">
+    <div className={cn("w-full overflow-x-auto rounded-md border border-white/10 bg-[#04070d]", className)}>
+      <table className="w-full text-left text-xs text-slate-200">
+        <thead className="bg-[#080d16] text-slate-400 font-semibold uppercase tracking-wider text-[10px] border-b border-white/10 font-mono">
           <tr>
             {columns.map((col, idx) => (
               <th key={idx} className={cn("px-4 py-3 font-medium", col.className)}>
@@ -35,15 +35,15 @@ export function DataTable<T>({
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-800/60">
+        <tbody className="divide-y divide-white/5 font-sans">
           {data.length > 0 ? (
             data.map((item) => (
               <tr
                 key={keyExtractor(item)}
-                className="hover:bg-slate-800/30 transition-colors"
+                className="hover:bg-white/5 transition-colors"
               >
                 {columns.map((col, colIdx) => (
-                  <td key={colIdx} className={cn("px-4 py-3.5", col.className)}>
+                  <td key={colIdx} className={cn("px-4 py-3 text-xs", col.className)}>
                     {col.cell
                       ? col.cell(item)
                       : col.accessorKey
@@ -57,7 +57,7 @@ export function DataTable<T>({
             <tr>
               <td
                 colSpan={columns.length}
-                className="px-4 py-8 text-center text-slate-500"
+                className="px-4 py-8 text-center text-slate-400"
               >
                 {emptyMessage}
               </td>

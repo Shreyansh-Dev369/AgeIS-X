@@ -5,7 +5,6 @@ import Link from "next/link"
 import { useAuth } from "@/lib/auth/auth-context"
 import { AuthGuard } from "@/components/auth/auth-guard"
 import { Logo } from "@/components/design-system/logo"
-import { TacticalFrame } from "@/components/ui/tactical-frame"
 import { PixelBadge } from "@/components/ui/pixel-badge"
 import { OnboardingProgress } from "@/components/onboarding/onboarding-progress"
 import { StepWelcome } from "@/components/onboarding/steps/step-welcome"
@@ -21,7 +20,7 @@ import { Shield, Lock } from "lucide-react"
 const STEP_TITLES = [
   "Welcome",
   "Protection Scope",
-  "Primary Node",
+  "Primary Device",
   "Runtime Posture",
   "Privacy Rules",
   "MFA & Credentials",
@@ -104,29 +103,28 @@ function OnboardingContent() {
   }
 
   return (
-    <div className="min-h-screen bg-[#040608] text-[#f8fafc] flex flex-col justify-between selection:bg-[#00ff66]/30 selection:text-[#00ff66] relative overflow-hidden">
-      {/* Ambience / Background Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00ff6608_1px,transparent_1px),linear-gradient(to_bottom,#00ff6608_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none opacity-40" />
-      <div className="absolute inset-0 bg-radial-vignette pointer-events-none opacity-60" />
+    <div className="min-h-screen bg-[#04070d] text-slate-100 flex flex-col justify-between relative overflow-hidden">
+      {/* Background Subtle Grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none opacity-40" />
 
       {/* Top Header */}
-      <header className="border-b border-white/10 bg-[#080c10]/90 backdrop-blur-md px-4 sm:px-6 py-3 relative z-10">
+      <header className="border-b border-slate-800 bg-[#080d16]/90 backdrop-blur-md px-4 sm:px-6 py-3 relative z-10">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Logo href="/" size="sm" />
-            <span className="text-white/20">|</span>
+            <span className="text-slate-700">|</span>
             <PixelBadge variant="phosphor" size="sm" dot>
-              PROVISIONING_NODE
+              Device Setup
             </PixelBadge>
           </div>
 
-          <div className="flex items-center gap-3 text-xs text-[#7e8b9b] font-mono">
-            <div className="hidden sm:flex items-center gap-1.5 text-[#00f0ff]">
+          <div className="flex items-center gap-3 text-xs text-slate-400">
+            <div className="hidden sm:flex items-center gap-1.5 text-[#00e5ff]">
               <Lock className="w-3.5 h-3.5" />
-              <span className="text-[11px]">E2E ENCRYPTED PROVISIONING</span>
+              <span className="text-[11px]">Encrypted Setup</span>
             </div>
-            <span className="hidden sm:inline text-white/20">•</span>
-            <span className="text-[11px] text-white/60">NODE: {platform.toUpperCase()}</span>
+            <span className="hidden sm:inline text-slate-700">•</span>
+            <span className="text-[11px] text-slate-300 font-mono">Platform: {platform.toUpperCase()}</span>
           </div>
         </div>
       </header>
@@ -145,12 +143,7 @@ function OnboardingContent() {
         </div>
 
         {/* Dynamic Step View Container */}
-        <TacticalFrame
-          variant="panel"
-          reticles={true}
-          reticleColor="phosphor"
-          className="p-6 sm:p-8 shadow-[0_0_40px_rgba(0,0,0,0.8)] border-white/15"
-        >
+        <div className="p-6 sm:p-8 rounded-xl border border-slate-800 bg-[#080d16] shadow-2xl">
           {currentStep === 1 && (
             <StepWelcome onNext={handleNext} userEmail={user?.email} />
           )}
@@ -220,12 +213,12 @@ function OnboardingContent() {
               isSubmitting={isSubmitting}
             />
           )}
-        </TacticalFrame>
+        </div>
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 px-4 sm:px-6 py-3 text-center text-[10px] text-[#7e8b9b] font-mono bg-[#080c10]/80 relative z-10">
-        AGEIS-X SECURITY PROTOCOL V2.4 • ZERO-KNOWLEDGE POSTURE • HARDWARE ENCLAVE ATTESTATION
+      <footer className="border-t border-slate-800 px-4 sm:px-6 py-3 text-center text-[11px] text-slate-500 font-mono bg-[#080d16]/80 relative z-10">
+        AgeIS-X Security Operating System • Zero-Knowledge Core • Hardware Enclave Attestation
       </footer>
     </div>
   )

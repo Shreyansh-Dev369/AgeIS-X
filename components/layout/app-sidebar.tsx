@@ -15,25 +15,31 @@ import {
   Database,
   Settings,
   LogOut,
+  User,
 } from "lucide-react"
 import { Logo } from "@/components/design-system/logo"
-import { PixelBadge } from "@/components/ui/pixel-badge"
+import { TechnicalLabel } from "@/components/design-system/editorial-primitives"
+import { SecuritySticker } from "@/components/design-system/pixel-art-system"
+import { useAuth } from "@/lib/auth/auth-context"
 import { cn } from "@/lib/utils"
 
-export const appNavItems = [
+export const primaryNavItems = [
   { href: "/dashboard", label: "OVERVIEW", icon: LayoutDashboard },
   { href: "/dashboard/threats", label: "THREAT CENTER", icon: ShieldAlert, badge: "LIVE" },
   { href: "/dashboard/protection", label: "PROTECTION GRID", icon: ShieldCheck },
-  { href: "/dashboard/analytics", label: "ANALYTICS & INTEL", icon: BarChart3 },
   { href: "/dashboard/incidents", label: "INCIDENTS", icon: AlertOctagon },
-  { href: "/dashboard/devices", label: "DEVICES & NODES", icon: Laptop },
-  { href: "/dashboard/identity", label: "IDENTITY DEFENSE", icon: Fingerprint },
+  { href: "/dashboard/analytics", label: "ANALYTICS", icon: BarChart3 },
+]
+
+export const surfaceNavItems = [
+  { href: "/dashboard/devices", label: "DEVICES & HOSTS", icon: Laptop },
+  { href: "/dashboard/identity", label: "IDENTITY ENCLAVE", icon: Fingerprint },
   { href: "/dashboard/privacy", label: "PRIVACY SHIELD", icon: EyeOff },
   { href: "/dashboard/data", label: "DATA & QUARANTINE", icon: Database },
 ]
 
-export const appSecondaryNavItems = [
-  { href: "/dashboard/settings", label: "POLICY // SETTINGS", icon: Settings },
+export const systemNavItems = [
+  { href: "/dashboard/settings", label: "SETTINGS", icon: Settings },
 ]
 
 interface AppSidebarProps {
@@ -43,30 +49,32 @@ interface AppSidebarProps {
 
 export function AppSidebar({ className = "", onItemClick }: AppSidebarProps) {
   const pathname = usePathname()
+  const { user, signOut } = useAuth()
 
   return (
     <aside
       className={cn(
-        "flex flex-col h-full bg-[#040608] border-r border-white/10 w-64 select-none shrink-0 font-mono text-xs",
+        "flex flex-col h-full bg-[#050505] border-r border-white/10 w-64 select-none shrink-0 font-mono text-xs",
         className
       )}
     >
       {/* Sidebar Header with Brand */}
-      <div className="flex items-center justify-between h-14 px-4 border-b border-white/10 bg-[#080c10]">
+      <div className="flex items-center justify-between h-14 px-4 border-b border-white/10 bg-[#080808]">
         <Logo href="/dashboard" size="md" />
-        <PixelBadge variant="phosphor" size="sm" dot>
-          CORE
-        </PixelBadge>
+        <span className="text-[10px] font-bold px-2 py-0.5 bg-[#39FF14]/10 text-[#39FF14] border border-[#39FF14]/20">
+          CORE ACTIVE
+        </span>
       </div>
 
-      {/* Main Navigation Items */}
-      <div className="flex-1 overflow-y-auto px-2.5 py-4 space-y-5">
+      {/* Navigation Sections */}
+      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-6">
+        {/* Core Ops Navigation */}
         <div>
-          <div className="px-2 mb-2 text-[10px] font-bold uppercase tracking-wider text-[#7e8b9b]">
-            // SECURITY RUNTIME
+          <div className="px-2 mb-2">
+            <TechnicalLabel className="text-[#6F706D]">RUNTIME OPERATING SYSTEM</TechnicalLabel>
           </div>
-          <nav className="space-y-1" aria-label="Application Navigation">
-            {appNavItems.map((item) => {
+          <nav className="space-y-0.5" aria-label="Primary Security Navigation">
+            {primaryNavItems.map((item) => {
               const Icon = item.icon
               const isActive = pathname === item.href
 
@@ -76,28 +84,28 @@ export function AppSidebar({ className = "", onItemClick }: AppSidebarProps) {
                   href={item.href}
                   onClick={onItemClick}
                   className={cn(
-                    "flex items-center justify-between px-2.5 py-2 border transition-all group",
+                    "flex items-center justify-between px-2.5 py-2 transition-colors group text-xs",
                     isActive
-                      ? "bg-[#0b1017] border-[#00ff66] text-[#00ff66] font-bold shadow-[0_0_10px_rgba(0,255,102,0.15)]"
-                      : "bg-[#040608] border-transparent text-[#7e8b9b] hover:border-white/20 hover:text-[#f8fafc] hover:bg-[#080c10]"
+                      ? "bg-[#151515] text-[#39FF14] font-bold border-l-2 border-[#39FF14]"
+                      : "text-[#A6A6A0] hover:text-[#F1F0EB] hover:bg-white/[0.03]"
                   )}
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
                     <Icon
                       className={cn(
                         "w-4 h-4 shrink-0 transition-colors",
-                        isActive ? "text-[#00ff66]" : "text-[#7e8b9b] group-hover:text-[#f8fafc]"
+                        isActive ? "text-[#39FF14]" : "text-[#6F706D] group-hover:text-[#A6A6A0]"
                       )}
                     />
-                    <span className="truncate tracking-wider text-[11px]">{item.label}</span>
+                    <span className="truncate">{item.label}</span>
                   </div>
                   {item.badge && (
                     <span
                       className={cn(
-                        "text-[9px] px-1 py-0.2 font-bold uppercase border",
+                        "text-[9px] px-1.5 py-0.2 font-mono",
                         isActive
-                          ? "bg-[#00ff66]/20 border-[#00ff66] text-[#00ff66]"
-                          : "bg-white/5 border-white/10 text-white/40"
+                          ? "bg-[#39FF14]/20 text-[#39FF14]"
+                          : "bg-white/10 text-[#A6A6A0]"
                       )}
                     >
                       {item.badge}
@@ -109,12 +117,13 @@ export function AppSidebar({ className = "", onItemClick }: AppSidebarProps) {
           </nav>
         </div>
 
+        {/* Attack Surfaces */}
         <div>
-          <div className="px-2 mb-2 text-[10px] font-bold uppercase tracking-wider text-[#7e8b9b]">
-            // CONFIGURATION
+          <div className="px-2 mb-2">
+            <TechnicalLabel className="text-[#6F706D]">PROTECTED VECTORS</TechnicalLabel>
           </div>
-          <nav className="space-y-1">
-            {appSecondaryNavItems.map((item) => {
+          <nav className="space-y-0.5" aria-label="Surfaces Navigation">
+            {surfaceNavItems.map((item) => {
               const Icon = item.icon
               const isActive = pathname === item.href
 
@@ -124,19 +133,54 @@ export function AppSidebar({ className = "", onItemClick }: AppSidebarProps) {
                   href={item.href}
                   onClick={onItemClick}
                   className={cn(
-                    "flex items-center gap-2.5 px-2.5 py-2 border transition-all group",
+                    "flex items-center gap-2.5 px-2.5 py-2 transition-colors group text-xs",
                     isActive
-                      ? "bg-[#0b1017] border-[#00ff66] text-[#00ff66] font-bold shadow-[0_0_10px_rgba(0,255,102,0.15)]"
-                      : "bg-[#040608] border-transparent text-[#7e8b9b] hover:border-white/20 hover:text-[#f8fafc] hover:bg-[#080c10]"
+                      ? "bg-[#151515] text-[#39FF14] font-bold border-l-2 border-[#39FF14]"
+                      : "text-[#A6A6A0] hover:text-[#F1F0EB] hover:bg-white/[0.03]"
                   )}
                 >
                   <Icon
                     className={cn(
                       "w-4 h-4 shrink-0 transition-colors",
-                      isActive ? "text-[#00ff66]" : "text-[#7e8b9b] group-hover:text-[#f8fafc]"
+                      isActive ? "text-[#39FF14]" : "text-[#6F706D] group-hover:text-[#A6A6A0]"
                     )}
                   />
-                  <span className="truncate tracking-wider text-[11px]">{item.label}</span>
+                  <span className="truncate">{item.label}</span>
+                </Link>
+              )
+            })}
+          </nav>
+        </div>
+
+        {/* System Settings */}
+        <div>
+          <div className="px-2 mb-2">
+            <TechnicalLabel className="text-[#6F706D]">SYSTEM CONTROLS</TechnicalLabel>
+          </div>
+          <nav className="space-y-0.5" aria-label="System Navigation">
+            {systemNavItems.map((item) => {
+              const Icon = item.icon
+              const isActive = pathname === item.href
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={onItemClick}
+                  className={cn(
+                    "flex items-center gap-2.5 px-2.5 py-2 transition-colors group text-xs",
+                    isActive
+                      ? "bg-[#151515] text-[#39FF14] font-bold border-l-2 border-[#39FF14]"
+                      : "text-[#A6A6A0] hover:text-[#F1F0EB] hover:bg-white/[0.03]"
+                  )}
+                >
+                  <Icon
+                    className={cn(
+                      "w-4 h-4 shrink-0 transition-colors",
+                      isActive ? "text-[#39FF14]" : "text-[#6F706D] group-hover:text-[#A6A6A0]"
+                    )}
+                  />
+                  <span className="truncate">{item.label}</span>
                 </Link>
               )
             })}
@@ -144,26 +188,23 @@ export function AppSidebar({ className = "", onItemClick }: AppSidebarProps) {
         </div>
       </div>
 
-      {/* Bottom Operator Section */}
-      <div className="p-2.5 border-t border-white/10 bg-[#080c10]">
-        <div className="p-2 border border-white/10 bg-[#040608] flex items-center justify-between">
-          <div className="flex items-center gap-2 min-w-0">
-            <div className="w-6 h-6 border border-[#00ff66]/40 bg-[#00ff66]/10 text-[#00ff66] flex items-center justify-center font-bold text-[10px] shrink-0">
-              AX
-            </div>
-            <div className="min-w-0">
-              <p className="text-[11px] font-bold text-[#f8fafc] truncate">SECOPS_ADMIN</p>
-              <p className="text-[9px] text-[#7e8b9b] truncate">TLS 1.3 // ONLINE</p>
-            </div>
+      {/* Sidebar Footer with Sticker & User Info */}
+      <div className="p-3 border-t border-white/10 bg-[#080808] space-y-3">
+        <div className="flex justify-center">
+          <SecuritySticker type="encryption_freedom" size="sm" />
+        </div>
+        <div className="flex items-center justify-between text-[11px] text-[#A6A6A0] pt-1">
+          <div className="flex items-center gap-2 truncate">
+            <User className="w-3.5 h-3.5 text-[#39FF14]" />
+            <span className="truncate">{user?.email || "operator@local.host"}</span>
           </div>
-          <Link
-            href="/login"
-            className="p-1 border border-white/10 hover:border-[#ff3b30] hover:text-[#ff3b30] text-[#7e8b9b] transition-colors"
-            title="Terminate Session"
-            aria-label="Terminate Session"
+          <button
+            onClick={() => signOut()}
+            title="Sign out"
+            className="hover:text-rose-400 p-1 transition-colors"
           >
             <LogOut className="w-3.5 h-3.5" />
-          </Link>
+          </button>
         </div>
       </div>
     </aside>

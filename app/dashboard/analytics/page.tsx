@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react"
 import { AppShell } from "@/components/layout/app-shell"
 import { ChartContainer } from "@/components/ui/chart-container"
 import { PixelBadge } from "@/components/ui/pixel-badge"
-import { TacticalFrame } from "@/components/ui/tactical-frame"
 import { Button } from "@/components/ui/button"
 import { Drawer, DrawerContent } from "@/components/ui/drawer"
 import { MOCK_TELEMETRY_CHART_DATA, MOCK_SECURITY_SCORE } from "@/lib/mock/security-data"
@@ -33,14 +32,15 @@ import {
   ShieldCheck,
   CheckCircle2,
   X,
+  ArrowUpRight,
 } from "lucide-react"
 
 const CATEGORY_DISTRIBUTION = [
-  { name: "Phishing & URLs", value: 58, color: "#00ff66" },
-  { name: "Malware / Macros", value: 18, color: "#ff3b30" },
-  { name: "Network / C2", value: 12, color: "#00f0ff" },
+  { name: "Phishing & URLs", value: 58, color: "#00e575" },
+  { name: "Malware & Droppers", value: 18, color: "#ff4b4b" },
+  { name: "Network & C2", value: 12, color: "#00e5ff" },
   { name: "Identity Hooks", value: 8, color: "#ffb800" },
-  { name: "Trackers & Privacy", value: 4, color: "#7e8b9b" },
+  { name: "Trackers & Privacy", value: 4, color: "#64748b" },
 ]
 
 export default function AnalyticsPage() {
@@ -69,74 +69,69 @@ export default function AnalyticsPage() {
 
   return (
     <AppShell
-      title="Security Analytics & Attestation Reports"
-      breadcrumbs={[{ label: "Overview", href: "/dashboard" }, { label: "Analytics & Intel" }]}
+      title="Analytics & Reports"
+      breadcrumbs={[{ label: "Overview", href: "/dashboard" }, { label: "Analytics" }]}
     >
-      <div className="space-y-6 font-mono select-none">
+      <div className="space-y-6">
         {/* Header Summary */}
-        <TacticalFrame
-          variant="panel"
-          reticles={true}
-          reticleColor="cyan"
-          className="p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 border-white/15 bg-[#080c10]"
-        >
-          <div className="space-y-1">
+        <div className="p-5 rounded-lg border border-slate-800 bg-[#080d16] flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="space-y-1.5">
             <div className="flex items-center gap-2">
               <PixelBadge variant="cyan" size="sm" dot>
-                TELEMETRY ANALYTICS
+                Telemetry Analytics
               </PixelBadge>
-              <span className="text-[11px] text-[#00ff66]">
-                [F1 PRECISION 99.82%]
+              <span className="text-xs font-mono text-slate-400">
+                F1 Precision: 99.82%
               </span>
             </div>
-            <h2 className="text-base sm:text-lg font-bold uppercase tracking-wider text-[#f8fafc] font-sans">
+            <h1 className="text-lg font-bold text-slate-100">
               Fleet Telemetry & Vector Ingestion Analytics
-            </h2>
-            <p className="text-xs text-[#7e8b9b] max-w-2xl leading-relaxed">
-              Deterministic performance metrics, vector category distributions, and certified executive compliance reports.
+            </h1>
+            <p className="text-xs text-slate-400 max-w-2xl leading-relaxed">
+              Performance metrics, vector category distributions, and certified executive security reports.
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="p-3 bg-[#040608] border border-white/10 text-center">
-              <span className="text-[9px] uppercase text-[#7e8b9b] block">24H TELEMETRY</span>
-              <span className="text-sm font-bold text-[#00f0ff]">48.2 MB</span>
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="p-3 bg-[#04070d] rounded border border-slate-800 text-center min-w-[120px]">
+              <span className="text-[10px] uppercase font-semibold text-slate-400 block tracking-wider">24h Ingestion</span>
+              <span className="text-sm font-bold text-[#00e5ff]">48.2 MB</span>
             </div>
-            <div className="p-3 bg-[#040608] border border-white/10 text-center">
-              <span className="text-[9px] uppercase text-[#7e8b9b] block">FALSE POSITIVE</span>
-              <span className="text-sm font-bold text-[#00ff66]">0.003%</span>
+            <div className="p-3 bg-[#04070d] rounded border border-slate-800 text-center min-w-[120px]">
+              <span className="text-[10px] uppercase font-semibold text-slate-400 block tracking-wider">False Positives</span>
+              <span className="text-sm font-bold text-[#00e575]">0.003%</span>
             </div>
           </div>
-        </TacticalFrame>
+        </div>
 
         {/* 3 Metric Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <TacticalFrame variant="default" className="p-4 bg-[#080c10] border-white/10 space-y-1">
-            <div className="flex items-center justify-between text-[#7e8b9b]">
-              <span className="text-[10px] uppercase font-bold">TOTAL INGESTION VOLUME</span>
-              <BarChart3 className="w-4 h-4 text-[#00f0ff]" />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="p-4 rounded-lg bg-[#080d16] border border-slate-800 space-y-1">
+            <div className="flex items-center justify-between text-slate-400">
+              <span className="text-xs font-medium">Total Ingestion Volume</span>
+              <BarChart3 className="w-4 h-4 text-[#00e5ff]" />
             </div>
-            <div className="text-2xl font-black text-[#00f0ff] tracking-tight">48.2 MB</div>
-            <p className="text-[10px] text-[#7e8b9b]">+8.4% 24h telemetry packets</p>
-          </TacticalFrame>
+            <div className="text-2xl font-bold text-[#00e5ff] tracking-tight">48.2 MB</div>
+            <p className="text-[11px] text-slate-400">+8.4% 24h telemetry packets</p>
+          </div>
 
-          <TacticalFrame variant="default" className="p-4 bg-[#080c10] border-white/10 space-y-1">
-            <div className="flex items-center justify-between text-[#7e8b9b]">
-              <span className="text-[10px] uppercase font-bold">NEURAL PRECISION (F1)</span>
-              <TrendingUp className="w-4 h-4 text-[#00ff66]" />
+          <div className="p-4 rounded-lg bg-[#080d16] border border-slate-800 space-y-1">
+            <div className="flex items-center justify-between text-slate-400">
+              <span className="text-xs font-medium">Heuristic Precision (F1)</span>
+              <TrendingUp className="w-4 h-4 text-[#00e575]" />
             </div>
-            <div className="text-2xl font-black text-[#00ff66] tracking-tight">99.82%</div>
-            <p className="text-[10px] text-[#7e8b9b]">Verified local heuristic precision</p>
-          </TacticalFrame>
+            <div className="text-2xl font-bold text-[#00e575] tracking-tight">99.82%</div>
+            <p className="text-[11px] text-slate-400">Verified local heuristic accuracy</p>
+          </div>
 
-          <TacticalFrame variant="default" className="p-4 bg-[#080c10] border-white/10 space-y-1">
-            <div className="flex items-center justify-between text-[#7e8b9b]">
-              <span className="text-[10px] uppercase font-bold">SCORE READINESS</span>
-              <Activity className="w-4 h-4 text-[#00ff66]" />
+          <div className="p-4 rounded-lg bg-[#080d16] border border-slate-800 space-y-1">
+            <div className="flex items-center justify-between text-slate-400">
+              <span className="text-xs font-medium">Readiness Index</span>
+              <Activity className="w-4 h-4 text-[#00e575]" />
             </div>
-            <div className="text-2xl font-black text-[#f8fafc] tracking-tight">94 / 100</div>
-            <p className="text-[10px] text-[#7e8b9b]">Optimal zero-trust baseline</p>
-          </TacticalFrame>
+            <div className="text-2xl font-bold text-slate-100 tracking-tight">94 / 100</div>
+            <p className="text-[11px] text-slate-400">Optimal zero-trust baseline</p>
+          </div>
         </div>
 
         {/* Charts Grid */}
@@ -144,27 +139,26 @@ export default function AnalyticsPage() {
           {/* Main Bar Chart: Ingestion Rate */}
           <div className="lg:col-span-8">
             <ChartContainer
-              title="Hourly Incident & Vector Ingestion Rate"
-              subtitle="Distribution of anomalous activity flags against clean traffic baseline"
+              title="Hourly Ingestion & Threat Block Rate"
+              subtitle="Comparison of clean traffic baseline against blocked threats"
             >
               <div className="h-64 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={MOCK_TELEMETRY_CHART_DATA}>
                     <CartesianGrid strokeDasharray="2 2" stroke="rgba(255,255,255,0.06)" vertical={false} />
-                    <XAxis dataKey="time" stroke="#7e8b9b" fontSize={10} tickLine={false} />
-                    <YAxis stroke="#7e8b9b" fontSize={10} tickLine={false} />
+                    <XAxis dataKey="time" stroke="#64748b" fontSize={11} tickLine={false} />
+                    <YAxis stroke="#64748b" fontSize={11} tickLine={false} />
                     <Tooltip
                       contentStyle={{
-                        backgroundColor: "#040608",
+                        backgroundColor: "#04070d",
                         borderColor: "rgba(255,255,255,0.15)",
-                        borderRadius: "0px",
-                        fontSize: "11px",
-                        fontFamily: "monospace",
+                        borderRadius: "6px",
+                        fontSize: "12px",
                         color: "#f8fafc",
                       }}
                     />
-                    <Bar dataKey="cleanRequests" name="Clean Traffic" fill="#00f0ff" radius={[0, 0, 0, 0]} />
-                    <Bar dataKey="threatsBlocked" name="Threats Blocked" fill="#ff3b30" radius={[0, 0, 0, 0]} />
+                    <Bar dataKey="cleanRequests" name="Clean Traffic" fill="#00e5ff" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="threatsBlocked" name="Threats Blocked" fill="#ff4b4b" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -174,10 +168,10 @@ export default function AnalyticsPage() {
           {/* Pie / Donut Chart: Threat Distribution */}
           <div className="lg:col-span-4">
             <ChartContainer
-              title="Threat Vector Distribution"
+              title="Vector Distribution"
               subtitle="Breakdown by primary attack vector"
             >
-              <div className="h-64 w-full flex flex-col items-center justify-between font-mono text-xs">
+              <div className="h-64 w-full flex flex-col items-center justify-between text-xs">
                 <ResponsiveContainer width="100%" height={160}>
                   <PieChart>
                     <Pie
@@ -190,29 +184,29 @@ export default function AnalyticsPage() {
                       dataKey="value"
                     >
                       {CATEGORY_DISTRIBUTION.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} stroke="#040608" strokeWidth={2} />
+                        <Cell key={`cell-${index}`} fill={entry.color} stroke="#04070d" strokeWidth={2} />
                       ))}
                     </Pie>
                     <Tooltip
                       contentStyle={{
-                        backgroundColor: "#040608",
+                        backgroundColor: "#04070d",
                         borderColor: "rgba(255,255,255,0.15)",
-                        fontSize: "10px",
-                        fontFamily: "monospace",
+                        borderRadius: "6px",
+                        fontSize: "11px",
                         color: "#f8fafc",
                       }}
                     />
                   </PieChart>
                 </ResponsiveContainer>
 
-                <div className="w-full space-y-1 text-[10px] pt-2 border-t border-white/10">
+                <div className="w-full space-y-1.5 text-[11px] pt-2 border-t border-slate-800">
                   {CATEGORY_DISTRIBUTION.slice(0, 3).map((item) => (
                     <div key={item.name} className="flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-none shrink-0" style={{ backgroundColor: item.color }} />
-                        <span className="text-[#7e8b9b]">{item.name}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
+                        <span className="text-slate-400">{item.name}</span>
                       </div>
-                      <span className="text-[#f8fafc] font-bold">{item.value}%</span>
+                      <span className="text-slate-200 font-semibold">{item.value}%</span>
                     </div>
                   ))}
                 </div>
@@ -222,26 +216,21 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Security Reports Section */}
-        <TacticalFrame
-          variant="panel"
-          reticles={true}
-          reticleColor="phosphor"
-          className="p-5 space-y-4 border-white/15 bg-[#080c10]"
-        >
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/10">
+        <div className="p-5 rounded-lg space-y-4 border border-slate-800 bg-[#080d16]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
             <div className="space-y-0.5">
               <div className="flex items-center gap-2">
-                <FileText className="w-4 h-4 text-[#00ff66]" />
-                <h3 className="text-sm font-bold uppercase tracking-wider text-[#f8fafc]">
+                <FileText className="w-4 h-4 text-[#00e575]" />
+                <h2 className="text-base font-bold text-slate-100">
                   Executive Security Attestation Reports
-                </h3>
+                </h2>
               </div>
-              <p className="text-[11px] text-[#7e8b9b]">
-                Deterministic compliance summaries ready for audit and client-side JSON export.
+              <p className="text-xs text-slate-400">
+                Compliance summaries ready for review and local JSON export.
               </p>
             </div>
             <PixelBadge variant="phosphor" size="sm">
-              AUDIT READY
+              Audit Ready
             </PixelBadge>
           </div>
 
@@ -249,42 +238,43 @@ export default function AnalyticsPage() {
             {reports.map((rep) => (
               <div
                 key={rep.id}
-                className="p-4 border border-white/10 bg-[#040608] flex flex-col md:flex-row md:items-center justify-between gap-4"
+                className="p-4 rounded-lg border border-slate-800 bg-[#04070d] flex flex-col md:flex-row md:items-center justify-between gap-4"
               >
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-[#00ff66]">{rep.id}</span>
-                    <span className="text-white/20">•</span>
-                    <span className="text-xs font-bold text-[#f8fafc]">{rep.period}</span>
+                    <span className="text-xs font-mono font-bold text-[#00e575]">{rep.id}</span>
+                    <span className="text-slate-600">•</span>
+                    <span className="text-xs font-semibold text-slate-200">{rep.period}</span>
                     <PixelBadge variant="cyan" size="sm">
                       {rep.capability}
                     </PixelBadge>
                   </div>
-                  <p className="text-[11px] text-[#7e8b9b] leading-relaxed max-w-2xl">
+                  <p className="text-xs text-slate-400 leading-relaxed max-w-2xl">
                     {rep.summary}
                   </p>
-                  <div className="flex flex-wrap items-center gap-3 text-[10px] text-white/50 pt-1">
-                    <span>THREATS BLOCKED: <strong className="text-[#00ff66]">{rep.threatsBlocked}</strong></span>
+                  <div className="flex flex-wrap items-center gap-3 text-[11px] text-slate-500 pt-1">
+                    <span>Threats Blocked: <strong className="text-[#00e575] font-mono">{rep.threatsBlocked}</strong></span>
                     <span>•</span>
-                    <span>SCORE: <strong className="text-[#00f0ff]">{rep.overallScore}%</strong></span>
+                    <span>Score: <strong className="text-[#00e5ff] font-mono">{rep.overallScore}%</strong></span>
                     <span>•</span>
-                    <span>COMPLIANCE: <strong className="text-white">{rep.fleetCompliance}</strong></span>
+                    <span>Compliance: <strong className="text-slate-300">{rep.fleetCompliance}</strong></span>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-2 shrink-0">
                   <Button
                     size="sm"
+                    variant="outline"
                     onClick={() => handleOpenReport(rep)}
-                    className="text-xs font-mono uppercase tracking-wider font-bold h-8 px-3"
+                    className="text-xs h-8 px-3 border-slate-700 bg-slate-900"
                   >
-                    [ VIEW FULL REPORT ]
+                    View Report
                   </Button>
                 </div>
               </div>
             ))}
           </div>
-        </TacticalFrame>
+        </div>
       </div>
 
       {/* Security Report Detail Drawer */}
@@ -292,59 +282,59 @@ export default function AnalyticsPage() {
         <Drawer open={reportDrawerOpen} onOpenChange={(open) => !open && setReportDrawerOpen(false)}>
           <DrawerContent
             side="right"
-            className="w-full sm:max-w-xl bg-[#040608] border-l border-white/15 p-0 text-[#f8fafc] flex flex-col h-full font-mono select-none"
+            className="w-full sm:max-w-xl bg-[#04070d] border-l border-slate-800 p-0 text-slate-100 flex flex-col h-full"
           >
-            <div className="p-4 sm:p-5 border-b border-white/10 bg-[#080c10] flex items-start justify-between">
-              <div className="space-y-1">
+            <div className="p-5 border-b border-slate-800 bg-[#080d16] flex items-start justify-between">
+              <div className="space-y-1.5">
                 <div className="flex items-center gap-2">
                   <PixelBadge variant="phosphor" size="sm" dot>
-                    REPORT // {selectedReport.id}
+                    Report: {selectedReport.id}
                   </PixelBadge>
-                  <span className="text-[11px] text-[#00f0ff]">SCORE: {selectedReport.overallScore}%</span>
+                  <span className="text-xs text-[#00e5ff] font-mono">Score: {selectedReport.overallScore}%</span>
                 </div>
-                <h2 className="text-sm sm:text-base font-bold uppercase tracking-wider text-[#f8fafc] pt-1">
+                <h2 className="text-base font-bold text-slate-100">
                   Executive Security Attestation Report
                 </h2>
               </div>
               <button
                 onClick={() => setReportDrawerOpen(false)}
-                className="p-1 border border-white/10 hover:border-white/30 text-[#7e8b9b] hover:text-white transition-colors"
+                className="p-1 rounded border border-slate-800 hover:border-slate-700 text-slate-400 hover:text-white transition-colors"
                 aria-label="Close report"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 text-xs">
-              <TacticalFrame variant="default" className="p-3.5 border-white/10 bg-[#080c10] space-y-1">
-                <span className="text-[10px] text-[#00ff66] font-bold uppercase block">
-                  EXECUTIVE SUMMARY // {selectedReport.period}
+            <div className="flex-1 overflow-y-auto p-5 space-y-4 text-xs">
+              <div className="p-4 rounded-lg border border-slate-800 bg-[#080d16] space-y-1.5">
+                <span className="text-[11px] font-semibold text-[#00e575] uppercase tracking-wider block">
+                  Executive Summary ({selectedReport.period})
                 </span>
-                <p className="text-[#f8fafc] text-[11px] leading-relaxed pt-1">
+                <p className="text-slate-300 text-xs leading-relaxed">
                   {selectedReport.summary}
                 </p>
-              </TacticalFrame>
+              </div>
 
               <div className="grid grid-cols-2 gap-3">
-                <div className="p-3 border border-white/10 bg-[#080c10] space-y-1">
-                  <span className="text-[10px] text-[#7e8b9b] uppercase block">TOTAL DETECTIONS</span>
-                  <span className="text-base font-bold text-[#00ff66]">{selectedReport.threatsDetected}</span>
+                <div className="p-3.5 rounded-lg border border-slate-800 bg-[#080d16] space-y-1">
+                  <span className="text-[10px] text-slate-400 uppercase font-semibold block">Total Detections</span>
+                  <span className="text-base font-bold text-[#00e575] font-mono">{selectedReport.threatsDetected}</span>
                 </div>
-                <div className="p-3 border border-white/10 bg-[#080c10] space-y-1">
-                  <span className="text-[10px] text-[#7e8b9b] uppercase block">INCIDENTS CONTAINED</span>
-                  <span className="text-base font-bold text-[#00f0ff]">{selectedReport.incidentsResolved}</span>
+                <div className="p-3.5 rounded-lg border border-slate-800 bg-[#080d16] space-y-1">
+                  <span className="text-[10px] text-slate-400 uppercase font-semibold block">Incidents Contained</span>
+                  <span className="text-base font-bold text-[#00e5ff] font-mono">{selectedReport.incidentsResolved}</span>
                 </div>
               </div>
 
               {/* Key Findings List */}
-              <div className="p-3.5 border border-white/10 bg-[#080c10] space-y-2">
-                <span className="text-[10px] text-[#00f0ff] font-bold uppercase block">
-                  VERIFIED AUDIT FINDINGS
+              <div className="p-4 rounded-lg border border-slate-800 bg-[#080d16] space-y-2.5">
+                <span className="text-[11px] text-slate-300 uppercase font-semibold block">
+                  Verified Audit Findings
                 </span>
-                <div className="space-y-1.5">
+                <div className="space-y-2">
                   {selectedReport.keyFindings.map((finding, idx) => (
-                    <div key={idx} className="flex items-start gap-2 text-[11px] text-[#f8fafc]">
-                      <span className="text-[#00ff66] font-bold shrink-0">[✓]</span>
+                    <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-200">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#00e575] shrink-0 mt-0.5" />
                       <span>{finding}</span>
                     </div>
                   ))}
@@ -352,29 +342,29 @@ export default function AnalyticsPage() {
               </div>
 
               {exportNotice && (
-                <div className="p-2.5 bg-[#00ff66]/10 border border-[#00ff66]/40 text-[#00ff66] text-[11px] flex items-center gap-2">
+                <div className="p-3 bg-[#00e575]/10 border border-[#00e575]/30 text-[#00e575] rounded-lg text-xs flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 shrink-0" />
-                  <span>Report exported successfully to client device.</span>
+                  <span>Report exported successfully as JSON.</span>
                 </div>
               )}
             </div>
 
-            <div className="p-4 border-t border-white/10 bg-[#080c10] flex items-center justify-between">
+            <div className="p-4 border-t border-slate-800 bg-[#080d16] flex items-center justify-between">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={handleExportJSON}
-                className="text-xs font-mono uppercase tracking-wider h-8 px-3 border-white/20 gap-1.5"
+                className="text-xs h-8 px-3 border-slate-700 bg-slate-900 gap-1.5"
               >
-                <Download className="w-3.5 h-3.5 text-[#00ff66]" />
-                <span>[ EXPORT JSON ]</span>
+                <Download className="w-3.5 h-3.5 text-[#00e575]" />
+                <span>Export JSON</span>
               </Button>
               <Button
                 size="sm"
                 onClick={() => setReportDrawerOpen(false)}
-                className="text-xs font-mono uppercase tracking-wider font-bold h-8 px-4"
+                className="text-xs font-medium h-8 px-4"
               >
-                [ CLOSE REPORT ]
+                Close Report
               </Button>
             </div>
           </DrawerContent>

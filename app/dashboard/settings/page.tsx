@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import { Toggle } from "@/components/ui/toggle"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { PixelBadge } from "@/components/ui/pixel-badge"
-import { TacticalFrame } from "@/components/ui/tactical-frame"
 import { useAuth } from "@/lib/auth/auth-context"
 import { authService } from "@/lib/auth/auth-service"
 import { UserSession } from "@/types/auth"
@@ -112,30 +111,30 @@ export default function SettingsPage() {
 
   return (
     <AppShell
-      title="Security Policy & System Settings"
-      breadcrumbs={[{ label: "Overview", href: "/dashboard" }, { label: "Settings // Policy" }]}
+      title="Settings & Policies"
+      breadcrumbs={[{ label: "Overview", href: "/dashboard" }, { label: "Settings" }]}
     >
-      <div className="space-y-6 max-w-5xl font-mono select-none">
+      <div className="space-y-6 max-w-4xl">
         {notification && (
-          <div className="p-3 border border-[#00ff66]/40 bg-[#00ff66]/10 text-[#00ff66] text-xs flex items-center justify-between">
+          <div className="p-3.5 rounded-lg border border-[#00e575]/40 bg-[#00e575]/10 text-[#00e575] text-xs flex items-center justify-between">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4" />
               <span>{notification}</span>
             </div>
-            <button onClick={() => setNotification(null)} className="text-[#7e8b9b] hover:text-white text-xs">
-              [ DISMISS ]
+            <button onClick={() => setNotification(null)} className="text-slate-400 hover:text-white text-xs">
+              Dismiss
             </button>
           </div>
         )}
 
         {/* Navigation Tabs */}
-        <div className="flex items-center gap-1 border-b border-white/10 pb-px overflow-x-auto text-xs">
+        <div className="flex items-center gap-1 border-b border-slate-800 pb-px overflow-x-auto text-xs">
           {[
-            { id: "account" as const, label: "MASTER IDENTITY", icon: User },
-            { id: "mfa" as const, label: "MFA // PASSKEYS", icon: KeyRound },
-            { id: "sessions" as const, label: `SESSIONS (${sessions.length})`, icon: Laptop },
-            { id: "privacy" as const, label: "PRIVACY // TELEMETRY", icon: EyeOff },
-            { id: "daemon" as const, label: "ENGINE // DAEMON", icon: Shield },
+            { id: "account" as const, label: "Identity Profile", icon: User },
+            { id: "mfa" as const, label: "MFA & Passkeys", icon: KeyRound },
+            { id: "sessions" as const, label: `Active Sessions (${sessions.length})`, icon: Laptop },
+            { id: "privacy" as const, label: "Privacy Controls", icon: EyeOff },
+            { id: "daemon" as const, label: "Engine & Daemon", icon: Shield },
           ].map((tab) => {
             const Icon = tab.icon
             const isActive = activeTab === tab.id
@@ -145,10 +144,10 @@ export default function SettingsPage() {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-3.5 py-2 uppercase font-bold transition-all flex items-center gap-2 shrink-0 border-t border-x ${
+                className={`px-4 py-2.5 rounded-t-lg font-medium transition-all flex items-center gap-2 shrink-0 border-t border-x ${
                   isActive
-                    ? "bg-[#080c10] border-white/20 text-[#00ff66] shadow-[0_0_8px_rgba(0,255,102,0.15)]"
-                    : "bg-[#040608] border-transparent text-[#7e8b9b] hover:text-[#f8fafc] hover:bg-[#080c10]"
+                    ? "bg-[#080d16] border-slate-800 text-[#00e575]"
+                    : "bg-transparent border-transparent text-slate-400 hover:text-slate-200 hover:bg-[#080d16]/50"
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -161,162 +160,162 @@ export default function SettingsPage() {
         {/* Tab 1: Master Identity Profile */}
         {activeTab === "account" && (
           <div className="space-y-4">
-            <TacticalFrame variant="panel" className="p-6 space-y-4 border-white/15 bg-[#080c10]">
-              <div className="flex items-center justify-between pb-3 border-b border-white/10">
-                <div className="flex items-center gap-2">
-                  <User className="w-4 h-4 text-[#00ff66]" />
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#f8fafc]">Master Security Identity</h3>
+            <div className="p-6 rounded-lg space-y-5 border border-slate-800 bg-[#080d16]">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                <div className="flex items-center gap-2.5">
+                  <User className="w-4 h-4 text-[#00e575]" />
+                  <h2 className="text-sm font-bold text-slate-100">Master Security Identity</h2>
                 </div>
                 <PixelBadge variant="phosphor" size="sm">
-                  IDENTITY ACTIVE
+                  Active
                 </PixelBadge>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div className="space-y-1.5">
-                  <label className="text-[11px] text-[#7e8b9b] uppercase block">OPERATOR_HANDLE</label>
+                  <label className="text-xs text-slate-400 font-medium block">Full Name / Handle</label>
                   <Input
                     defaultValue={user?.name || "SecOps Administrator"}
                     readOnly
-                    className="bg-[#040608]"
+                    className="bg-[#04070d]"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[11px] text-[#7e8b9b] uppercase block">MASTER_EMAIL</label>
+                  <label className="text-xs text-slate-400 font-medium block">Registered Email</label>
                   <Input
                     defaultValue={user?.email || "admin@ageis-x.corp"}
                     readOnly
-                    className="bg-[#040608]"
+                    className="bg-[#04070d]"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[11px] text-[#7e8b9b] uppercase block">PERMISSION_TIER</label>
+                  <label className="text-xs text-slate-400 font-medium block">Permission Tier</label>
                   <Input
-                    defaultValue={user?.role?.toUpperCase() || "SECOPS_LEAD"}
+                    defaultValue={user?.role?.toUpperCase() || "SECOPS LEAD"}
                     readOnly
-                    className="bg-[#040608] text-[#00f0ff]"
+                    className="bg-[#04070d] text-[#00e5ff] font-mono"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[11px] text-[#7e8b9b] uppercase block">ACCOUNT_UUID</label>
+                  <label className="text-xs text-slate-400 font-medium block">Account Identifier</label>
                   <Input
                     defaultValue={user?.id || "usr_core_894f2"}
                     readOnly
-                    className="bg-[#040608] text-[#7e8b9b]"
+                    className="bg-[#04070d] text-slate-400 font-mono"
                   />
                 </div>
               </div>
-            </TacticalFrame>
+            </div>
 
-            <TacticalFrame variant="default" className="p-4 bg-[#080c10] border-white/10 flex items-center justify-between">
+            <div className="p-4 rounded-lg bg-[#080d16] border border-slate-800 flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold uppercase text-[#f8fafc]">TERMINATE ALL ACTIVE SESSIONS</p>
-                <p className="text-[10px] text-[#7e8b9b]">Terminates all operator sessions and purges local cryptographic cache.</p>
+                <p className="text-xs font-semibold text-slate-200">Sign Out of All Sessions</p>
+                <p className="text-[11px] text-slate-400">Terminates all operator sessions and purges local cryptographic cache.</p>
               </div>
               <Button
                 variant="outline"
                 onClick={() => signOut()}
-                className="border-[#ff3b30]/40 text-[#ff3b30] hover:bg-[#ff3b30]/10 text-xs font-mono uppercase tracking-wider h-8"
+                className="border-[#ff4b4b]/40 text-[#ff4b4b] hover:bg-[#ff4b4b]/10 text-xs h-8"
               >
-                <LogOut className="w-3.5 h-3.5 mr-1" />
-                <span>[ SIGN OUT ]</span>
+                <LogOut className="w-3.5 h-3.5 mr-1.5" />
+                <span>Sign Out</span>
               </Button>
-            </TacticalFrame>
+            </div>
           </div>
         )}
 
         {/* Tab 2: MFA & Passkeys */}
         {activeTab === "mfa" && (
           <div className="space-y-4">
-            <TacticalFrame variant="panel" className="p-6 space-y-4 border-white/15 bg-[#080c10]">
-              <div className="flex items-center justify-between pb-3 border-b border-white/10">
-                <div className="flex items-center gap-2">
-                  <KeyRound className="w-4 h-4 text-[#00ff66]" />
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#f8fafc]">Multi-Factor Credentials</h3>
+            <div className="p-6 rounded-lg space-y-5 border border-slate-800 bg-[#080d16]">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                <div className="flex items-center gap-2.5">
+                  <KeyRound className="w-4 h-4 text-[#00e575]" />
+                  <h2 className="text-sm font-bold text-slate-100">Multi-Factor Credentials</h2>
                 </div>
                 <PixelBadge variant="phosphor" size="sm">
-                  ENFORCED
+                  Enforced
                 </PixelBadge>
               </div>
 
               <div className="space-y-3 text-xs">
-                <div className="p-3.5 bg-[#040608] border border-white/10 flex items-center justify-between">
+                <div className="p-4 bg-[#04070d] rounded-lg border border-slate-800 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 border border-[#00ff66]/30 bg-[#00ff66]/10 text-[#00ff66] flex items-center justify-center">
+                    <div className="w-9 h-9 rounded-lg border border-[#00e575]/30 bg-[#00e575]/10 text-[#00e575] flex items-center justify-center">
                       <KeyRound className="w-4 h-4" />
                     </div>
                     <div>
-                      <p className="font-bold uppercase text-[#f8fafc]">FIDO2 WEBAUTHN PASSKEY</p>
-                      <p className="text-[10px] text-[#7e8b9b]">Biometric Secure Enclave / Hardware Token YubiKey</p>
+                      <p className="font-semibold text-slate-100">FIDO2 WebAuthn Passkey</p>
+                      <p className="text-[11px] text-slate-400">Biometric Secure Enclave / Hardware Token YubiKey</p>
                     </div>
                   </div>
                   <PixelBadge variant="phosphor" size="sm">
-                    PRIMARY FACTOR
+                    Primary Factor
                   </PixelBadge>
                 </div>
 
-                <div className="p-3.5 bg-[#040608] border border-white/10 flex items-center justify-between">
+                <div className="p-4 bg-[#04070d] rounded-lg border border-slate-800 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 border border-white/10 bg-[#080c10] text-[#7e8b9b] flex items-center justify-center">
+                    <div className="w-9 h-9 rounded-lg border border-slate-800 bg-[#080d16] text-slate-400 flex items-center justify-center">
                       <Smartphone className="w-4 h-4" />
                     </div>
                     <div>
-                      <p className="font-bold uppercase text-[#f8fafc]">TOTP AUTHENTICATOR APP</p>
-                      <p className="text-[10px] text-[#7e8b9b]">1Password / Google Authenticator Dynamic 6-Digit Code</p>
+                      <p className="font-semibold text-slate-100">TOTP Authenticator App</p>
+                      <p className="text-[11px] text-slate-400">1Password / Google Authenticator Dynamic 6-Digit Code</p>
                     </div>
                   </div>
-                  <Button variant="outline" className="text-xs font-mono uppercase tracking-wider h-8 border-white/20">
-                    [ CONFIGURE ]
+                  <Button variant="outline" className="text-xs h-8 border-slate-700 bg-slate-900">
+                    Configure
                   </Button>
                 </div>
               </div>
-            </TacticalFrame>
+            </div>
           </div>
         )}
 
         {/* Tab 3: Active Sessions */}
         {activeTab === "sessions" && (
           <div className="space-y-4">
-            <TacticalFrame variant="panel" className="p-6 space-y-4 border-white/15 bg-[#080c10]">
-              <div className="flex items-center justify-between pb-3 border-b border-white/10">
+            <div className="p-6 rounded-lg space-y-5 border border-slate-800 bg-[#080d16]">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#f8fafc]">Authenticated Hardware Sessions</h3>
-                  <p className="text-[10px] text-[#7e8b9b]">Manage endpoints authorized to access your security telemetry.</p>
+                  <h2 className="text-sm font-bold text-slate-100">Authenticated Device Sessions</h2>
+                  <p className="text-xs text-slate-400">Manage endpoints authorized to access your security telemetry.</p>
                 </div>
                 {sessions.length > 1 && (
                   <Button
                     variant="outline"
                     onClick={handleRevokeAllOther}
                     disabled={revokingId === "all"}
-                    className="border-[#ff3b30]/40 text-[#ff3b30] hover:bg-[#ff3b30]/10 text-xs font-mono uppercase tracking-wider h-8 gap-1.5"
+                    className="border-[#ff4b4b]/40 text-[#ff4b4b] hover:bg-[#ff4b4b]/10 text-xs h-8 gap-1.5"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
-                    <span>[ REVOKE OTHER SESSIONS ]</span>
+                    <span>Revoke Other Sessions</span>
                   </Button>
                 )}
               </div>
 
               {loadingSessions ? (
-                <div className="py-8 text-center text-xs text-[#7e8b9b] flex items-center justify-center gap-2">
-                  <RefreshCw className="w-4 h-4 animate-spin text-[#00ff66]" />
-                  <span>LOADING SESSION CACHE...</span>
+                <div className="py-8 text-center text-xs text-slate-400 flex items-center justify-center gap-2">
+                  <RefreshCw className="w-4 h-4 animate-spin text-[#00e575]" />
+                  <span>Loading active sessions...</span>
                 </div>
               ) : (
-                <div className="space-y-2 text-xs">
+                <div className="space-y-2.5 text-xs">
                   {sessions.map((ses) => (
                     <div
                       key={ses.id}
-                      className="p-3.5 bg-[#040608] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+                      className="p-4 bg-[#04070d] rounded-lg border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
                     >
                       <div className="flex items-center gap-3">
                         <div
-                          className={`w-8 h-8 border flex items-center justify-center ${
+                          className={`w-9 h-9 rounded-lg border flex items-center justify-center ${
                             ses.device.isCurrent
-                              ? "bg-[#00ff66]/10 border-[#00ff66] text-[#00ff66]"
-                              : "bg-[#080c10] border-white/10 text-[#7e8b9b]"
+                              ? "bg-[#00e575]/10 border-[#00e575]/40 text-[#00e575]"
+                              : "bg-[#080d16] border-slate-800 text-slate-400"
                           }`}
                         >
                           {ses.device.platform === "iOS" || ses.device.platform === "Android" ? (
@@ -327,17 +326,17 @@ export default function SettingsPage() {
                         </div>
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="font-bold text-[#f8fafc]">{ses.device.name}</span>
+                            <span className="font-semibold text-slate-100">{ses.device.name}</span>
                             {ses.device.isCurrent && (
                               <PixelBadge variant="phosphor" size="sm">
-                                THIS DEVICE
+                                This Device
                               </PixelBadge>
                             )}
                           </div>
-                          <div className="flex items-center gap-2 text-[10px] text-[#7e8b9b] mt-0.5">
+                          <div className="flex items-center gap-2 text-[11px] text-slate-400 mt-0.5">
                             <span>{ses.device.browser}</span>
                             <span>•</span>
-                            <span>{ses.device.ip}</span>
+                            <span className="font-mono">{ses.device.ip}</span>
                             <span>•</span>
                             <span>{ses.device.location || "Local"}</span>
                           </div>
@@ -345,15 +344,15 @@ export default function SettingsPage() {
                       </div>
 
                       <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
-                        <span className="text-[10px] text-[#7e8b9b]">{ses.device.lastActive}</span>
+                        <span className="text-[11px] font-mono text-slate-400">{ses.device.lastActive}</span>
                         {!ses.device.isCurrent && (
                           <Button
                             variant="outline"
                             onClick={() => handleRevokeSession(ses.id)}
                             disabled={revokingId === ses.id}
-                            className="border-white/10 hover:border-[#ff3b30] hover:text-[#ff3b30] text-xs h-7 px-2"
+                            className="border-slate-800 hover:border-[#ff4b4b] hover:text-[#ff4b4b] text-xs h-7 px-2.5"
                           >
-                            {revokingId === ses.id ? "REVOKING..." : "[ REVOKE ]"}
+                            {revokingId === ses.id ? "Revoking..." : "Revoke"}
                           </Button>
                         )}
                       </div>
@@ -361,24 +360,24 @@ export default function SettingsPage() {
                   ))}
                 </div>
               )}
-            </TacticalFrame>
+            </div>
           </div>
         )}
 
         {/* Tab 4: Privacy & Telemetry */}
         {activeTab === "privacy" && (
           <form onSubmit={handleSavePreferences} className="space-y-4">
-            <TacticalFrame variant="panel" className="p-6 space-y-4 border-white/15 bg-[#080c10]">
-              <div className="flex items-center gap-2 pb-3 border-b border-white/10">
-                <EyeOff className="w-4 h-4 text-[#00ff66]" />
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#f8fafc]">Zero-Knowledge Privacy Controls</h3>
+            <div className="p-6 rounded-lg space-y-5 border border-slate-800 bg-[#080d16]">
+              <div className="flex items-center gap-2.5 pb-3 border-b border-slate-800">
+                <EyeOff className="w-4 h-4 text-[#00e575]" />
+                <h2 className="text-sm font-bold text-slate-100">Zero-Knowledge Privacy Controls</h2>
               </div>
 
-              <div className="space-y-3 text-xs">
-                <div className="p-3.5 bg-[#040608] border border-white/10 flex items-center justify-between">
+              <div className="space-y-3.5 text-xs">
+                <div className="p-4 bg-[#04070d] rounded-lg border border-slate-800 flex items-center justify-between">
                   <div>
-                    <p className="font-bold uppercase text-[#f8fafc]">LOCAL MACHINE LEARNING INGESTION</p>
-                    <p className="text-[10px] text-[#7e8b9b]">Execute heuristics locally without raw telemetry egress.</p>
+                    <p className="font-semibold text-slate-100">Local Heuristic Execution</p>
+                    <p className="text-xs text-slate-400 mt-0.5">Execute threat models locally without raw payload egress.</p>
                   </div>
                   <Toggle
                     checked={privacyPrefs.localProcessingOnly}
@@ -387,10 +386,10 @@ export default function SettingsPage() {
                   />
                 </div>
 
-                <div className="p-3.5 bg-[#040608] border border-white/10 flex items-center justify-between">
+                <div className="p-4 bg-[#04070d] rounded-lg border border-slate-800 flex items-center justify-between">
                   <div>
-                    <p className="font-bold uppercase text-[#f8fafc]">ANONYMOUS THREAT-HASH TELEMETRY</p>
-                    <p className="text-[10px] text-[#7e8b9b]">Contribute one-way SHA-256 signatures to consensus network.</p>
+                    <p className="font-semibold text-slate-100">Anonymous Threat-Hash Sharing</p>
+                    <p className="text-xs text-slate-400 mt-0.5">Contribute one-way SHA-256 signatures to the threat intelligence network.</p>
                   </div>
                   <Toggle
                     checked={privacyPrefs.anonymousThreatHashSharing}
@@ -399,10 +398,10 @@ export default function SettingsPage() {
                   />
                 </div>
 
-                <div className="p-3.5 bg-[#040608] border border-white/10 flex items-center justify-between">
+                <div className="p-4 bg-[#04070d] rounded-lg border border-slate-800 flex items-center justify-between">
                   <div>
-                    <p className="font-bold uppercase text-[#f8fafc]">AUTONOMOUS QUARANTINE PROMPTS</p>
-                    <p className="text-[10px] text-[#7e8b9b]">Prompt operator before auto-isolating suspect binaries.</p>
+                    <p className="font-semibold text-slate-100">Autonomous Quarantine Prompts</p>
+                    <p className="text-xs text-slate-400 mt-0.5">Prompt operator before isolating newly flagged suspicious binaries.</p>
                   </div>
                   <Toggle
                     checked={privacyPrefs.automaticQuarantinePrompt}
@@ -411,16 +410,16 @@ export default function SettingsPage() {
                   />
                 </div>
               </div>
-            </TacticalFrame>
+            </div>
 
             <div className="flex items-center justify-between pt-2">
-              <Button type="submit" className="text-xs font-mono uppercase tracking-wider font-bold h-9 px-4 gap-2">
-                <Save className="w-3.5 h-3.5" />
-                <span>[ SAVE PRIVACY SETTINGS ]</span>
+              <Button type="submit" className="text-xs font-medium h-9 px-4 gap-2 bg-[#00e575] text-[#04070d] hover:bg-[#00c966]">
+                <Save className="w-4 h-4" />
+                <span>Save Privacy Settings</span>
               </Button>
               {saved && (
                 <PixelBadge variant="phosphor" size="sm">
-                  SAVED
+                  Saved Successfully
                 </PixelBadge>
               )}
             </div>
@@ -430,20 +429,20 @@ export default function SettingsPage() {
         {/* Tab 5: Local Daemon & Engine Settings */}
         {activeTab === "daemon" && (
           <form onSubmit={handleSavePreferences} className="space-y-4">
-            <TacticalFrame variant="panel" className="p-6 space-y-4 border-white/15 bg-[#080c10]">
-              <div className="flex items-center gap-2 pb-3 border-b border-white/10">
-                <Bell className="w-4 h-4 text-[#00f0ff]" />
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#f8fafc]">Engine Sensitivity & Local Daemon</h3>
+            <div className="p-6 rounded-lg space-y-5 border border-slate-800 bg-[#080d16]">
+              <div className="flex items-center gap-2.5 pb-3 border-b border-slate-800">
+                <Bell className="w-4 h-4 text-[#00e5ff]" />
+                <h2 className="text-sm font-bold text-slate-100">Engine Sensitivity & Local Daemon</h2>
               </div>
 
               <div className="space-y-4 text-xs">
                 <div className="space-y-1.5">
-                  <label className="text-[11px] uppercase text-[#7e8b9b] block">INFERENCE ALERT THRESHOLD</label>
+                  <label className="text-xs text-slate-400 font-medium block">Inference Sensitivity Threshold</label>
                   <Select defaultValue="strict">
-                    <SelectTrigger className="w-full sm:w-72 bg-[#040608] border-white/15 text-xs font-mono">
+                    <SelectTrigger className="w-full sm:w-72 bg-[#04070d] border-slate-800 text-xs">
                       <SelectValue placeholder="Select threshold" />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#080c10] border-white/15 text-xs font-mono text-[#f8fafc]">
+                    <SelectContent className="bg-[#080d16] border-slate-800 text-xs text-slate-100">
                       <SelectItem value="aggressive">Aggressive (Block &gt; 50% probability)</SelectItem>
                       <SelectItem value="strict">Standard Strict (Block &gt; 70% probability)</SelectItem>
                       <SelectItem value="permissive">Passive Logging Only</SelectItem>
@@ -452,24 +451,24 @@ export default function SettingsPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[11px] uppercase text-[#7e8b9b] block">LOCAL DAEMON INGESTION URL</label>
+                  <label className="text-xs text-slate-400 font-medium block">Local Daemon Ingestion URL</label>
                   <Input
                     defaultValue="http://127.0.0.1:8000"
-                    className="font-mono bg-[#040608]"
+                    className="font-mono bg-[#04070d]"
                   />
-                  <p className="text-[10px] text-[#7e8b9b]">Localhost inference daemon port for `/predict` calls.</p>
+                  <p className="text-[11px] text-slate-400">Localhost inference daemon port for `/predict` calls.</p>
                 </div>
               </div>
-            </TacticalFrame>
+            </div>
 
             <div className="flex items-center justify-between pt-2">
-              <Button type="submit" className="text-xs font-mono uppercase tracking-wider font-bold h-9 px-4 gap-2">
-                <Save className="w-3.5 h-3.5" />
-                <span>[ SAVE DAEMON CONFIGURATION ]</span>
+              <Button type="submit" className="text-xs font-medium h-9 px-4 gap-2 bg-[#00e575] text-[#04070d] hover:bg-[#00c966]">
+                <Save className="w-4 h-4" />
+                <span>Save Daemon Configuration</span>
               </Button>
               {saved && (
                 <PixelBadge variant="phosphor" size="sm">
-                  SAVED
+                  Saved Successfully
                 </PixelBadge>
               )}
             </div>

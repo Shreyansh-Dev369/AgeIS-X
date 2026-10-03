@@ -6,7 +6,6 @@ import { AuthLayout } from "@/components/auth/auth-layout"
 import { GuestGuard } from "@/components/auth/auth-guard"
 import { AuthErrorBanner } from "@/components/auth/auth-error-banner"
 import { PasswordStrengthMeter, evaluatePassword } from "@/components/auth/password-strength-meter"
-import { TerminalPrompt } from "@/components/ui/terminal-prompt"
 import { Input } from "@/components/ui/input"
 import { PasswordInput } from "@/components/ui/password-input"
 import { Button } from "@/components/ui/button"
@@ -34,58 +33,53 @@ export default function SignupPage() {
   return (
     <GuestGuard>
       <AuthLayout
-        title="Initialize Security Identity"
-        subtitle="Provision a zero-knowledge master account across your endpoints, identities, and network"
+        title="Create Security Account"
+        subtitle="Provision zero-knowledge protection across your devices, identities, and network"
         footerPrompt={{
-          text: "Already provisioned?",
-          linkText: "[ AUTHENTICATE HERE ]",
+          text: "Already have an account?",
+          linkText: "Sign in here",
           href: "/login",
         }}
       >
-        <div className="space-y-4 font-mono text-xs">
+        <div className="space-y-4 text-xs">
           <AuthErrorBanner error={error} onDismiss={clearError} />
-
-          {/* Terminal Command Header */}
-          <div className="pb-2 border-b border-white/10">
-            <TerminalPrompt command="provision.agent --register --entity=operator" />
-          </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-[11px] uppercase tracking-wider text-[#7e8b9b] block">
-                ENTITY_NAME // OPERATOR_HANDLE
+              <label className="text-xs text-slate-400 font-medium block">
+                Full Name
               </label>
               <Input
                 type="text"
                 placeholder="Alex Mercer"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                icon={<User className="w-4 h-4 text-[#7e8b9b]" />}
+                icon={<User className="w-4 h-4 text-slate-400" />}
                 autoComplete="name"
                 required
-                className="bg-[#040608]"
+                className="bg-[#04070d]"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[11px] uppercase tracking-wider text-[#7e8b9b] block">
-                WORK_EMAIL // PRIMARY_ROUTING
+              <label className="text-xs text-slate-400 font-medium block">
+                Email Address
               </label>
               <Input
                 type="email"
                 placeholder="alex@company.corp"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                icon={<Mail className="w-4 h-4 text-[#7e8b9b]" />}
+                icon={<Mail className="w-4 h-4 text-slate-400" />}
                 autoComplete="email"
                 required
-                className="bg-[#040608]"
+                className="bg-[#04070d]"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[11px] uppercase tracking-wider text-[#7e8b9b] block">
-                PASSPHRASE // MASTER_KEY
+              <label className="text-xs text-slate-400 font-medium block">
+                Master Password
               </label>
               <PasswordInput
                 value={password}
@@ -93,7 +87,7 @@ export default function SignupPage() {
                 placeholder="Minimum 8 characters"
                 autoComplete="new-password"
                 required
-                className="bg-[#040608]"
+                className="bg-[#04070d]"
               />
               <PasswordStrengthMeter password={password} />
             </div>
@@ -107,29 +101,29 @@ export default function SignupPage() {
               />
               <label
                 htmlFor="terms"
-                className="text-[11px] text-[#7e8b9b] cursor-pointer leading-tight select-none"
+                className="text-xs text-slate-400 cursor-pointer leading-tight select-none"
               >
-                I attest to the{" "}
-                <Link href="/about" className="text-[#00ff66] hover:underline font-semibold">
+                I agree to the{" "}
+                <Link href="/about" className="text-[#00e575] hover:underline font-medium">
                   Zero-Knowledge Privacy Policy
                 </Link>{" "}
-                and Security Attestation Terms.
+                and Terms of Service.
               </label>
             </div>
 
             <Button
               type="submit"
               disabled={isLoading || !email || !isPasswordValid || !agreedToTerms}
-              className="w-full h-10 font-mono text-xs uppercase tracking-wider font-bold mt-2"
+              className="w-full h-10 text-xs font-semibold mt-2 bg-[#00e575] text-[#04070d] hover:bg-[#00c966]"
             >
               {isLoading ? (
                 <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin text-[#040608]" />
-                  PROVISIONING ACCOUNT...
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin text-[#04070d]" />
+                  Creating Account...
                 </>
               ) : (
                 <>
-                  [ INITIALIZE IDENTITY ]
+                  Create Account
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </>
               )}
