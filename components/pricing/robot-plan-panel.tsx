@@ -87,10 +87,10 @@ export function RobotPlanPanel({
           </span>
         </div>
 
-        {/* Tactical Sub-header & Coordinates */}
-        <div className="flex items-center justify-between text-[9px] text-[#6F706D]">
-          <span className="truncate max-w-[140px] uppercase font-mono">{plan.tagline}</span>
-          <span className="shrink-0">{plan.coordinates}</span>
+        {/* Sub-header & Allocation */}
+        <div className="flex items-center justify-between text-[9px] text-[#A6A6A0]">
+          <span className="truncate max-w-[150px] uppercase font-mono">{plan.tagline}</span>
+          <span className="shrink-0 font-bold text-[#F1F0EB]">{plan.devicesLabel}</span>
         </div>
 
         {/* Robot Portrait Visual Canvas with Oversized Typography Fragment */}

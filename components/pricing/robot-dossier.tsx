@@ -45,7 +45,7 @@ export function RobotDossier({ activePlanId, onSelectPlan }: RobotDossierProps) 
           <span>04</span>
           <span className="text-white/20">/</span>
           <span className="text-[#A6A6A0] uppercase tracking-widest">
-            CLASSIFIED TELEMETRY
+            UNIT ARCHIVE SPECIFICATIONS
           </span>
         </div>
 
@@ -55,13 +55,13 @@ export function RobotDossier({ activePlanId, onSelectPlan }: RobotDossierProps) 
               AGEIS-X / UNIT DATABASE
             </h2>
             <p className="text-xs sm:text-sm text-[#A6A6A0] font-sans mt-2 max-w-xl">
-              Declassified hardware specifications, sensor telemetry envelopes, and defense heuristic engines powering each security unit.
+              Hardware specifications, sensor payload envelopes, and defense heuristic engines powering each security unit.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
             <span className="text-[10px] text-[#39FF14] bg-[#39FF14]/10 border border-[#39FF14]/30 px-2 py-1 uppercase">
-              CONFIDENTIAL // DOSSIER 4.9
+              SPECIFICATION // RELEASE 2026.4
             </span>
           </div>
         </div>
@@ -108,13 +108,13 @@ export function RobotDossier({ activePlanId, onSelectPlan }: RobotDossierProps) 
             {/* Top Badge */}
             <div className="flex items-center justify-between border-b border-white/10 pb-3 text-xs">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-[#39FF14] inline-block animate-pulse" />
+                <span className="w-2 h-2 bg-[#39FF14] inline-block" />
                 <span className="font-bold text-[#F1F0EB] uppercase">
                   {plan.robotName}
                 </span>
               </div>
               <span className="text-[10px] text-[#A6A6A0] uppercase font-mono">
-                {plan.coordinates}
+                {plan.devicesLabel}
               </span>
             </div>
 
