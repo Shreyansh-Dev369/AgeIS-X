@@ -4,7 +4,7 @@ import { Inter, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { AppWrapper } from "@/components/app-wrapper"
-import "./globals.css";
+import "./globals.css"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,36 +20,32 @@ const jetbrainsMono = JetBrains_Mono({
   preload: true,
 })
 
-const siteUrl = "https://aegis-x.com"
+const siteUrl = "https://ageis-x.com"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "AgeIS-X | AI-Powered Phishing & Fraud Protection Platform",
+    default: "AgeIS-X | Autonomous Digital Defense Platform",
     template: "%s | AgeIS-X",
   },
   description:
-    "Enterprise-grade AI cybersecurity platform protecting against phishing, malware, and online fraud. Real-time URL scanning with 99.8% accuracy using advanced NLP, TF-IDF vectorization & machine learning. Trusted by 500+ organizations worldwide.",
+    "Autonomous defense operating system protecting websites, communications, devices, identity, and personal data through one unified security platform.",
   keywords: [
-    "phishing detection",
-    "AI cybersecurity",
-    "fraud protection",
-    "URL scanner",
-    "malware detection",
-    "enterprise security",
-    "machine learning security",
-    "threat intelligence",
-    "cyber threat protection",
-    "email security",
-    "anti-phishing",
-    "security platform",
-    "real-time threat detection",
-    "NLP security",
-    "URL risk scoring",
+    "digital security",
+    "cybersecurity",
+    "device protection",
+    "phishing protection",
+    "online scam protection",
+    "identity security",
+    "privacy defense",
+    "threat detection",
+    "URL analyzer",
+    "zero trust",
+    "endpoint security",
   ],
-  authors: [{ name: "AgeIS-X", url: siteUrl }],
+  authors: [{ name: "AgeIS-X Security Systems", url: siteUrl }],
   creator: "AgeIS-X",
-  publisher: "AgeIS-X",
+  publisher: "AgeIS-X Security Systems",
   formatDetection: {
     email: false,
     address: false,
@@ -60,25 +56,25 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "AgeIS-X",
-    title: "AgeIS-X | AI-Powered Phishing & Fraud Protection Platform",
+    title: "AgeIS-X | Autonomous Digital Defense Platform",
     description:
-      "Enterprise-grade AI cybersecurity platform protecting against phishing, malware, and online fraud. Real-time URL scanning with 99.8% accuracy.",
+      "Your entire digital life. Protected. Autonomous real-time threat detection, kernel-level behavioral shielding, and identity defense in one unified app.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "AgeIS-X - AI-Powered Cybersecurity Platform",
+        alt: "AgeIS-X - Autonomous Digital Defense Platform",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AgeIS-X | AI-Powered Phishing & Fraud Protection",
+    title: "AgeIS-X | Autonomous Digital Defense Platform",
     description:
-      "Enterprise-grade AI cybersecurity with 99.8% accuracy. Real-time phishing detection using ML & NLP.",
+      "Your entire digital life. Protected. Real-time neural threat detection and zero-knowledge privacy defense.",
     images: ["/og-image.png"],
-    creator: "@aegisx",
+    creator: "@ageisx",
   },
   robots: {
     index: true,
@@ -95,14 +91,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteUrl,
   },
-  category: "technology",
+  category: "security",
   classification: "Cybersecurity Software",
 }
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#030712" },
-    { media: "(prefers-color-scheme: light)", color: "#030712" },
+    { media: "(prefers-color-scheme: dark)", color: "#040608" },
+    { media: "(prefers-color-scheme: light)", color: "#040608" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -117,35 +113,21 @@ const jsonLd = {
   "@type": "SoftwareApplication",
   name: "AgeIS-X",
   applicationCategory: "SecurityApplication",
-  operatingSystem: "Web, Chrome Extension",
+  operatingSystem: "macOS, Windows, Linux, Web",
   description:
-    "Enterprise-grade AI cybersecurity platform protecting against phishing, malware, and online fraud with 99.8% accuracy.",
+    "Autonomous digital security platform protecting web browsing, communications, endpoints, identity, and personal data.",
   url: siteUrl,
   author: {
     "@type": "Organization",
-    name: "AgeIS-X",
+    name: "AgeIS-X Security Systems",
     url: siteUrl,
   },
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
-    availability: "https://schema.org/InStock",
-  },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.9",
-    ratingCount: "500",
-    bestRating: "5",
-    worstRating: "1",
-  },
   featureList: [
-    "Real-time URL scanning",
-    "AI-powered phishing detection",
-    "Enterprise dashboard",
-    "Chrome browser extension",
-    "API integration",
-    "Threat intelligence",
+    "Real-time URL threat vector inference",
+    "Zero-knowledge identity vault defense",
+    "Endpoint behavioral monitoring",
+    "Anti-tracking and canvas noise injection",
+    "Unified security posture dashboard",
   ],
 }
 
@@ -160,8 +142,8 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
         <link rel="manifest" href="/manifest.json" />
         <script
           type="application/ld+json"
@@ -169,7 +151,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}
+        className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-[#040608] text-slate-100 selection:bg-[#00ff66]/20 selection:text-white`}
       >
         <AppWrapper>{children}</AppWrapper>
         <Analytics />

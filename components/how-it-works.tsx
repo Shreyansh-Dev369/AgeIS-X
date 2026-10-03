@@ -16,38 +16,38 @@ const steps = [
   {
     number: "02",
     icon: FileCode,
-    title: "NLP Preprocessing",
+    title: "Structural & N-Gram Parsing",
     description:
-      "Advanced text processing extracts key features using TF-IDF vectorization and custom tokenizers.",
-    details: ["TF-IDF vectorization", "Token extraction", "Feature engineering"],
+      "URL parsing extracts character 2-5 n-grams and evaluates Unicode homoglyphs, IP literals, and syntax.",
+    details: ["HashingVectorizer", "Char N-Grams", "Unicode Inspection"],
   },
   {
     number: "03",
     icon: Brain,
-    title: "ML Inference",
+    title: "ML Model Inference",
     description:
-      "Multiple models analyze the URL simultaneously for comprehensive threat assessment.",
+      "SGDClassifier (log loss) computes probabilistic threat score against 732k trained samples.",
     details: [
-      "Logistic Regression (Primary)",
-      "LSTM Benchmark",
-      "BiLSTM Benchmark",
+      "SGD Classifier (Primary)",
+      "Character N-Grams (2-5)",
+      "Balanced Class Weights",
     ],
   },
   {
     number: "04",
     icon: BarChart3,
-    title: "Risk Scoring",
+    title: "Calibrated Risk Scoring",
     description:
-      "Ensemble scoring combines model outputs into a single risk score with confidence intervals.",
-    details: ["0-100 risk scale", "Confidence scoring", "Threat classification"],
+      "Synthesizes ML model probability with deterministic structural evidence into a calibrated risk score.",
+    details: ["0-100 Risk Scale", "Evidence Reporting", "Deterministic Rules"],
   },
   {
     number: "05",
     icon: Server,
-    title: "FastAPI Response",
+    title: "FastAPI REST API",
     description:
-      "Results are returned via our high-performance FastAPI backend with sub-50ms latency.",
-    details: ["<50ms response", "JSON response", "Audit logging"],
+      "Results are returned via high-performance asynchronous Python FastAPI endpoint with sub-30ms latency.",
+    details: ["<30ms Response", "Structured JSON", "Availability Metadata"],
   },
 ]
 

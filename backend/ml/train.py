@@ -24,7 +24,7 @@ TEST_SIZE = 0.2
 # ---------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(BASE_DIR, "data", "processed", "final_dataset.csv")
-MODEL_PATH = os.path.join(BASE_DIR, "model")
+MODEL_PATH = BASE_DIR
 os.makedirs(MODEL_PATH, exist_ok=True)
 
 # ---------------------------
@@ -96,9 +96,16 @@ for start in range(0, len(X_train_full), BATCH_SIZE):
 # ---------------------------
 X_test_vect = vectorizer.transform(X_test)
 y_pred = model.predict(X_test_vect)
+y_pred_proba = model.predict_proba(X_test_vect)[:, 1]
 
 acc = accuracy_score(y_test, y_pred)
+from sklearn.metrics import roc_auc_score, confusion_matrix
+roc_auc = roc_auc_score(y_test, y_pred_proba)
+cm = confusion_matrix(y_test, y_pred)
+
 print(f"\n📊 Test Accuracy: {acc:.4f}")
+print(f"📊 ROC-AUC Score: {roc_auc:.4f}")
+print(f"📊 Confusion Matrix:\n{cm}")
 print("\n📄 Classification Report:\n")
 print(classification_report(y_test, y_pred))
 
@@ -111,4 +118,4 @@ with open(os.path.join(MODEL_PATH, "model.pkl"), "wb") as f:
 with open(os.path.join(MODEL_PATH, "vectorizer.pkl"), "wb") as f:
     pickle.dump(vectorizer, f)
 
-print("\n✅ Model & vectorizer saved successfully!")claude
+print("\n✅ Model & vectorizer saved successfully!")

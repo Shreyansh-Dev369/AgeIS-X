@@ -1,37 +1,25 @@
 "use client"
 
-import React, { useState, useCallback } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Preloader } from "@/components/preloader"
+import React, { useState, useEffect } from "react"
+import { AuthProvider } from "@/lib/auth/auth-context"
+import { CyberThemeProvider } from "@/lib/cyber-theme"
+import { MatrixBackground } from "@/components/cyber/matrix-background"
 
 export function AppWrapper({ children }: { children: React.ReactNode }) {
-  const [isLoading, setIsLoading] = useState(true)
+  const [mounted, setMounted] = useState(false)
 
-  const handleComplete = useCallback(() => {
-    setIsLoading(false)
+  useEffect(() => {
+    setMounted(true)
   }, [])
 
   return (
-    <>
-      <AnimatePresence mode="wait">
-        {isLoading && (
-          <Preloader onComplete={handleComplete} duration={4500} />
-        )}
-      </AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ 
-          opacity: isLoading ? 0 : 1, 
-          y: isLoading ? 10 : 0,
-        }}
-        transition={{ 
-          duration: 0.6, 
-          ease: [0.22, 1, 0.36, 1],
-          delay: isLoading ? 0 : 0.1
-        }}
-      >
-        {children}
-      </motion.div>
-    </>
+    <AuthProvider>
+      <CyberThemeProvider>
+        <MatrixBackground />
+        <div className={`relative z-10 ${mounted ? "opacity-100 transition-opacity duration-300" : "opacity-95"}`}>
+          {children}
+        </div>
+      </CyberThemeProvider>
+    </AuthProvider>
   )
 }

@@ -1,0 +1,1876 @@
+{
+  "health": {
+    "status": "ok",
+    "service": "AgeIS-X Security Intelligence Microservice (Domain + Content + DOM + Email Engine)",
+    "ml_model_loaded": true,
+    "features": {
+      "rdap_intelligence": true,
+      "dns_doh_intelligence": true,
+      "tls_x509_intelligence": true,
+      "http_dom_analysis": true,
+      "ssrf_protection": true,
+      "email_intelligence": true,
+      "messaging_intelligence": true
+    },
+    "version": "1.3.0"
+  },
+  "real_targets": [
+    {
+      "url": "https://google.com",
+      "status_code": 200,
+      "data": {
+        "url": "https://google.com",
+        "label": 1,
+        "probability": 0.9831,
+        "risk_score": 2,
+        "verdict": "safe",
+        "model_info": {
+          "name": "AgeIS-X Multi-Signal Domain & Content Security Engine",
+          "architecture": "SGDClassifier + Structural Analysis + RDAP/DNS/TLS Probing + Static DOM/Headers/JS Scanner",
+          "version": "1.2.0",
+          "inference_time_ms": 2548.18
+        },
+        "features": {
+          "scheme": "https",
+          "hostname": "google.com",
+          "is_https": true,
+          "is_ip_literal": false,
+          "has_userinfo": false,
+          "has_non_standard_port": false,
+          "has_homoglyphs": false,
+          "homoglyph_details": [],
+          "is_punycode": false,
+          "punycode_decoded": null,
+          "is_typosquat_pattern": false,
+          "subdomain_depth": 0,
+          "tld": "com",
+          "is_suspicious_tld": false,
+          "entropy": 3.572,
+          "suspicious_keywords": []
+        },
+        "rdap": {
+          "status": "available",
+          "domain": "google.com",
+          "registrar": "MarkMonitor Inc.",
+          "registered_at": "1997-09-15T04:00:00Z",
+          "expires_at": "2028-09-14T04:00:00Z",
+          "updated_at": "2019-09-09T15:39:04Z",
+          "domain_age_days": 10609,
+          "domain_age_formatted": "29.0 years",
+          "nameservers": [
+            "ns1.google.com",
+            "ns2.google.com",
+            "ns3.google.com",
+            "ns4.google.com"
+          ],
+          "status_codes": [
+            "client delete prohibited",
+            "client transfer prohibited",
+            "client update prohibited",
+            "server delete prohibited",
+            "server transfer prohibited",
+            "server update prohibited"
+          ],
+          "source_url": "https://rdap.org/domain/google.com",
+          "error": null,
+          "observed_at": 1790959312.6605642
+        },
+        "dns": {
+          "status": "available",
+          "hostname": "google.com",
+          "a": [
+            "142.251.221.142"
+          ],
+          "aaaa": [
+            "2404:6800:4007:837::200e"
+          ],
+          "cname": [],
+          "mx": [],
+          "ns": [],
+          "txt": [],
+          "is_doh": false,
+          "resolver": "system_dns",
+          "error": null,
+          "observed_at": 1790959312.6616669
+        },
+        "tls": {
+          "status": "available",
+          "target_host": "google.com",
+          "target_port": 443,
+          "connected": true,
+          "verified": true,
+          "hostname_match": true,
+          "subject": {
+            "commonName": "*.google.com"
+          },
+          "issuer": {
+            "countryName": "US",
+            "organizationName": "Google Trust Services",
+            "commonName": "WE2"
+          },
+          "san": [
+            "*.google.com",
+            "*.appengine.google.com",
+            "*.bdn.dev",
+            "*.origin-test.bdn.dev",
+            "*.cloud.google.com",
+            "*.crowdsource.google.com",
+            "*.datacompute.google.com",
+            "*.google.ca"
+          ],
+          "not_before": "2026-09-18T20:00:19+00:00",
+          "not_after": "2026-12-11T20:00:18+00:00",
+          "is_expired": false,
+          "is_not_yet_valid": false,
+          "days_until_expiration": 70,
+          "tls_version": "TLSv1.3",
+          "cipher": "TLS_AES_256_GCM_SHA384",
+          "error": null,
+          "observed_at": 1790959312.6621006
+        },
+        "http": {
+          "status": "available",
+          "http_status_code": 200,
+          "final_url": "https://www.google.com/",
+          "redirect_count": 1,
+          "redirect_chain": [
+            "https://www.google.com/"
+          ],
+          "content_type": "",
+          "content_length_bytes": 226475,
+          "headers": {
+            "has_hsts": true,
+            "hsts_value": "max-age=31536000",
+            "has_csp": false,
+            "csp_value": null,
+            "has_x_frame_options": true,
+            "x_frame_options_value": "SAMEORIGIN",
+            "has_x_content_type_options": false,
+            "referrer_policy": null,
+            "server_header": "gws",
+            "missing_headers": [
+              "Content-Security-Policy (CSP)",
+              "X-Content-Type-Options: nosniff"
+            ]
+          },
+          "dom": {
+            "title": "Google",
+            "meta_description": null,
+            "total_forms": 1,
+            "forms": [
+              {
+                "action": "https://www.google.com/search",
+                "method": "get",
+                "is_off_domain_action": false,
+                "is_http_action_on_https": false,
+                "has_password_field": false,
+                "has_payment_field": false,
+                "fields": [
+                  {
+                    "name": null,
+                    "type": "file",
+                    "is_password": false,
+                    "is_sensitive": false
+                  },
+                  {
+                    "name": null,
+                    "type": "file",
+                    "is_password": false,
+                    "is_sensitive": false
+                  },
+                  {
+                    "name": "btnk",
+                    "type": "submit",
+                    "is_password": false,
+                    "is_sensitive": false
+                  },
+                  {
+                    "name": "sca_esv",
+                    "type": "hidden",
+                    "is_password": false,
+                    "is_sensitive": false
+                  },
+                  {
+                    "name": "sxsrf",
+                    "type": "hidden",
+                    "is_password": false,
+                    "is_sensitive": false
+                  },
+                  {
+                    "name": "source",
+                    "type": "hidden",
+                    "is_password": false,
+                    "is_sensitive": false
+                  },
+                  {
+                    "name": "ei",
+                    "type": "hidden",
+                    "is_password": false,
+                    "is_sensitive": false
+                  },
+                  {
+                    "name": "iflsig",
+                    "type": "hidden",
+                    "is_password": false,
+                    "is_sensitive": false
+                  }
+                ]
+              }
+            ],
+            "has_credential_form": false,
+            "has_off_domain_form_submission": false,
+            "total_iframes": 0,
+            "iframes": [],
+            "has_hidden_iframes": false,
+            "total_scripts": 14,
+            "external_scripts_count": 2,
+            "js_signals": {
+              "has_eval": false,
+              "has_document_write": false,
+              "has_obfuscated_code": true,
+              "has_context_menu_blocker": false,
+              "has_clipboard_manipulation": false,
+              "suspicious_patterns": [
+                "High-density Hex/CharCode string obfuscation"
+              ]
+            },
+            "detected_brand_in_title": "google",
+            "brand_impersonation_suspected": false
+          },
+          "error": null,
+          "observed_at": 1790959314.0792856
+        },
+        "evidence": [
+          "Domain matches known verified apex organization repository.",
+          "Established domain age: 29.0 years (1997-09-15)",
+          "Registrar identified: MarkMonitor Inc.",
+          "Resolved IPv4: 142.251.221.142",
+          "Resolved IPv6: 2404:6800:4007:837::200e",
+          "Valid trusted TLS certificate issued by 'WE2' (TLSv1.3, expires in 70 days)",
+          "Server header advertised: gws",
+          "Obfuscated JavaScript payload detected (repeated hex escapes / fromCharCode / unescape)",
+          "URL redirected through 1 hop(s) to 'https://www.google.com/'"
+        ],
+        "availability": {
+          "backend": true,
+          "ml_model": true,
+          "domain_intelligence": true,
+          "tls_inspection": true,
+          "dns_intelligence": true,
+          "http_acquisition": true,
+          "dom_analysis": true
+        },
+        "limitations": [
+          "All domain intelligence and DOM acquisition providers returned authoritative data."
+        ],
+        "timestamp": 1790959315.2077203
+      }
+    },
+    {
+      "url": "https://microsoft.com",
+      "status_code": 200,
+      "data": {
+        "url": "https://microsoft.com",
+        "label": 1,
+        "probability": 0.9628,
+        "risk_score": 2,
+        "verdict": "safe",
+        "model_info": {
+          "name": "AgeIS-X Multi-Signal Domain & Content Security Engine",
+          "architecture": "SGDClassifier + Structural Analysis + RDAP/DNS/TLS Probing + Static DOM/Headers/JS Scanner",
+          "version": "1.2.0",
+          "inference_time_ms": 2398.56
+        },
+        "features": {
+          "scheme": "https",
+          "hostname": "microsoft.com",
+          "is_https": true,
+          "is_ip_literal": false,
+          "has_userinfo": false,
+          "has_non_standard_port": false,
+          "has_homoglyphs": false,
+          "homoglyph_details": [],
+          "is_punycode": false,
+          "punycode_decoded": null,
+          "is_typosquat_pattern": false,
+          "subdomain_depth": 0,
+          "tld": "com",
+          "is_suspicious_tld": false,
+          "entropy": 3.559,
+          "suspicious_keywords": []
+        },
+        "rdap": {
+          "status": "available",
+          "domain": "microsoft.com",
+          "registrar": "MarkMonitor Inc.",
+          "registered_at": "1991-05-02T04:00:00Z",
+          "expires_at": "2027-05-03T04:00:00Z",
+          "updated_at": "2026-01-29T18:46:57Z",
+          "domain_age_days": 12937,
+          "domain_age_formatted": "35.4 years",
+          "nameservers": [
+            "ns1-39.azure-dns.com",
+            "ns2-39.azure-dns.net",
+            "ns3-39.azure-dns.org",
+            "ns4-39.azure-dns.info"
+          ],
+          "status_codes": [
+            "client delete prohibited",
+            "client transfer prohibited",
+            "client update prohibited",
+            "server delete prohibited",
+            "server transfer prohibited",
+            "server update prohibited"
+          ],
+          "source_url": "https://rdap.org/domain/microsoft.com",
+          "error": null,
+          "observed_at": 1790959315.234472
+        },
+        "dns": {
+          "status": "available",
+          "hostname": "microsoft.com",
+          "a": [
+            "150.171.109.132"
+          ],
+          "aaaa": [
+            "2603:1061:14:83::1"
+          ],
+          "cname": [],
+          "mx": [],
+          "ns": [],
+          "txt": [],
+          "is_doh": false,
+          "resolver": "system_dns",
+          "error": null,
+          "observed_at": 1790959315.23574
+        },
+        "tls": {
+          "status": "available",
+          "target_host": "microsoft.com",
+          "target_port": 443,
+          "connected": true,
+          "verified": true,
+          "hostname_match": true,
+          "subject": {
+            "countryName": "US",
+            "stateOrProvinceName": "WA",
+            "localityName": "Redmond",
+            "organizationName": "Microsoft Corporation",
+            "commonName": "microsoft.com"
+          },
+          "issuer": {
+            "countryName": "US",
+            "organizationName": "Microsoft Corporation",
+            "commonName": "Microsoft TLS G2 RSA CA OCSP 04"
+          },
+          "san": [
+            "microsoft.com",
+            "s.microsoft.com",
+            "ga.microsoft.com",
+            "aep.microsoft.com",
+            "aer.microsoft.com",
+            "grv.microsoft.com",
+            "hup.microsoft.com",
+            "mac.microsoft.com"
+          ],
+          "not_before": "2026-06-23T09:04:17+00:00",
+          "not_after": "2026-12-20T09:04:17+00:00",
+          "is_expired": false,
+          "is_not_yet_valid": false,
+          "days_until_expiration": 78,
+          "tls_version": "TLSv1.3",
+          "cipher": "TLS_AES_256_GCM_SHA384",
+          "error": null,
+          "observed_at": 1790959315.2451956
+        },
+        "http": {
+          "status": "available",
+          "http_status_code": 200,
+          "final_url": "https://www.microsoft.com/",
+          "redirect_count": 1,
+          "redirect_chain": [
+            "https://www.microsoft.com/"
+          ],
+          "content_type": "",
+          "content_length_bytes": 201253,
+          "headers": {
+            "has_hsts": false,
+            "hsts_value": null,
+            "has_csp": false,
+            "csp_value": null,
+            "has_x_frame_options": false,
+            "x_frame_options_value": null,
+            "has_x_content_type_options": false,
+            "referrer_policy": null,
+            "server_header": "AkamaiNetStorage",
+            "missing_headers": [
+              "Strict-Transport-Security (HSTS)",
+              "Content-Security-Policy (CSP)",
+              "X-Frame-Options (Clickjacking Protection)",
+              "X-Content-Type-Options: nosniff"
+            ]
+          },
+          "dom": {
+            "title": "Your request has been blocked. This could be\r\n                        due to several reasons.",
+            "meta_description": "",
+            "total_forms": 1,
+            "forms": [
+              {
+                "action": "https://www.microsoft.com/en-us/search",
+                "method": "get",
+                "is_off_domain_action": false,
+                "is_http_action_on_https": false,
+                "has_password_field": false,
+                "has_payment_field": false,
+                "fields": [
+                  {
+                    "name": "q",
+                    "type": "search",
+                    "is_password": false,
+                    "is_sensitive": false
+                  }
+                ]
+              }
+            ],
+            "has_credential_form": false,
+            "has_off_domain_form_submission": false,
+            "total_iframes": 0,
+            "iframes": [],
+            "has_hidden_iframes": false,
+            "total_scripts": 6,
+            "external_scripts_count": 4,
+            "js_signals": {
+              "has_eval": false,
+              "has_document_write": false,
+              "has_obfuscated_code": true,
+              "has_context_menu_blocker": false,
+              "has_clipboard_manipulation": false,
+              "suspicious_patterns": [
+                "High-density Hex/CharCode string obfuscation"
+              ]
+            },
+            "detected_brand_in_title": null,
+            "brand_impersonation_suspected": false
+          },
+          "error": null,
+          "observed_at": 1790959316.4852474
+        },
+        "evidence": [
+          "Domain matches known verified apex organization repository.",
+          "Established domain age: 35.4 years (1991-05-02)",
+          "Registrar identified: MarkMonitor Inc.",
+          "Resolved IPv4: 150.171.109.132",
+          "Resolved IPv6: 2603:1061:14:83::1",
+          "Valid trusted TLS certificate issued by 'Microsoft TLS G2 RSA CA OCSP 04' (TLSv1.3, expires in 78 days)",
+          "Server header advertised: AkamaiNetStorage",
+          "Missing key HTTP defensive headers: Strict-Transport-Security (HSTS), Content-Security-Policy (CSP), X-Frame-Options (Clickjacking Protection)",
+          "Obfuscated JavaScript payload detected (repeated hex escapes / fromCharCode / unescape)",
+          "URL redirected through 1 hop(s) to 'https://www.microsoft.com/'"
+        ],
+        "availability": {
+          "backend": true,
+          "ml_model": true,
+          "domain_intelligence": true,
+          "tls_inspection": true,
+          "dns_intelligence": true,
+          "http_acquisition": true,
+          "dom_analysis": true
+        },
+        "limitations": [
+          "All domain intelligence and DOM acquisition providers returned authoritative data."
+        ],
+        "timestamp": 1790959317.632069
+      }
+    },
+    {
+      "url": "https://github.com",
+      "status_code": 200,
+      "data": {
+        "url": "https://github.com",
+        "label": 1,
+        "probability": 0.9488,
+        "risk_score": 2,
+        "verdict": "safe",
+        "model_info": {
+          "name": "AgeIS-X Multi-Signal Domain & Content Security Engine",
+          "architecture": "SGDClassifier + Structural Analysis + RDAP/DNS/TLS Probing + Static DOM/Headers/JS Scanner",
+          "version": "1.2.0",
+          "inference_time_ms": 4180.7
+        },
+        "features": {
+          "scheme": "https",
+          "hostname": "github.com",
+          "is_https": true,
+          "is_ip_literal": false,
+          "has_userinfo": false,
+          "has_non_standard_port": false,
+          "has_homoglyphs": false,
+          "homoglyph_details": [],
+          "is_punycode": false,
+          "punycode_decoded": null,
+          "is_typosquat_pattern": false,
+          "subdomain_depth": 0,
+          "tld": "com",
+          "is_suspicious_tld": false,
+          "entropy": 3.684,
+          "suspicious_keywords": []
+        },
+        "rdap": {
+          "status": "available",
+          "domain": "github.com",
+          "registrar": "MarkMonitor Inc.",
+          "registered_at": "2007-10-09T18:20:50Z",
+          "expires_at": "2028-10-09T18:20:50Z",
+          "updated_at": "2026-09-07T09:22:52Z",
+          "domain_age_days": 6932,
+          "domain_age_formatted": "19.0 years",
+          "nameservers": [
+            "dns1.p08.nsone.net",
+            "dns2.p08.nsone.net",
+            "dns3.p08.nsone.net",
+            "dns4.p08.nsone.net",
+            "ns-1283.awsdns-32.org",
+            "ns-1707.awsdns-21.co.uk"
+          ],
+          "status_codes": [
+            "client delete prohibited",
+            "client transfer prohibited",
+            "client update prohibited"
+          ],
+          "source_url": "https://rdap.org/domain/github.com",
+          "error": null,
+          "observed_at": 1790959317.64801
+        },
+        "dns": {
+          "status": "available",
+          "hostname": "github.com",
+          "a": [
+            "20.207.73.82"
+          ],
+          "aaaa": [],
+          "cname": [],
+          "mx": [],
+          "ns": [],
+          "txt": [],
+          "is_doh": false,
+          "resolver": "system_dns",
+          "error": null,
+          "observed_at": 1790959317.648653
+        },
+        "tls": {
+          "status": "available",
+          "target_host": "github.com",
+          "target_port": 443,
+          "connected": true,
+          "verified": true,
+          "hostname_match": true,
+          "subject": {
+            "commonName": "github.com"
+          },
+          "issuer": {
+            "countryName": "GB",
+            "organizationName": "Sectigo Limited",
+            "commonName": "Sectigo Public Server Authentication CA DV E36"
+          },
+          "san": [
+            "github.com",
+            "www.github.com"
+          ],
+          "not_before": "2026-09-01T00:00:00+00:00",
+          "not_after": "2026-11-29T23:59:59+00:00",
+          "is_expired": false,
+          "is_not_yet_valid": false,
+          "days_until_expiration": 58,
+          "tls_version": "TLSv1.3",
+          "cipher": "TLS_AES_128_GCM_SHA256",
+          "error": null,
+          "observed_at": 1790959317.6621654
+        },
+        "http": {
+          "status": "available",
+          "http_status_code": 200,
+          "final_url": "https://github.com",
+          "redirect_count": 0,
+          "redirect_chain": [],
+          "content_type": "",
+          "content_length_bytes": 524288,
+          "headers": {
+            "has_hsts": true,
+            "hsts_value": "max-age=31536000; includeSubdomains; preload",
+            "has_csp": true,
+            "csp_value": "default-src 'none'; base-uri 'self'; child-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com github.githubassets.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com *.actions.githubusercontent.com wss://*.actions.githubusercontent.com productionresultssa0.blob.core.windows.net productionresultssa1.blob.core.windows.net productionresultssa2.blob.core.windows.net productionresultssa3.blob.core.windows.net productionresultssa4.blob.core.windows.net productionresultssa5.blob.core.windows.net productionresultssa6.blob.core.windows.net productionresultssa7.blob.core.windows.net productionresultssa8.blob.core.windows.net productionresultssa9.blob.core.windows.net productionresultssa10.blob.core.windows.net productionresultssa11.blob.core.windows.net productionresultssa12.blob.core.windows.net productionresultssa13.blob.core.windows.net productionresultssa14.blob.core.windows.net productionresultssa15.blob.core.windows.net productionresultssa16.blob.core.windows.net productionresultssa17.blob.core.windows.net productionresultssa18.blob.core.windows.net productionresultssa19.blob.core.windows.net github-production-repository-image-32fea6.s3.amazonaws.com github-production-release-asset-2e65be.s3.amazonaws.com insights.github.com wss://alive.github.com wss://alive-staging.github.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com wss://production-copilot-host.webpubsub.azure.com api.github.com/cmc_internal/api/ edge.fullstory.com rs.fullstory.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com www.youtube-nocookie.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com release-assets.githubusercontent.com secured-user-images.githubusercontent.com user-images.githubusercontent.com private-user-images.githubusercontent.com opengraph.githubassets.com repository-images.githubusercontent.com marketplace-screenshots.githubusercontent.com copilotprodattachments.blob.core.windows.net/github-production-copilot-attachments/ github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com explore-feed.github.com *.googleusercontent.com objects-origin.githubusercontent.com *.githubusercontent.com images.ctfassets.net/8aevphvgewt8/; manifest-src 'self'; media-src github.com user-images.githubusercontent.com secured-user-images.githubusercontent.com private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com github.githubassets.com assets.ctfassets.net/8aevphvgewt8/ videos.ctfassets.net/8aevphvgewt8/; script-src github.githubassets.com 'sha256-tSjmyPUky1KbRZ0fw9VUil3wFEbeM82rtbJDygGJAXw='; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/",
+            "has_x_frame_options": true,
+            "x_frame_options_value": "deny",
+            "has_x_content_type_options": true,
+            "referrer_policy": "origin-when-cross-origin, strict-origin-when-cross-origin",
+            "server_header": "github.com",
+            "missing_headers": []
+          },
+          "dom": {
+            "title": "GitHub \u00b7 Change is constant. GitHub keeps you ahead. \u00b7 GitHubAmerican AirlinesDuolingoErnst and YoungFordInfoSysMercado LibreMercedes-BenzShopifyPhilipsSoci\u00e9t\u00e9 G\u00e9n\u00e9raleSpotifyVodafoneAmerican AirlinesDuolingoErnst and YoungFordInfoSysMercado LibreMercedes-",
+            "meta_description": "Join the world's most widely adopted, AI-powered developer platform where millions of developers, businesses, and the largest open source community build software that advances humanity.",
+            "total_forms": 1,
+            "forms": [
+              {
+                "action": "https://github.com/signup",
+                "method": "get",
+                "is_off_domain_action": false,
+                "is_http_action_on_https": false,
+                "has_password_field": false,
+                "has_payment_field": false,
+                "fields": [
+                  {
+                    "name": "source",
+                    "type": "hidden",
+                    "is_password": false,
+                    "is_sensitive": false
+                  },
+                  {
+                    "name": "user_email",
+                    "type": "email",
+                    "is_password": false,
+                    "is_sensitive": false
+                  }
+                ]
+              }
+            ],
+            "has_credential_form": false,
+            "has_off_domain_form_submission": false,
+            "total_iframes": 0,
+            "iframes": [],
+            "has_hidden_iframes": false,
+            "total_scripts": 15,
+            "external_scripts_count": 8,
+            "js_signals": {
+              "has_eval": false,
+              "has_document_write": false,
+              "has_obfuscated_code": false,
+              "has_context_menu_blocker": false,
+              "has_clipboard_manipulation": false,
+              "suspicious_patterns": []
+            },
+            "detected_brand_in_title": null,
+            "brand_impersonation_suspected": false
+          },
+          "error": null,
+          "observed_at": 1790959319.1458037
+        },
+        "evidence": [
+          "Domain matches known verified apex organization repository.",
+          "Established domain age: 19.0 years (2007-10-09)",
+          "Registrar identified: MarkMonitor Inc.",
+          "Resolved IPv4: 20.207.73.82",
+          "Valid trusted TLS certificate issued by 'Sectigo Public Server Authentication CA DV E36' (TLSv1.3, expires in 58 days)",
+          "Server header advertised: github.com",
+          "Robust defensive HTTP security headers present (HSTS, CSP, X-Frame-Options)"
+        ],
+        "availability": {
+          "backend": true,
+          "ml_model": true,
+          "domain_intelligence": true,
+          "tls_inspection": true,
+          "dns_intelligence": true,
+          "http_acquisition": true,
+          "dom_analysis": true
+        },
+        "limitations": [
+          "All domain intelligence and DOM acquisition providers returned authoritative data."
+        ],
+        "timestamp": 1790959321.8282003
+      }
+    },
+    {
+      "url": "https://cloudflare.com",
+      "status_code": 200,
+      "data": {
+        "url": "https://cloudflare.com",
+        "label": 1,
+        "probability": 0.971,
+        "risk_score": 23,
+        "verdict": "safe",
+        "model_info": {
+          "name": "AgeIS-X Multi-Signal Domain & Content Security Engine",
+          "architecture": "SGDClassifier + Structural Analysis + RDAP/DNS/TLS Probing + Static DOM/Headers/JS Scanner",
+          "version": "1.2.0",
+          "inference_time_ms": 3192.32
+        },
+        "features": {
+          "scheme": "https",
+          "hostname": "cloudflare.com",
+          "is_https": true,
+          "is_ip_literal": false,
+          "has_userinfo": false,
+          "has_non_standard_port": false,
+          "has_homoglyphs": false,
+          "homoglyph_details": [],
+          "is_punycode": false,
+          "punycode_decoded": null,
+          "is_typosquat_pattern": false,
+          "subdomain_depth": 0,
+          "tld": "com",
+          "is_suspicious_tld": false,
+          "entropy": 4.005,
+          "suspicious_keywords": []
+        },
+        "rdap": {
+          "status": "available",
+          "domain": "cloudflare.com",
+          "registrar": "Cloudflare, Inc.",
+          "registered_at": "2009-02-17T22:07:54Z",
+          "expires_at": "2033-02-17T22:07:54Z",
+          "updated_at": "2024-01-09T16:45:28Z",
+          "domain_age_days": 6435,
+          "domain_age_formatted": "17.6 years",
+          "nameservers": [
+            "ns3.cloudflare.com",
+            "ns4.cloudflare.com",
+            "ns5.cloudflare.com",
+            "ns6.cloudflare.com",
+            "ns7.cloudflare.com"
+          ],
+          "status_codes": [
+            "client delete prohibited",
+            "client transfer prohibited",
+            "client update prohibited",
+            "server delete prohibited",
+            "server transfer prohibited",
+            "server update prohibited"
+          ],
+          "source_url": "https://rdap.org/domain/cloudflare.com",
+          "error": null,
+          "observed_at": 1790959321.8541148
+        },
+        "dns": {
+          "status": "available",
+          "hostname": "cloudflare.com",
+          "a": [
+            "104.16.132.229",
+            "104.16.133.229"
+          ],
+          "aaaa": [
+            "2606:4700::6810:84e5",
+            "2606:4700::6810:85e5"
+          ],
+          "cname": [],
+          "mx": [],
+          "ns": [],
+          "txt": [],
+          "is_doh": false,
+          "resolver": "system_dns",
+          "error": null,
+          "observed_at": 1790959321.8550966
+        },
+        "tls": {
+          "status": "available",
+          "target_host": "cloudflare.com",
+          "target_port": 443,
+          "connected": true,
+          "verified": true,
+          "hostname_match": true,
+          "subject": {
+            "commonName": "cloudflare.com"
+          },
+          "issuer": {
+            "countryName": "US",
+            "organizationName": "Google Trust Services",
+            "commonName": "WE1"
+          },
+          "san": [
+            "cloudflare.com",
+            "ns.cloudflare.com",
+            "*.ns.cloudflare.com",
+            "*.secondary.cloudflare.com",
+            "secondary.cloudflare.com"
+          ],
+          "not_before": "2026-09-05T22:29:39+00:00",
+          "not_after": "2026-12-04T23:29:33+00:00",
+          "is_expired": false,
+          "is_not_yet_valid": false,
+          "days_until_expiration": 63,
+          "tls_version": "TLSv1.3",
+          "cipher": "TLS_AES_256_GCM_SHA384",
+          "error": null,
+          "observed_at": 1790959321.8704379
+        },
+        "http": {
+          "status": "available",
+          "http_status_code": 200,
+          "final_url": "https://www.cloudflare.com/",
+          "redirect_count": 1,
+          "redirect_chain": [
+            "https://www.cloudflare.com/"
+          ],
+          "content_type": "",
+          "content_length_bytes": 524288,
+          "headers": {
+            "has_hsts": true,
+            "hsts_value": "max-age=31536000; includeSubDomains",
+            "has_csp": true,
+            "csp_value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://static-staging.cloudflareinsights.com https://challenges.cloudflare.com https://*.onetrust.com https://cdn.cookielaw.org https://ot.www.cloudflare.com https://www.googletagmanager.com https://tagmanager.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://adservice.google.com https://cdn.bizible.com https://js.adsrvr.org https://*.marketo.net https://platform.twitter.com https://static.ads-twitter.com https://scripts.demandbase.com https://tag.demandbase.com https://*.6sc.co https://*.qualified.com https://snap.licdn.com https://bat.bing.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.googletagmanager.com https://*.google-analytics.com https://*.google.com https://*.doubleclick.net https://www.googleadservices.com https://translate.googleapis.com https://cdn.bizible.com https://js.adsrvr.org https://*.marketo.net https://ads-twitter.com https://analytics.twitter.com https://*.twimg.com https://api.demandbase.com https://scripts.demandbase.com https://tag.demandbase.com https://tag-logger.demandbase.com https://api.company-target.com https://*.6sc.co https://epsilon.6sense.com https://*.qualified.com https://*.ads.linkedin.com https://www.linkedin.com https://bat.bing.com https: wss://*.qualified.com wss://*.registrar.cloudflare.com; frame-src https://*.adsrvr.org https://*.cloudflare.com https://*.videodelivery.net https://*.cloudflarestream.com https://www.googletagmanager.com https://*.qualified.com https://td.doubleclick.net https://bid.g.doubleclick.net https://9309168.fls.doubleclick.net https://9973066.fls.doubleclick.net https://s.company-target.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; worker-src 'self' blob:; child-src 'self' blob:; upgrade-insecure-requests",
+            "has_x_frame_options": true,
+            "x_frame_options_value": "SAMEORIGIN",
+            "has_x_content_type_options": true,
+            "referrer_policy": "strict-origin-when-cross-origin",
+            "server_header": "cloudflare",
+            "missing_headers": []
+          },
+          "dom": {
+            "title": "Cloudflare: Build for the agent era",
+            "meta_description": "Welcome to Cloudflare - Powering the next generation of applications",
+            "total_forms": 0,
+            "forms": [],
+            "has_credential_form": false,
+            "has_off_domain_form_submission": false,
+            "total_iframes": 0,
+            "iframes": [],
+            "has_hidden_iframes": false,
+            "total_scripts": 24,
+            "external_scripts_count": 3,
+            "js_signals": {
+              "has_eval": false,
+              "has_document_write": false,
+              "has_obfuscated_code": false,
+              "has_context_menu_blocker": false,
+              "has_clipboard_manipulation": false,
+              "suspicious_patterns": []
+            },
+            "detected_brand_in_title": null,
+            "brand_impersonation_suspected": false
+          },
+          "error": null,
+          "observed_at": 1790959323.347406
+        },
+        "evidence": [
+          "Established domain age: 17.6 years (2009-02-17)",
+          "Registrar identified: Cloudflare, Inc.",
+          "Resolved IPv4: 104.16.132.229, 104.16.133.229",
+          "Resolved IPv6: 2606:4700::6810:84e5, 2606:4700::6810:85e5",
+          "Valid trusted TLS certificate issued by 'WE1' (TLSv1.3, expires in 63 days)",
+          "Server header advertised: cloudflare",
+          "Robust defensive HTTP security headers present (HSTS, CSP, X-Frame-Options)",
+          "URL redirected through 1 hop(s) to 'https://www.cloudflare.com/'"
+        ],
+        "availability": {
+          "backend": true,
+          "ml_model": true,
+          "domain_intelligence": true,
+          "tls_inspection": true,
+          "dns_intelligence": true,
+          "http_acquisition": true,
+          "dom_analysis": true
+        },
+        "limitations": [
+          "All domain intelligence and DOM acquisition providers returned authoritative data."
+        ],
+        "timestamp": 1790959325.0454915
+      }
+    },
+    {
+      "url": "https://wikipedia.org",
+      "status_code": 200,
+      "data": {
+        "url": "https://wikipedia.org",
+        "label": 0,
+        "probability": 0.1565,
+        "risk_score": 2,
+        "verdict": "safe",
+        "model_info": {
+          "name": "AgeIS-X Multi-Signal Domain & Content Security Engine",
+          "architecture": "SGDClassifier + Structural Analysis + RDAP/DNS/TLS Probing + Static DOM/Headers/JS Scanner",
+          "version": "1.2.0",
+          "inference_time_ms": 4229.97
+        },
+        "features": {
+          "scheme": "https",
+          "hostname": "wikipedia.org",
+          "is_https": true,
+          "is_ip_literal": false,
+          "has_userinfo": false,
+          "has_non_standard_port": false,
+          "has_homoglyphs": false,
+          "homoglyph_details": [],
+          "is_punycode": false,
+          "punycode_decoded": null,
+          "is_typosquat_pattern": false,
+          "subdomain_depth": 0,
+          "tld": "org",
+          "is_suspicious_tld": false,
+          "entropy": 3.88,
+          "suspicious_keywords": []
+        },
+        "rdap": {
+          "status": "available",
+          "domain": "wikipedia.org",
+          "registrar": "MarkMonitor Inc.",
+          "registered_at": "2001-01-13T00:12:14.754Z",
+          "expires_at": "2027-01-13T00:12:14Z",
+          "updated_at": "2026-08-12T08:47:19.41Z",
+          "domain_age_days": 9393,
+          "domain_age_formatted": "25.7 years",
+          "nameservers": [
+            "ns0.wikimedia.org",
+            "ns1.wikimedia.org",
+            "ns2.wikimedia.org"
+          ],
+          "status_codes": [
+            "client delete prohibited",
+            "client transfer prohibited",
+            "client update prohibited"
+          ],
+          "source_url": "https://rdap.org/domain/wikipedia.org",
+          "error": null,
+          "observed_at": 1790959325.0481875
+        },
+        "dns": {
+          "status": "available",
+          "hostname": "wikipedia.org",
+          "a": [
+            "103.102.166.224"
+          ],
+          "aaaa": [
+            "2001:df2:e500:ed1a::1"
+          ],
+          "cname": [],
+          "mx": [],
+          "ns": [],
+          "txt": [],
+          "is_doh": false,
+          "resolver": "system_dns",
+          "error": null,
+          "observed_at": 1790959325.0487838
+        },
+        "tls": {
+          "status": "available",
+          "target_host": "wikipedia.org",
+          "target_port": 443,
+          "connected": true,
+          "verified": true,
+          "hostname_match": true,
+          "subject": {
+            "commonName": "*.wikipedia.org"
+          },
+          "issuer": {
+            "countryName": "US",
+            "organizationName": "Let's Encrypt",
+            "commonName": "YE2"
+          },
+          "san": [
+            "*.m.mediawiki.org",
+            "*.m.wikibooks.org",
+            "*.m.wikidata.org",
+            "*.m.wikimedia.org",
+            "*.m.wikinews.org",
+            "*.m.wikipedia.org",
+            "*.m.wikiquote.org",
+            "*.m.wikisource.org"
+          ],
+          "not_before": "2026-08-05T19:15:41+00:00",
+          "not_after": "2026-11-03T19:15:40+00:00",
+          "is_expired": false,
+          "is_not_yet_valid": false,
+          "days_until_expiration": 32,
+          "tls_version": "TLSv1.3",
+          "cipher": "TLS_AES_128_GCM_SHA256",
+          "error": null,
+          "observed_at": 1790959325.0588644
+        },
+        "http": {
+          "status": "available",
+          "http_status_code": 200,
+          "final_url": "https://www.wikipedia.org/",
+          "redirect_count": 1,
+          "redirect_chain": [
+            "https://www.wikipedia.org/"
+          ],
+          "content_type": "text/html",
+          "content_length_bytes": 93955,
+          "headers": {
+            "has_hsts": true,
+            "hsts_value": "max-age=106384710; includeSubDomains; preload",
+            "has_csp": false,
+            "csp_value": null,
+            "has_x_frame_options": false,
+            "x_frame_options_value": null,
+            "has_x_content_type_options": false,
+            "referrer_policy": null,
+            "server_header": "ATS/9.2.15",
+            "missing_headers": [
+              "Content-Security-Policy (CSP)",
+              "X-Frame-Options (Clickjacking Protection)",
+              "X-Content-Type-Options: nosniff"
+            ]
+          },
+          "dom": {
+            "title": "Wikipedia",
+            "meta_description": "Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.",
+            "total_forms": 1,
+            "forms": [
+              {
+                "action": "https://www.wikipedia.org/search-redirect.php",
+                "method": "get",
+                "is_off_domain_action": false,
+                "is_http_action_on_https": false,
+                "has_password_field": false,
+                "has_payment_field": false,
+                "fields": [
+                  {
+                    "name": "family",
+                    "type": "hidden",
+                    "is_password": false,
+                    "is_sensitive": false
+                  },
+                  {
+                    "name": "search",
+                    "type": "search",
+                    "is_password": false,
+                    "is_sensitive": false
+                  },
+                  {
+                    "name": "go",
+                    "type": "hidden",
+                    "is_password": false,
+                    "is_sensitive": false
+                  }
+                ]
+              }
+            ],
+            "has_credential_form": false,
+            "has_off_domain_form_submission": false,
+            "total_iframes": 0,
+            "iframes": [],
+            "has_hidden_iframes": false,
+            "total_scripts": 4,
+            "external_scripts_count": 2,
+            "js_signals": {
+              "has_eval": false,
+              "has_document_write": false,
+              "has_obfuscated_code": false,
+              "has_context_menu_blocker": false,
+              "has_clipboard_manipulation": false,
+              "suspicious_patterns": []
+            },
+            "detected_brand_in_title": null,
+            "brand_impersonation_suspected": false
+          },
+          "error": null,
+          "observed_at": 1790959327.9959238
+        },
+        "evidence": [
+          "Domain matches known verified apex organization repository.",
+          "Established domain age: 25.7 years (2001-01-13)",
+          "Registrar identified: MarkMonitor Inc.",
+          "Resolved IPv4: 103.102.166.224",
+          "Resolved IPv6: 2001:df2:e500:ed1a::1",
+          "Valid trusted TLS certificate issued by 'YE2' (TLSv1.3, expires in 32 days)",
+          "Server header advertised: ATS/9.2.15",
+          "Missing key HTTP defensive headers: Content-Security-Policy (CSP), X-Frame-Options (Clickjacking Protection), X-Content-Type-Options: nosniff",
+          "URL redirected through 1 hop(s) to 'https://www.wikipedia.org/'"
+        ],
+        "availability": {
+          "backend": true,
+          "ml_model": true,
+          "domain_intelligence": true,
+          "tls_inspection": true,
+          "dns_intelligence": true,
+          "http_acquisition": true,
+          "dom_analysis": true
+        },
+        "limitations": [
+          "All domain intelligence and DOM acquisition providers returned authoritative data."
+        ],
+        "timestamp": 1790959329.2776885
+      }
+    }
+  ],
+  "ssrf_tests": [
+    {
+      "target": "http://127.0.0.1",
+      "status_code": 200,
+      "risk_score": 99,
+      "verdict": "malicious",
+      "dns_status": "blocked",
+      "rdap_status": "blocked",
+      "tls_status": "blocked",
+      "http_status": "blocked",
+      "evidence": [
+        "Direct IP address host literal used (127.0.0.1) instead of domain name",
+        "Network intelligence query blocked: IP 127.0.0.1 falls in prohibited/private network 127.0.0.0/8"
+      ]
+    },
+    {
+      "target": "http://localhost",
+      "status_code": 200,
+      "risk_score": 99,
+      "verdict": "malicious",
+      "dns_status": "blocked",
+      "rdap_status": "blocked",
+      "tls_status": "blocked",
+      "http_status": "blocked",
+      "evidence": [
+        "Network intelligence query blocked: Prohibited local hostname: 'localhost'"
+      ]
+    },
+    {
+      "target": "http://10.0.0.1",
+      "status_code": 200,
+      "risk_score": 99,
+      "verdict": "malicious",
+      "dns_status": "blocked",
+      "rdap_status": "blocked",
+      "tls_status": "blocked",
+      "http_status": "blocked",
+      "evidence": [
+        "Direct IP address host literal used (10.0.0.1) instead of domain name",
+        "Network intelligence query blocked: IP 10.0.0.1 falls in prohibited/private network 10.0.0.0/8"
+      ]
+    },
+    {
+      "target": "http://172.16.0.1",
+      "status_code": 200,
+      "risk_score": 99,
+      "verdict": "malicious",
+      "dns_status": "blocked",
+      "rdap_status": "blocked",
+      "tls_status": "blocked",
+      "http_status": "blocked",
+      "evidence": [
+        "Direct IP address host literal used (172.16.0.1) instead of domain name",
+        "Network intelligence query blocked: IP 172.16.0.1 falls in prohibited/private network 172.16.0.0/12"
+      ]
+    },
+    {
+      "target": "http://192.168.1.1",
+      "status_code": 200,
+      "risk_score": 99,
+      "verdict": "malicious",
+      "dns_status": "blocked",
+      "rdap_status": "blocked",
+      "tls_status": "blocked",
+      "http_status": "blocked",
+      "evidence": [
+        "Direct IP address host literal used (192.168.1.1) instead of domain name",
+        "Network intelligence query blocked: IP 192.168.1.1 falls in prohibited/private network 192.168.0.0/16"
+      ]
+    },
+    {
+      "target": "http://169.254.169.254",
+      "status_code": 200,
+      "risk_score": 99,
+      "verdict": "malicious",
+      "dns_status": "blocked",
+      "rdap_status": "blocked",
+      "tls_status": "blocked",
+      "http_status": "blocked",
+      "evidence": [
+        "Direct IP address host literal used (169.254.169.254) instead of domain name",
+        "Network intelligence query blocked: IP 169.254.169.254 falls in prohibited/private network 169.254.0.0/16"
+      ]
+    },
+    {
+      "target": "http://[::1]",
+      "status_code": 200,
+      "risk_score": 99,
+      "verdict": "malicious",
+      "dns_status": "blocked",
+      "rdap_status": "blocked",
+      "tls_status": "blocked",
+      "http_status": "blocked",
+      "evidence": [
+        "Direct IP address host literal used (::1) instead of domain name",
+        "Network intelligence query blocked: IP ::1 falls in prohibited/private network ::1/128"
+      ]
+    },
+    {
+      "target": "http://[::ffff:127.0.0.1]",
+      "status_code": 200,
+      "risk_score": 99,
+      "verdict": "malicious",
+      "dns_status": "blocked",
+      "rdap_status": "blocked",
+      "tls_status": "blocked",
+      "http_status": "blocked",
+      "evidence": [
+        "Direct IP address host literal used (::ffff:127.0.0.1) instead of domain name",
+        "Network intelligence query blocked: IPv4-mapped IPv6 ::ffff:127.0.0.1 points to prohibited IPv4 (IP 127.0.0.1 falls in prohibited/private network 127.0.0.0/8)"
+      ]
+    },
+    {
+      "target": "http://[::ffff:192.168.1.1]",
+      "status_code": 200,
+      "risk_score": 99,
+      "verdict": "malicious",
+      "dns_status": "blocked",
+      "rdap_status": "blocked",
+      "tls_status": "blocked",
+      "http_status": "blocked",
+      "evidence": [
+        "Direct IP address host literal used (::ffff:192.168.1.1) instead of domain name",
+        "Network intelligence query blocked: IPv4-mapped IPv6 ::ffff:192.168.1.1 points to prohibited IPv4 (IP 192.168.1.1 falls in prohibited/private network 192.168.0.0/16)"
+      ]
+    },
+    {
+      "target": "http://2130706433",
+      "status_code": 200,
+      "risk_score": 99,
+      "verdict": "malicious",
+      "dns_status": "blocked",
+      "rdap_status": "blocked",
+      "tls_status": "blocked",
+      "http_status": "blocked",
+      "evidence": [
+        "Direct IP address host literal used (2130706433) instead of domain name",
+        "Network intelligence query blocked: IP 127.0.0.1 falls in prohibited/private network 127.0.0.0/8"
+      ]
+    },
+    {
+      "target": "http://0x7f000001",
+      "status_code": 200,
+      "risk_score": 99,
+      "verdict": "malicious",
+      "dns_status": "blocked",
+      "rdap_status": "blocked",
+      "tls_status": "blocked",
+      "http_status": "blocked",
+      "evidence": [
+        "Direct IP address host literal used (0x7f000001) instead of domain name",
+        "Network intelligence query blocked: IP 127.0.0.1 falls in prohibited/private network 127.0.0.0/8"
+      ]
+    },
+    {
+      "target": "http://017700000001",
+      "status_code": 200,
+      "risk_score": 99,
+      "verdict": "malicious",
+      "dns_status": "blocked",
+      "rdap_status": "blocked",
+      "tls_status": "blocked",
+      "http_status": "blocked",
+      "evidence": [
+        "Direct IP address host literal used (017700000001) instead of domain name",
+        "Network intelligence query blocked: IP 127.0.0.1 falls in prohibited/private network 127.0.0.0/8"
+      ]
+    }
+  ],
+  "structural_tests": [
+    {
+      "url": "https://wwwgoogle.com",
+      "risk_score": 85,
+      "verdict": "malicious",
+      "features": {
+        "scheme": "https",
+        "hostname": "wwwgoogle.com",
+        "is_https": true,
+        "is_ip_literal": false,
+        "has_userinfo": false,
+        "has_non_standard_port": false,
+        "has_homoglyphs": false,
+        "homoglyph_details": [],
+        "is_punycode": false,
+        "punycode_decoded": null,
+        "is_typosquat_pattern": true,
+        "subdomain_depth": 0,
+        "tld": "com",
+        "is_suspicious_tld": false,
+        "entropy": 3.654,
+        "suspicious_keywords": []
+      },
+      "evidence": [
+        "Typosquatting pattern: missing dot delimiter after 'www' (wwwgoogle.com)",
+        "Established domain age: 27.6 years (1999-03-03)",
+        "Registrar identified: MarkMonitor Inc.",
+        "Resolved IPv4: 142.251.223.228",
+        "Resolved IPv6: 2404:6800:4007:83a::2004",
+        "TLS Certificate is NOT trusted: Certificate verification failed: Hostname mismatch, certificate is not valid for 'wwwgoogle.com'."
+      ]
+    },
+    {
+      "url": "https://g00gle.com",
+      "risk_score": 99,
+      "verdict": "malicious",
+      "features": {
+        "scheme": "https",
+        "hostname": "g00gle.com",
+        "is_https": true,
+        "is_ip_literal": false,
+        "has_userinfo": false,
+        "has_non_standard_port": false,
+        "has_homoglyphs": false,
+        "homoglyph_details": [],
+        "is_punycode": false,
+        "punycode_decoded": null,
+        "is_typosquat_pattern": false,
+        "subdomain_depth": 0,
+        "tld": "com",
+        "is_suspicious_tld": false,
+        "entropy": 3.725,
+        "suspicious_keywords": []
+      },
+      "evidence": [
+        "Established domain age: 25.3 years (2001-06-01)",
+        "Registrar identified: MarkMonitor Inc.",
+        "Hostname 'g00gle.com' could not be resolved (NXDOMAIN or no A/AAAA records)",
+        "TLS probe blocked by SSRF filter: DNS resolution failed for 'g00gle.com': [Errno 11001] getaddrinfo failed"
+      ]
+    },
+    {
+      "url": "https://micros0ft.com",
+      "risk_score": 30,
+      "verdict": "suspicious",
+      "features": {
+        "scheme": "https",
+        "hostname": "micros0ft.com",
+        "is_https": true,
+        "is_ip_literal": false,
+        "has_userinfo": false,
+        "has_non_standard_port": false,
+        "has_homoglyphs": false,
+        "homoglyph_details": [],
+        "is_punycode": false,
+        "punycode_decoded": null,
+        "is_typosquat_pattern": false,
+        "subdomain_depth": 0,
+        "tld": "com",
+        "is_suspicious_tld": false,
+        "entropy": 3.69,
+        "suspicious_keywords": []
+      },
+      "evidence": [
+        "Established domain age: 28.8 years (1997-12-30)",
+        "Registrar identified: GoDaddy.com, LLC",
+        "Resolved IPv4: 125.21.240.67",
+        "Resolved IPv6: 2404:a800:ff00:1::203d",
+        "Could not establish TLS connection on port 443: Connection timed out after 3.0s"
+      ]
+    },
+    {
+      "url": "https://paypa1.com",
+      "risk_score": 30,
+      "verdict": "suspicious",
+      "features": {
+        "scheme": "https",
+        "hostname": "paypa1.com",
+        "is_https": true,
+        "is_ip_literal": false,
+        "has_userinfo": false,
+        "has_non_standard_port": false,
+        "has_homoglyphs": false,
+        "homoglyph_details": [],
+        "is_punycode": false,
+        "punycode_decoded": null,
+        "is_typosquat_pattern": false,
+        "subdomain_depth": 0,
+        "tld": "com",
+        "is_suspicious_tld": false,
+        "entropy": 3.572,
+        "suspicious_keywords": []
+      },
+      "evidence": [
+        "Established domain age: 25.9 years (2000-10-20)",
+        "Registrar identified: MarkMonitor Inc.",
+        "Resolved IPv4: 125.21.240.67",
+        "Resolved IPv6: 2404:a800:ff00:1::203d",
+        "Could not establish TLS connection on port 443: Connection timed out after 3.0s"
+      ]
+    },
+    {
+      "url": "https://example.com@evil.example",
+      "risk_score": 99,
+      "verdict": "malicious",
+      "features": {
+        "scheme": "https",
+        "hostname": "evil.example",
+        "is_https": true,
+        "is_ip_literal": false,
+        "has_userinfo": true,
+        "has_non_standard_port": false,
+        "has_homoglyphs": false,
+        "homoglyph_details": [],
+        "is_punycode": false,
+        "punycode_decoded": null,
+        "is_typosquat_pattern": false,
+        "subdomain_depth": 0,
+        "tld": "example",
+        "is_suspicious_tld": false,
+        "entropy": 3.879,
+        "suspicious_keywords": []
+      },
+      "evidence": [
+        "Userinfo credential trick detected (contains '@' symbol redirecting destination)",
+        "Authoritative RDAP query returned 404 Not Found for 'evil.example'",
+        "Hostname 'evil.example' could not be resolved (NXDOMAIN or no A/AAAA records)",
+        "TLS probe blocked by SSRF filter: DNS resolution failed for 'evil.example': [Errno 11001] getaddrinfo failed"
+      ]
+    },
+    {
+      "url": "https://example.com/%2F%2Fevil.example",
+      "risk_score": 2,
+      "verdict": "safe",
+      "features": {
+        "scheme": "https",
+        "hostname": "example.com",
+        "is_https": true,
+        "is_ip_literal": false,
+        "has_userinfo": false,
+        "has_non_standard_port": false,
+        "has_homoglyphs": false,
+        "homoglyph_details": [],
+        "is_punycode": false,
+        "punycode_decoded": null,
+        "is_typosquat_pattern": false,
+        "subdomain_depth": 0,
+        "tld": "com",
+        "is_suspicious_tld": false,
+        "entropy": 4.073,
+        "suspicious_keywords": []
+      },
+      "evidence": [
+        "Domain matches known verified apex organization repository.",
+        "Established domain age: 31.1 years (1995-08-14)",
+        "Registrar identified: RESERVED-Internet Assigned Numbers Authority",
+        "Resolved IPv4: 104.20.23.154, 172.66.147.243",
+        "Resolved IPv6: 2606:4700:83b5:72db:f2fd:a22:ef6b:ff98",
+        "Valid trusted TLS certificate issued by 'Cloudflare TLS Issuing ECC CA 3' (TLSv1.3, expires in 84 days)",
+        "Server returned HTTP error 404 (Not Found)",
+        "Server header advertised: cloudflare",
+        "Missing key HTTP defensive headers: Strict-Transport-Security (HSTS), Content-Security-Policy (CSP), X-Frame-Options (Clickjacking Protection)"
+      ]
+    },
+    {
+      "url": "https://example.com/?redirect=https://evil.example",
+      "risk_score": 2,
+      "verdict": "safe",
+      "features": {
+        "scheme": "https",
+        "hostname": "example.com",
+        "is_https": true,
+        "is_ip_literal": false,
+        "has_userinfo": false,
+        "has_non_standard_port": false,
+        "has_homoglyphs": false,
+        "homoglyph_details": [],
+        "is_punycode": false,
+        "punycode_decoded": null,
+        "is_typosquat_pattern": false,
+        "subdomain_depth": 0,
+        "tld": "com",
+        "is_suspicious_tld": false,
+        "entropy": 4.076,
+        "suspicious_keywords": []
+      },
+      "evidence": [
+        "Domain matches known verified apex organization repository.",
+        "Established domain age: 31.1 years (1995-08-14)",
+        "Registrar identified: RESERVED-Internet Assigned Numbers Authority",
+        "Resolved IPv4: 104.20.23.154, 172.66.147.243",
+        "Resolved IPv6: 2606:4700:83b5:72db:f2fd:a22:ef6b:ff98",
+        "Valid trusted TLS certificate issued by 'Cloudflare TLS Issuing ECC CA 3' (TLSv1.3, expires in 84 days)",
+        "Server header advertised: cloudflare",
+        "Missing key HTTP defensive headers: Strict-Transport-Security (HSTS), Content-Security-Policy (CSP), X-Frame-Options (Clickjacking Protection)"
+      ]
+    },
+    {
+      "url": "https://p\u0430ypal.com",
+      "risk_score": 85,
+      "verdict": "malicious",
+      "features": {
+        "scheme": "https",
+        "hostname": "p\u0430ypal.com",
+        "is_https": true,
+        "is_ip_literal": false,
+        "has_userinfo": false,
+        "has_non_standard_port": false,
+        "has_homoglyphs": true,
+        "homoglyph_details": [
+          "'\u0430' (U+0430 confusable with Latin 'a')"
+        ],
+        "is_punycode": false,
+        "punycode_decoded": null,
+        "is_typosquat_pattern": false,
+        "subdomain_depth": 0,
+        "tld": "com",
+        "is_suspicious_tld": false,
+        "entropy": 3.684,
+        "suspicious_keywords": []
+      },
+      "evidence": [
+        "Cyrillic lookalike homoglyph characters detected: '\u0430' (U+0430 confusable with Latin 'a')",
+        "Resolved IPv4: 99.83.176.46",
+        "Could not establish TLS connection on port 443: Connection timed out after 3.0s"
+      ]
+    },
+    {
+      "url": "https://xn--e1afmkfd.xn--p1ai",
+      "risk_score": 33,
+      "verdict": "suspicious",
+      "features": {
+        "scheme": "https",
+        "hostname": "xn--e1afmkfd.xn--p1ai",
+        "is_https": true,
+        "is_ip_literal": false,
+        "has_userinfo": false,
+        "has_non_standard_port": false,
+        "has_homoglyphs": false,
+        "homoglyph_details": [],
+        "is_punycode": true,
+        "punycode_decoded": "\u043f\u0440\u0438\u043c\u0435\u0440.\u0440\u0444",
+        "is_typosquat_pattern": false,
+        "subdomain_depth": 0,
+        "tld": "xn--p1ai",
+        "is_suspicious_tld": false,
+        "entropy": 4.03,
+        "suspicious_keywords": []
+      },
+      "evidence": [
+        "Internationalized Domain Name (Punycode): decodes to '\u043f\u0440\u0438\u043c\u0435\u0440.\u0440\u0444'",
+        "Authoritative RDAP query returned 404 Not Found for 'xn--e1afmkfd.xn--p1ai'",
+        "Resolved IPv4: 89.253.237.94",
+        "Valid trusted TLS certificate issued by 'YR1' (TLSv1.3, expires in 87 days)",
+        "Server header advertised: nginx",
+        "Missing key HTTP defensive headers: Strict-Transport-Security (HSTS), Content-Security-Policy (CSP), X-Frame-Options (Clickjacking Protection)"
+      ]
+    },
+    {
+      "url": "http://192.168.1.50:8888/login",
+      "risk_score": 99,
+      "verdict": "malicious",
+      "features": {
+        "scheme": "http",
+        "hostname": "192.168.1.50",
+        "is_https": false,
+        "is_ip_literal": true,
+        "has_userinfo": false,
+        "has_non_standard_port": true,
+        "has_homoglyphs": false,
+        "homoglyph_details": [],
+        "is_punycode": false,
+        "punycode_decoded": null,
+        "is_typosquat_pattern": false,
+        "subdomain_depth": 2,
+        "tld": "50",
+        "is_suspicious_tld": false,
+        "entropy": 3.911,
+        "suspicious_keywords": [
+          "login"
+        ]
+      },
+      "evidence": [
+        "Direct IP address host literal used (192.168.1.50) instead of domain name",
+        "Unusual destination port (8888)",
+        "Suspicious security/phishing keywords present: login",
+        "Network intelligence query blocked: IP 192.168.1.50 falls in prohibited/private network 192.168.0.0/16"
+      ]
+    }
+  ],
+  "email_tests": [
+    {
+      "name": "Benign Newsletter",
+      "risk_score": 0,
+      "verdict": "safe",
+      "sender": {
+        "display_name": "",
+        "address": "newsletter@legit-news.com",
+        "domain": "legit-news.com",
+        "reply_to_address": null,
+        "reply_to_domain": null,
+        "return_path_address": null,
+        "return_path_domain": null,
+        "is_reply_to_mismatch": false,
+        "is_return_path_mismatch": false,
+        "is_display_name_spoofing": false,
+        "impersonation_target": null
+      },
+      "auth": {
+        "source": "supplied_header",
+        "verification_status": "not_independently_verified",
+        "spf_status": "pass",
+        "dkim_status": "pass",
+        "dmarc_status": "pass",
+        "spf_details": "MTA reported spf=pass",
+        "dkim_details": "MTA reported dkim=pass",
+        "dmarc_details": "MTA reported dmarc=pass",
+        "has_auth_failure": false
+      },
+      "attachments": [],
+      "links": [],
+      "evidence": [
+        "No obvious social engineering patterns, authentication failures, or deceptive headers detected."
+      ]
+    },
+    {
+      "name": "Display-Name Brand Spoofing with Urgency & Credential Prompt",
+      "risk_score": 100,
+      "verdict": "malicious",
+      "sender": {
+        "display_name": "PayPal Security",
+        "address": "badguy@harvest-creds.cc",
+        "domain": "harvest-creds.cc",
+        "reply_to_address": null,
+        "reply_to_domain": null,
+        "return_path_address": null,
+        "return_path_domain": null,
+        "is_reply_to_mismatch": false,
+        "is_return_path_mismatch": false,
+        "is_display_name_spoofing": true,
+        "impersonation_target": "Paypal"
+      },
+      "auth": {
+        "source": "supplied_header",
+        "verification_status": "not_independently_verified",
+        "spf_status": "fail",
+        "dkim_status": "none",
+        "dmarc_status": "fail",
+        "spf_details": "MTA reported spf=fail",
+        "dkim_details": null,
+        "dmarc_details": "MTA reported dmarc=fail",
+        "has_auth_failure": true
+      },
+      "attachments": [],
+      "links": [],
+      "evidence": [
+        "Supplied SPF verification failure: fail",
+        "Supplied DMARC policy failure: fail",
+        "Brand Impersonation in Sender Display Name: Display name claims 'PayPal Security' (Paypal) but originating domain is 'harvest-creds.cc'",
+        "High-urgency language detected (2 phrases identified)",
+        "Explicit credential verification / login harvesting prompt detected"
+      ]
+    },
+    {
+      "name": "Anchor Text Mismatch Deception",
+      "risk_score": 85,
+      "verdict": "malicious",
+      "sender": {
+        "display_name": "",
+        "address": "service@alerts.com",
+        "domain": "alerts.com",
+        "reply_to_address": null,
+        "reply_to_domain": null,
+        "return_path_address": null,
+        "return_path_domain": null,
+        "is_reply_to_mismatch": false,
+        "is_return_path_mismatch": false,
+        "is_display_name_spoofing": false,
+        "impersonation_target": null
+      },
+      "auth": {
+        "source": "supplied_header",
+        "verification_status": "not_independently_verified",
+        "spf_status": "none",
+        "dkim_status": "none",
+        "dmarc_status": "none",
+        "spf_details": null,
+        "dkim_details": null,
+        "dmarc_details": null,
+        "has_auth_failure": false
+      },
+      "attachments": [],
+      "links": [
+        {
+          "url": "http://192.168.1.50/login",
+          "display_text": "https://paypal.com/signin",
+          "is_mismatched_anchor": true,
+          "is_suspicious": true,
+          "risk_score": 85,
+          "verdict": "malicious",
+          "reasons": [
+            "Anchor text displays 'paypal.com' but link targets '192.168.1.50'",
+            "IP literal destination in link"
+          ]
+        },
+        {
+          "url": "https://paypal.com/signin",
+          "display_text": null,
+          "is_mismatched_anchor": false,
+          "is_suspicious": false,
+          "risk_score": 0,
+          "verdict": "safe",
+          "reasons": []
+        }
+      ],
+      "evidence": [
+        "Deceptive Link / Mismatched Anchor: Display text 'paypal.com' masks destination '192.168.1.50'"
+      ]
+    },
+    {
+      "name": "Dangerous Double-Extension Executable Attachment",
+      "risk_score": 90,
+      "verdict": "malicious",
+      "sender": {
+        "display_name": "",
+        "address": "invoice@suppliers.com",
+        "domain": "suppliers.com",
+        "reply_to_address": null,
+        "reply_to_domain": null,
+        "return_path_address": null,
+        "return_path_domain": null,
+        "is_reply_to_mismatch": false,
+        "is_return_path_mismatch": false,
+        "is_display_name_spoofing": false,
+        "impersonation_target": null
+      },
+      "auth": {
+        "source": "supplied_header",
+        "verification_status": "not_independently_verified",
+        "spf_status": "none",
+        "dkim_status": "none",
+        "dmarc_status": "none",
+        "spf_details": null,
+        "dkim_details": null,
+        "dmarc_details": null,
+        "has_auth_failure": false
+      },
+      "attachments": [
+        {
+          "filename": "Invoice_Oct2026.pdf.exe",
+          "extension": ".exe",
+          "declared_mime": "application/octet-stream",
+          "size_bytes": 17,
+          "sha256": "5a60153e2d3dd91d8818595f0867be609341a8de3ff9d97888bec2e3aff9436c",
+          "is_dangerous_extension": true,
+          "is_double_extension": true,
+          "is_macro_enabled": false,
+          "is_archive": false,
+          "risk_level": "high_risk"
+        }
+      ],
+      "links": [],
+      "evidence": [
+        "Double Extension Evasion Detected: Attachment 'Invoice_Oct2026.pdf.exe' disguises executable '.exe' behind benign '.pdf'",
+        "Dangerous executable attachment detected: 'Invoice_Oct2026.pdf.exe' (type: .exe)"
+      ]
+    }
+  ],
+  "message_tests": [
+    {
+      "name": "Benign SMS",
+      "risk_score": 0,
+      "verdict": "safe",
+      "social_engineering": {
+        "urgency_score": 0,
+        "has_urgency_language": false,
+        "has_credential_request": false,
+        "has_payment_or_wire_request": false,
+        "has_crypto_request": false,
+        "has_gift_card_request": false,
+        "has_executive_impersonation": false,
+        "has_account_suspension_threat": false,
+        "detected_phrases": []
+      },
+      "links": [],
+      "evidence": [
+        "No immediate social engineering or deceptive message indicators detected."
+      ]
+    },
+    {
+      "name": "USPS Smishing Scam with IP Link",
+      "risk_score": 100,
+      "verdict": "malicious",
+      "social_engineering": {
+        "urgency_score": 40,
+        "has_urgency_language": true,
+        "has_credential_request": false,
+        "has_payment_or_wire_request": true,
+        "has_crypto_request": false,
+        "has_gift_card_request": false,
+        "has_executive_impersonation": false,
+        "has_account_suspension_threat": false,
+        "detected_phrases": [
+          "immediately",
+          "unpaid fees"
+        ]
+      },
+      "links": [
+        {
+          "url": "http://192.168.1.50/pay",
+          "display_text": null,
+          "is_mismatched_anchor": false,
+          "is_suspicious": true,
+          "risk_score": 30,
+          "verdict": "suspicious",
+          "reasons": [
+            "IP literal destination in link"
+          ]
+        }
+      ],
+      "evidence": [
+        "High-urgency language detected (2 phrases identified)",
+        "Sender identifier 'USPS-Alerts' references high-value brand or institutional keyword"
+      ]
+    }
+  ],
+  "failsafe_tests": [
+    {
+      "name": "Empty URL to /predict",
+      "status_code": 400,
+      "body": {
+        "detail": "Invalid URL: String too short"
+      }
+    },
+    {
+      "name": "Empty Email to /analyze/email",
+      "status_code": 400,
+      "body": {
+        "detail": "Empty email content provided"
+      }
+    },
+    {
+      "name": "Empty Message to /analyze/message",
+      "status_code": 400,
+      "body": {
+        "detail": "Empty message text provided"
+      }
+    },
+    {
+      "name": "Malformed JSON structure",
+      "status_code": 422,
+      "body": {
+        "detail": [
+          {
+            "type": "missing",
+            "loc": [
+              "body",
+              "url"
+            ],
+            "msg": "Field required",
+            "input": {
+              "unknown_field": 123
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "concurrency": {
+    "c_1": {
+      "concurrency": 1,
+      "success_rate": "1/1",
+      "p50_ms": 2600.49,
+      "p95_ms": 2600.49,
+      "p99_ms": 2600.49,
+      "total_batch_ms": 2601.34
+    },
+    "c_5": {
+      "concurrency": 5,
+      "success_rate": "5/5",
+      "p50_ms": 2522.93,
+      "p95_ms": 3210.73,
+      "p99_ms": 3210.73,
+      "total_batch_ms": 3212.25
+    },
+    "c_10": {
+      "concurrency": 10,
+      "success_rate": "10/10",
+      "p50_ms": 3144.06,
+      "p95_ms": 3367.73,
+      "p99_ms": 3367.73,
+      "total_batch_ms": 3372.21
+    },
+    "c_25": {
+      "concurrency": 25,
+      "success_rate": "25/25",
+      "p50_ms": 3230.44,
+      "p95_ms": 3560.2,
+      "p99_ms": 4234.71,
+      "total_batch_ms": 4244.66
+    }
+  }
+}
