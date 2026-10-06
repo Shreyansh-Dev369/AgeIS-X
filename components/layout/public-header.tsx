@@ -3,10 +3,11 @@
 import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, X, ArrowRight, ShieldCheck, Download, LogIn, LayoutDashboard } from "lucide-react"
+import { Menu, LogIn, LayoutDashboard, Download } from "lucide-react"
 import { Logo } from "@/components/design-system/logo"
 import { Button } from "@/components/ui/button"
 import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer"
+import { MagneticButton } from "@/components/cinematic/magnetic-button"
 import { cn } from "@/lib/utils"
 
 const publicNavLinks = [
@@ -29,16 +30,17 @@ export function PublicHeader() {
       setIsScrolled(window.scrollY > 15)
     }
     window.addEventListener("scroll", handleScroll, { passive: true })
+    handleScroll()
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-200 border-b",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
         isScrolled
           ? "bg-[#050505]/95 backdrop-blur-md border-white/10 shadow-2xl"
-          : "bg-[#050505]/85 backdrop-blur-sm border-white/5"
+          : "bg-[#050505]/80 backdrop-blur-sm border-white/5"
       )}
     >
       <div className="page-container">
@@ -46,8 +48,8 @@ export function PublicHeader() {
           {/* Brand Logo & Technical Stamp */}
           <div className="flex items-center gap-3">
             <Logo href="/" size="md" />
-            <span className="hidden lg:inline text-[9px] font-mono text-[#6F706D] uppercase tracking-widest pl-2 border-l border-white/10">
-              SYS.DEF // V2.4
+            <span className="hidden lg:inline text-[9px] font-mono text-[#6F706D] uppercase tracking-widest pl-2 border-l border-white/10 select-none">
+              RELEASE 2026.4
             </span>
           </div>
 
@@ -60,13 +62,16 @@ export function PublicHeader() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "px-3 py-1 text-xs font-mono tracking-wide transition-colors",
+                    "px-3 py-1 text-xs font-mono tracking-wide transition-all duration-200 relative group",
                     isActive
-                      ? "text-[#39FF14] font-bold border-b border-[#39FF14]"
+                      ? "text-[#39FF14] font-bold"
                       : "text-[#A6A6A0] hover:text-[#F1F0EB]"
                   )}
                 >
-                  {link.label}
+                  <span>{link.label}</span>
+                  {isActive && (
+                    <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-[#39FF14] inline-block animate-in fade-in duration-200" />
+                  )}
                 </Link>
               )
             })}
@@ -96,16 +101,18 @@ export function PublicHeader() {
                 Console
               </Link>
             </Button>
-            <Button
-              size="sm"
-              asChild
-              className="bg-[#39FF14] hover:bg-[#32e012] text-[#050505] font-bold text-xs font-mono h-8 px-3.5 rounded-none shadow-[2px_2px_0px_#FFFFFF]"
-            >
-              <Link href="/download">
-                <Download className="w-3.5 h-3.5 mr-1.5" />
-                Download
-              </Link>
-            </Button>
+            <MagneticButton strength={3}>
+              <Button
+                size="sm"
+                asChild
+                className="bg-[#39FF14] hover:bg-[#32e012] text-[#050505] font-bold text-xs font-mono h-8 px-3.5 rounded-none shadow-[2px_2px_0px_#FFFFFF]"
+              >
+                <Link href="/download">
+                  <Download className="w-3.5 h-3.5 mr-1.5" />
+                  Download
+                </Link>
+              </Button>
+            </MagneticButton>
           </div>
 
           {/* Mobile Menu Trigger */}

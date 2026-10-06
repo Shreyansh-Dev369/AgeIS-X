@@ -24,7 +24,6 @@ export interface RobotPlan {
   devicesCount: number
   devicesLabel: string
   badgeLabel: string
-  coordinates: string
   systemCode: string
   status: "AVAILABLE" | "BETA"
   images: {
@@ -72,8 +71,7 @@ export const AGEIS_ROBOT_PLANS: RobotPlan[] = [
     devicesCount: 1,
     devicesLabel: "1 DEVICE",
     badgeLabel: "SCOUT ONLINE",
-    coordinates: "51.5074° N, 0.1278° W",
-    systemCode: "SX-01 // RECON",
+    systemCode: "UNIT-01-RECON",
     status: "AVAILABLE",
     images: {
       panel: "/robots/scout-panel.webp",
@@ -98,7 +96,7 @@ export const AGEIS_ROBOT_PLANS: RobotPlan[] = [
       chassis: "Ultra-compact mono-chassis with agile articulated tripod base",
       opticsSensor: "Single wide-spectrum primary optical sensor with high-FPS packet tracking",
       defenseEngine: "AgeIS-X Light Recon Heuristic Engine",
-      telemetryRate: "< 45ms inspection latency",
+      telemetryRate: "< 25ms local token scoring",
       deploymentTarget: "Single primary workstation or personal browser",
       operationalProtocol: "Passive vector surveillance and manual diagnostic requests",
     },
@@ -124,8 +122,7 @@ export const AGEIS_ROBOT_PLANS: RobotPlan[] = [
     devicesCount: 2,
     devicesLabel: "2 DEVICES",
     badgeLabel: "GUARD ONLINE",
-    coordinates: "48.8566° N, 2.3522° E",
-    systemCode: "GX-02 // DEFENSE",
+    systemCode: "UNIT-02-DEFENSE",
     status: "AVAILABLE",
     images: {
       panel: "/robots/guard-panel.webp",
@@ -151,7 +148,7 @@ export const AGEIS_ROBOT_PLANS: RobotPlan[] = [
       chassis: "Reinforced composite tactical frame with armored torso and field-harness mount",
       opticsSensor: "Dual-layer polarized visor with direct threat vector classification",
       defenseEngine: "AgeIS-X Real-Time Active Shield Core",
-      telemetryRate: "< 20ms continuous stream",
+      telemetryRate: "< 20ms active stream scoring",
       deploymentTarget: "Dual device setup (e.g. laptop + mobile endpoint)",
       operationalProtocol: "Continuous autonomous web and message perimeter protection",
     },
@@ -177,8 +174,7 @@ export const AGEIS_ROBOT_PLANS: RobotPlan[] = [
     devicesCount: 5,
     devicesLabel: "5 DEVICES",
     badgeLabel: "SENTINEL ONLINE",
-    coordinates: "37.7749° N, 122.4194° W",
-    systemCode: "SX-03 // INTEL",
+    systemCode: "UNIT-03-INTEL",
     status: "AVAILABLE",
     images: {
       panel: "/robots/sentinel-panel.webp",
@@ -207,7 +203,7 @@ export const AGEIS_ROBOT_PLANS: RobotPlan[] = [
       chassis: "Heavy exoskeleton with modular sensor shoulder mounts and tactical chest battery",
       opticsSensor: "Multi-aperture neural array with darknet vector correlation",
       defenseEngine: "AgeIS-X Neural Forensic Intelligence Engine",
-      telemetryRate: "< 8ms sub-packet analysis",
+      telemetryRate: "< 15ms forensic tokenization",
       deploymentTarget: "Power user fleet up to 5 multi-OS endpoints",
       operationalProtocol: "Deep forensic packet dissection, identity watch, and proactive defense",
     },
@@ -233,8 +229,7 @@ export const AGEIS_ROBOT_PLANS: RobotPlan[] = [
     devicesCount: 10,
     devicesLabel: "10 DEVICES",
     badgeLabel: "AEGIS ONLINE",
-    coordinates: "34.0522° N, 118.2437° W",
-    systemCode: "AX-04 // APEX",
+    systemCode: "UNIT-04-APEX",
     status: "AVAILABLE",
     images: {
       panel: "/robots/aegis-panel.webp",
@@ -260,7 +255,7 @@ export const AGEIS_ROBOT_PLANS: RobotPlan[] = [
       chassis: "Apex ceremonial ballistic shroud with high-strength carbon lattice core",
       opticsSensor: "Full-spectrum omni-directional tactical visor with green indicator halo",
       defenseEngine: "AgeIS-X Full Sovereign Protection Enclave",
-      telemetryRate: "< 3ms enterprise zero-lag stream",
+      telemetryRate: "< 10ms multi-device orchestration",
       deploymentTarget: "Whole family, high-profile individual, or distributed studio (10 devices)",
       operationalProtocol: "Total perimeter lockdown, cross-device threat orchestration, priority routing",
     },

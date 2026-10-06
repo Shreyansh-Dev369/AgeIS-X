@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import { Search, CheckCircle2, AlertTriangle, AlertOctagon, Loader2, Globe, Lock, ShieldCheck, ArrowRight, ShieldAlert, AlertCircle, Info, ChevronDown, ChevronUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { analyzeUrlStructure } from "@/lib/utils/url-analyzer"
+import { MagneticButton } from "@/components/cinematic/magnetic-button"
 import { SecuritySticker } from "@/components/design-system/pixel-art-system"
 
 export type ScanVerdict = "safe" | "suspicious" | "malicious" | "unknown" | "error"
@@ -250,20 +251,22 @@ export function URLScanner() {
             />
           </div>
 
-          <Button
-            type="submit"
-            disabled={isScanning || !url.trim()}
-            className="bg-[#39FF14] hover:bg-[#32e012] text-[#050505] font-bold font-mono text-xs px-7 h-12 shrink-0 rounded-none shadow-[2px_2px_0px_#FFFFFF]"
-          >
-            {isScanning ? (
-              <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin text-[#050505]" />
-                SCANNING...
-              </>
-            ) : (
-              <span>SCAN VECTOR &rarr;</span>
-            )}
-          </Button>
+          <MagneticButton strength={4}>
+            <Button
+              type="submit"
+              disabled={isScanning || !url.trim()}
+              className="bg-[#39FF14] hover:bg-[#32e012] text-[#050505] font-bold font-mono text-xs px-7 h-12 shrink-0 rounded-none shadow-[2px_2px_0px_#FFFFFF] w-full sm:w-auto"
+            >
+              {isScanning ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin text-[#050505]" />
+                  SCANNING...
+                </>
+              ) : (
+                <span>SCAN VECTOR &rarr;</span>
+              )}
+            </Button>
+          </MagneticButton>
         </form>
 
         {/* Benchmark Chips */}

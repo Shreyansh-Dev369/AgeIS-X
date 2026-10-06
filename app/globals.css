@@ -255,6 +255,35 @@
   background: #39FF14;
 }
 
+/* Organic Hero Floating & Sheen Animations */
+@keyframes hero-float {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.008);
+  }
+}
+
+@keyframes hero-glow-pulse {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.06);
+  }
+}
+
+.animate-hero-float {
+  animation: hero-float 7s ease-in-out infinite;
+}
+
+.animate-hero-glow {
+  animation: hero-glow-pulse 5s ease-in-out infinite;
+}
+
 /* Strict Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {

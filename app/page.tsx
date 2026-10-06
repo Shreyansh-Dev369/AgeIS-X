@@ -2,25 +2,23 @@
 
 import * as React from "react"
 import Link from "next/link"
-import Image from "next/image"
 import { PublicShell } from "@/components/layout/public-shell"
 import { CinematicHero } from "@/components/cinematic/cinematic-hero"
 import { RevealOnScroll } from "@/components/cinematic/reveal-on-scroll"
-import { DepthCard } from "@/components/cinematic/depth-card"
+import { PointerDepthCard } from "@/components/cinematic/pointer-depth-card"
+import { MagneticButton } from "@/components/cinematic/magnetic-button"
+import { ScrollProgressRail } from "@/components/cinematic/scroll-progress-rail"
+import { MaskedHeading } from "@/components/cinematic/typography-choreography"
 import { Button } from "@/components/ui/button"
 import {
   EditorialSection,
-  EditorialHeading,
   TechnicalLabel,
-  SignalMarker,
 } from "@/components/design-system/editorial-primitives"
 import {
   PixelScoutGlyph,
   PixelGuardGlyph,
   PixelSentinelGlyph,
   PixelAegisGlyph,
-  BarcodeGraphic,
-  RegistrationMark,
 } from "@/components/pricing/robot-pixel-sprites"
 import {
   Globe,
@@ -30,11 +28,6 @@ import {
   EyeOff,
   Lock,
   ArrowRight,
-  ShieldCheck,
-  Cpu,
-  Layers,
-  Activity,
-  Terminal,
 } from "lucide-react"
 
 const protectionSurfaces = [
@@ -138,30 +131,41 @@ const robotRoster = [
 export default function HomePage() {
   return (
     <PublicShell>
-      {/* 1. MASTER 7-LAYER CINEMATIC HERO */}
+      {/* Subtle Desktop System Navigation Rail */}
+      <ScrollProgressRail />
+
+      {/* 1. MASTER 7-LAYER CINEMATIC HERO & STAGED ROBOT REVEAL */}
       <CinematicHero />
 
       {/* 2. THREAT SURFACE DEFENSE MATRIX (MODE A - DARK LAB) */}
-      <EditorialSection mode="dark-lab" className="py-20 md:py-28 border-b border-white/10">
+      <EditorialSection
+        id="surfaces"
+        mode="dark-lab"
+        className="py-20 md:py-28 border-b border-white/10"
+      >
         <div className="space-y-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-6">
             <div className="space-y-2">
-              <TechnicalLabel>01 / DEFENSE SURFACES</TechnicalLabel>
-              <EditorialHeading level={2}>WHAT AGEIS-X PROTECTS</EditorialHeading>
+              <TechnicalLabel signal>01 / DEFENSE SURFACES</TechnicalLabel>
+              <MaskedHeading
+                level={2}
+                lines={["WHAT AGEIS-X PROTECTS"]}
+                className="text-2xl sm:text-3xl md:text-4xl font-black uppercase text-[#F1F0EB] tracking-tight font-mono"
+              />
             </div>
             <p className="text-xs sm:text-sm text-[#A6A6A0] max-w-md font-sans leading-relaxed">
               Autonomous defense operating as one cohesive layer across your entire hardware and network perimeter.
             </p>
           </div>
 
-          {/* Continuous Row Architecture with Subtle Elevation on Hover */}
+          {/* Continuous Row Architecture with Subtle Elevation and Staggered Reveal */}
           <div className="divide-y divide-white/10 border-t border-b border-white/10 font-mono">
             {protectionSurfaces.map((surface, idx) => {
               const Icon = surface.icon
               return (
-                <RevealOnScroll key={idx} delay={idx * 60}>
-                  <div className="py-6 px-2 sm:px-4 grid grid-cols-1 md:grid-cols-12 gap-4 items-center hover:bg-white/[0.02] transition-colors group">
-                    <div className="md:col-span-1 text-xs font-bold text-[#39FF14]">
+                <RevealOnScroll key={idx} delay={idx * 50} direction="up" distance={16}>
+                  <div className="py-6 px-2 sm:px-4 grid grid-cols-1 md:grid-cols-12 gap-4 items-center hover:bg-white/[0.03] transition-all duration-300 group cursor-default">
+                    <div className="md:col-span-1 text-xs font-bold text-[#39FF14] transition-transform duration-200 group-hover:translate-x-1">
                       {surface.num}
                     </div>
                     <div className="md:col-span-3 space-y-1">
@@ -173,11 +177,11 @@ export default function HomePage() {
                         <span>{surface.title}</span>
                       </h3>
                     </div>
-                    <div className="md:col-span-6 text-xs text-[#A6A6A0] font-sans leading-relaxed">
+                    <div className="md:col-span-6 text-xs text-[#A6A6A0] font-sans leading-relaxed group-hover:text-[#E8E7E2] transition-colors">
                       {surface.desc}
                     </div>
                     <div className="md:col-span-2 text-right">
-                      <span className="inline-block text-[10px] font-mono px-2 py-0.5 bg-white/5 border border-white/10 text-[#A6A6A0]">
+                      <span className="inline-block text-[10px] font-mono px-2 py-0.5 bg-white/5 border border-white/10 text-[#A6A6A0] group-hover:border-[#39FF14]/40 group-hover:text-[#39FF14] transition-colors">
                         {surface.spec}
                       </span>
                     </div>
@@ -190,13 +194,19 @@ export default function HomePage() {
       </EditorialSection>
 
       {/* 3. EDITORIAL MANIFESTO: THE MATHEMATICAL PARADIGM SHIFT (OFF-WHITE PAPER TEXTURE) */}
-      <EditorialSection mode="off-white-editorial" className="py-20 md:py-28 border-b border-white/10">
+      <EditorialSection
+        id="paradigm"
+        mode="off-white-editorial"
+        className="py-20 md:py-28 border-b border-white/10"
+      >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           <div className="lg:col-span-4 space-y-3">
             <TechnicalLabel className="text-[#6F706D] font-bold">02 / PARADIGM SHIFT</TechnicalLabel>
-            <h2 className="font-mono text-2xl sm:text-3xl font-extrabold text-[#050505] tracking-tight leading-tight uppercase">
-              SECURITY SOFTWARE SHOULD NOT BE SPYWARE.
-            </h2>
+            <MaskedHeading
+              level={2}
+              lines={["SECURITY SOFTWARE", "SHOULD NOT BE SPYWARE."]}
+              className="font-mono text-2xl sm:text-3xl font-extrabold text-[#050505] tracking-tight leading-tight uppercase"
+            />
           </div>
 
           <div className="lg:col-span-8 space-y-6 text-[#242424] text-base sm:text-lg leading-relaxed font-sans">
@@ -208,8 +218,8 @@ export default function HomePage() {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-[#242424]/15">
-              <RevealOnScroll delay={100}>
-                <div className="space-y-1">
+              <RevealOnScroll delay={100} direction="left" distance={20}>
+                <div className="space-y-1 p-3 border-l-2 border-black/10 hover:border-black/40 transition-colors">
                   <span className="font-mono text-[11px] uppercase tracking-wider text-[#6F706D] block font-bold">
                     INFERENCE DELTA
                   </span>
@@ -218,8 +228,8 @@ export default function HomePage() {
                 </div>
               </RevealOnScroll>
 
-              <RevealOnScroll delay={200}>
-                <div className="space-y-1">
+              <RevealOnScroll delay={200} direction="left" distance={20}>
+                <div className="space-y-1 p-3 border-l-2 border-black/10 hover:border-black/40 transition-colors">
                   <span className="font-mono text-[11px] uppercase tracking-wider text-[#6F706D] block font-bold">
                     CLOUD HARVESTING
                   </span>
@@ -228,8 +238,8 @@ export default function HomePage() {
                 </div>
               </RevealOnScroll>
 
-              <RevealOnScroll delay={300}>
-                <div className="space-y-1">
+              <RevealOnScroll delay={300} direction="left" distance={20}>
+                <div className="space-y-1 p-3 border-l-2 border-black/10 hover:border-black/40 transition-colors">
                   <span className="font-mono text-[11px] uppercase tracking-wider text-[#6F706D] block font-bold">
                     MEMORY FOOTPRINT
                   </span>
@@ -242,13 +252,21 @@ export default function HomePage() {
         </div>
       </EditorialSection>
 
-      {/* 4. 4-ROBOT SECURITY UNIT ROSTER INTRODUCTION */}
-      <EditorialSection mode="dark-lab" className="py-20 md:py-28 border-b border-white/10">
+      {/* 4. 4-ROBOT SECURITY UNIT ROSTER (SPATIAL DEPTH CARDS) */}
+      <EditorialSection
+        id="roster"
+        mode="dark-lab"
+        className="py-20 md:py-28 border-b border-white/10"
+      >
         <div className="space-y-12 font-mono">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-6">
             <div className="space-y-2">
-              <TechnicalLabel className="text-[#39FF14]">03 / SECURITY UNITS</TechnicalLabel>
-              <EditorialHeading level={2}>THE AGEIS-X ROBOT ROSTER</EditorialHeading>
+              <TechnicalLabel signal className="text-[#39FF14]">03 / SECURITY UNITS</TechnicalLabel>
+              <MaskedHeading
+                level={2}
+                lines={["THE AGEIS-X ROBOT ROSTER"]}
+                className="text-2xl sm:text-3xl md:text-4xl font-black uppercase text-[#F1F0EB] tracking-tight font-mono"
+              />
             </div>
             <p className="text-xs sm:text-sm text-[#A6A6A0] max-w-md font-sans leading-relaxed">
               You are not merely choosing a software tier. You are commissioning a dedicated autonomous guardian unit for your digital life.
@@ -259,18 +277,18 @@ export default function HomePage() {
             {robotRoster.map((robot, idx) => {
               const Glyph = robot.glyph
               return (
-                <RevealOnScroll key={idx} delay={idx * 80}>
-                  <DepthCard
+                <RevealOnScroll key={idx} delay={idx * 70} direction="up" distance={20}>
+                  <PointerDepthCard
                     depthLevel="medium"
                     glowColor="green"
-                    className="p-6 bg-[#050505] flex flex-col justify-between space-y-6 h-full"
+                    className="p-6 bg-[#050505] flex flex-col justify-between space-y-6 h-full group"
                   >
                     <div className="space-y-4">
                       {/* Top Header */}
                       <div className="flex items-center justify-between border-b border-white/10 pb-3">
                         <div className="flex items-center gap-2">
                           <Glyph size={22} color="#39FF14" />
-                          <span className="text-xs font-bold text-[#F1F0EB] uppercase tracking-wider">
+                          <span className="text-xs font-bold text-[#F1F0EB] uppercase tracking-wider group-hover:text-[#39FF14] transition-colors">
                             {robot.name}
                           </span>
                         </div>
@@ -305,18 +323,20 @@ export default function HomePage() {
                       </div>
                     </div>
 
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="w-full font-mono text-[11px] uppercase tracking-wider h-9 rounded-none border-white/20 bg-transparent hover:bg-white/10 text-[#F1F0EB]"
-                      asChild
-                    >
-                      <Link href="/pricing">
-                        <span>COMMISSION {robot.name}</span>
-                        <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-                      </Link>
-                    </Button>
-                  </DepthCard>
+                    <MagneticButton strength={3.5} className="w-full">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="w-full font-mono text-[11px] uppercase tracking-wider h-9 rounded-none border-white/20 bg-transparent hover:bg-white/10 text-[#F1F0EB] group-hover:border-[#39FF14]/50 transition-colors"
+                        asChild
+                      >
+                        <Link href="/pricing">
+                          <span>COMMISSION {robot.name}</span>
+                          <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                        </Link>
+                      </Button>
+                    </MagneticButton>
+                  </PointerDepthCard>
                 </RevealOnScroll>
               )
             })}
@@ -325,35 +345,50 @@ export default function HomePage() {
       </EditorialSection>
 
       {/* 5. CALL TO ACTION & PRICING LINK */}
-      <section className="relative py-16 sm:py-24 bg-[#080D16] border-t border-white/10 font-mono">
+      <section
+        id="commission"
+        className="relative py-16 sm:py-24 bg-[#080D16] border-t border-white/10 font-mono"
+      >
         <div className="page-container max-w-7xl">
-          <div className="p-8 sm:p-12 bg-[#04070D] border border-white/15 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="space-y-3 max-w-xl">
-              <div className="flex items-center gap-2 text-xs text-[#39FF14]">
-                <span className="w-1.5 h-1.5 bg-[#39FF14] inline-block animate-pulse" />
-                <span className="uppercase font-bold tracking-wider">
-                  COMMISSIONING ARCHIVE
-                </span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase text-[#F1F0EB] tracking-tight">
-                SELECT YOUR SECURITY UNIT
-              </h2>
-              <p className="text-xs sm:text-sm text-[#A6A6A0] font-sans leading-relaxed">
-                Explore the complete unit archive with classified dossiers, technical sensor payload comparisons, and transparent annual pricing.
-              </p>
-            </div>
+          <RevealOnScroll direction="up" distance={24}>
+            <div className="p-8 sm:p-12 bg-[#04070D] border border-white/15 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl relative overflow-hidden">
+              {/* Subtle ambient glow behind card */}
+              <div
+                className="pointer-events-none absolute -right-20 -bottom-20 w-80 h-80 bg-[#39FF14]/[0.03] blur-[100px] rounded-full"
+                aria-hidden="true"
+              />
 
-            <Button
-              size="lg"
-              className="bg-[#39FF14] hover:bg-[#32e012] text-[#04070D] font-mono font-bold text-xs uppercase tracking-wider rounded-none px-8 h-12 shrink-0 shadow-[2px_2px_0px_#FFFFFF]"
-              asChild
-            >
-              <Link href="/pricing">
-                <span>VIEW FULL PRICING ROSTER</span>
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-            </Button>
-          </div>
+              <div className="space-y-3 max-w-xl relative z-10">
+                <div className="flex items-center gap-2 text-xs text-[#39FF14]">
+                  <span className="w-1.5 h-1.5 bg-[#39FF14] inline-block animate-pulse" />
+                  <span className="uppercase font-bold tracking-wider">
+                    COMMISSIONING ARCHIVE
+                  </span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase text-[#F1F0EB] tracking-tight">
+                  SELECT YOUR SECURITY UNIT
+                </h2>
+                <p className="text-xs sm:text-sm text-[#A6A6A0] font-sans leading-relaxed">
+                  Explore the complete unit archive with classified dossiers, technical sensor payload comparisons, and transparent annual pricing.
+                </p>
+              </div>
+
+              <div className="relative z-10">
+                <MagneticButton strength={5}>
+                  <Button
+                    size="lg"
+                    className="bg-[#39FF14] hover:bg-[#32e012] text-[#04070D] font-mono font-bold text-xs uppercase tracking-wider rounded-none px-8 h-12 shrink-0 shadow-[2px_2px_0px_#FFFFFF]"
+                    asChild
+                  >
+                    <Link href="/pricing">
+                      <span>VIEW FULL PRICING ROSTER</span>
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Link>
+                  </Button>
+                </MagneticButton>
+              </div>
+            </div>
+          </RevealOnScroll>
         </div>
       </section>
     </PublicShell>

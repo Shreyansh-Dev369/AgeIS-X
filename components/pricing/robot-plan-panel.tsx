@@ -12,8 +12,9 @@ import {
   BarcodeGraphic,
   RegistrationMark,
 } from "./robot-pixel-sprites"
-import { Check, ArrowRight, ShieldCheck, Cpu, Terminal } from "lucide-react"
+import { ArrowRight, Cpu } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { MagneticButton } from "@/components/cinematic/magnetic-button"
 import { cn } from "@/lib/utils"
 
 export interface RobotPlanPanelProps {
@@ -56,11 +57,11 @@ export function RobotPlanPanel({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
-        "relative flex flex-col justify-between p-6 sm:p-7 md:p-8 font-mono transition-all duration-500 cursor-pointer outline-none select-none group border-t-2",
+        "relative flex flex-col justify-between p-6 sm:p-7 md:p-8 font-mono transition-all duration-400 ease-out cursor-pointer outline-none select-none group border-t-2",
         plan.visualAttributes.bgStyle,
         isSelected
-          ? "border-t-[#39FF14] bg-[#0A0A0A] shadow-[0_0_30px_rgba(57,255,20,0.08)] ring-1 ring-[#39FF14]/30"
-          : "border-t-white/10 hover:border-t-white/40 hover:bg-[#070707]"
+          ? "border-t-[#39FF14] bg-[#0A0A0A] shadow-[0_0_35px_rgba(57,255,20,0.10)] ring-1 ring-[#39FF14]/40 scale-[1.015] z-20"
+          : "border-t-white/10 hover:border-t-white/40 hover:bg-[#070707] opacity-85 hover:opacity-100"
       )}
     >
       {/* Background Micro Grid Layer within Panel */}
@@ -78,7 +79,7 @@ export function RobotPlanPanel({
       <div className="relative z-10 space-y-4">
         <div className="flex items-center justify-between text-xs border-b border-white/10 pb-3">
           <div className="flex items-center gap-2">
-            <span className="text-[#39FF14] font-bold">✛ AGEIS-X</span>
+            <span className="text-[#39FF14] font-bold">AGEIS-X</span>
             <span className="text-white/20">/</span>
             <span className="text-[#A6A6A0] text-[10px] uppercase">UNIT {plan.index}</span>
           </div>
@@ -95,10 +96,10 @@ export function RobotPlanPanel({
 
         {/* Robot Portrait Visual Canvas with Oversized Typography Fragment */}
         <div className="relative w-full aspect-[4/5] sm:aspect-[3/4] overflow-hidden bg-[#040404] border border-white/10 my-3">
-          {/* Oversized Typography Backdrop (e.g. SCOUT, GUARD, SENTINEL, AEGIS) */}
+          {/* Oversized Typography Backdrop */}
           <div
             className={cn(
-              "absolute inset-y-0 left-2 z-0 flex flex-col justify-center text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter uppercase text-white/[0.04] group-hover:text-white/[0.08] transition-colors duration-500 leading-none",
+              "absolute inset-y-0 left-2 z-0 flex flex-col justify-center text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter uppercase text-white/[0.04] group-hover:text-white/[0.08] transition-colors duration-500 leading-none pointer-events-none",
               isSelected && "text-[#39FF14]/[0.08]"
             )}
             aria-hidden="true"
@@ -110,11 +111,11 @@ export function RobotPlanPanel({
             ))}
           </div>
 
-          {/* Robot Photographic Art with subtle parallax transform */}
+          {/* Robot Photographic Art with spatial transform */}
           <div
             className={cn(
-              "relative w-full h-full transition-transform duration-700 ease-out",
-              isHovered ? "scale-[1.03] translate-y-[-4px]" : "scale-100 translate-y-0"
+              "relative w-full h-full transition-transform duration-500 ease-out",
+              isHovered || isSelected ? "scale-[1.03] translate-y-[-2px]" : "scale-100 translate-y-0"
             )}
           >
             <Image
@@ -127,17 +128,17 @@ export function RobotPlanPanel({
           </div>
 
           {/* Precision Crosshair Corner Accents */}
-          <span className="absolute top-1 left-1 text-[8px] text-white/30" aria-hidden="true">+</span>
-          <span className="absolute top-1 right-1 text-[8px] text-white/30" aria-hidden="true">+</span>
-          <span className="absolute bottom-1 left-1 text-[8px] text-white/30" aria-hidden="true">+</span>
-          <span className="absolute bottom-1 right-1 text-[8px] text-white/30" aria-hidden="true">+</span>
+          <span className="absolute top-1 left-1 text-[8px] text-white/30 pointer-events-none" aria-hidden="true">+</span>
+          <span className="absolute top-1 right-1 text-[8px] text-white/30 pointer-events-none" aria-hidden="true">+</span>
+          <span className="absolute bottom-1 left-1 text-[8px] text-white/30 pointer-events-none" aria-hidden="true">+</span>
+          <span className="absolute bottom-1 right-1 text-[8px] text-white/30 pointer-events-none" aria-hidden="true">+</span>
 
-          {/* Live Sensor Blip Overlay */}
-          <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2 py-0.5 bg-[#050505]/80 backdrop-blur-sm border border-white/10 text-[9px]">
+          {/* Live Sensor Indicator */}
+          <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2 py-0.5 bg-[#050505]/85 backdrop-blur-sm border border-white/10 text-[9px]">
             <span
               className={cn(
-                "w-1.5 h-1.5 inline-block",
-                isSelected || isHovered ? "bg-[#39FF14] animate-ping" : "bg-[#39FF14]"
+                "w-1.5 h-1.5 inline-block transition-colors duration-300",
+                isSelected ? "bg-[#39FF14]" : "bg-[#A6A6A0]"
               )}
             />
             <span className="text-[#F1F0EB] uppercase text-[8px] font-bold">
@@ -243,20 +244,22 @@ export function RobotPlanPanel({
 
         {/* Primary Commissioning CTA Button */}
         <div className="pt-2 space-y-2">
-          <Button
-            className={cn(
-              "w-full font-mono text-xs uppercase tracking-wider h-11 rounded-none font-bold transition-all cursor-pointer",
-              isSelected
-                ? "bg-[#39FF14] hover:bg-[#32e012] text-[#050505] shadow-[0_0_15px_rgba(57,255,20,0.3)]"
-                : "border border-white/20 bg-transparent hover:bg-white/10 text-[#F1F0EB]"
-            )}
-            asChild
-          >
-            <Link href={plan.cta.href}>
-              <span>{plan.cta.label}</span>
-              <ArrowRight className="w-3.5 h-3.5 ml-2 shrink-0" />
-            </Link>
-          </Button>
+          <MagneticButton strength={4} className="w-full">
+            <Button
+              className={cn(
+                "w-full font-mono text-xs uppercase tracking-wider h-11 rounded-none font-bold transition-all cursor-pointer",
+                isSelected
+                  ? "bg-[#39FF14] hover:bg-[#32e012] text-[#050505] shadow-[0_0_15px_rgba(57,255,20,0.3)]"
+                  : "border border-white/20 bg-transparent hover:bg-white/10 text-[#F1F0EB]"
+              )}
+              asChild
+            >
+              <Link href={plan.cta.href}>
+                <span>{plan.cta.label}</span>
+                <ArrowRight className="w-3.5 h-3.5 ml-2 shrink-0" />
+              </Link>
+            </Button>
+          </MagneticButton>
 
           {/* Dossier inspection trigger */}
           {onOpenDossier && (

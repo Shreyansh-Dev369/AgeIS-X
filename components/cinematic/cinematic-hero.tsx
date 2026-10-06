@@ -4,19 +4,18 @@ import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ParallaxScene, ParallaxLayer } from "./parallax-scene"
+import { MagneticButton } from "./magnetic-button"
+import { MaskedHeading, TechnicalTrackingReveal } from "./typography-choreography"
 import { Button } from "@/components/ui/button"
 import { analyzeUrlStructure } from "@/lib/utils/url-analyzer"
 import {
   Globe,
   Search,
   ArrowRight,
-  ShieldCheck,
   AlertTriangle,
   AlertOctagon,
   Loader2,
   CheckCircle2,
-  Lock,
-  ChevronDown,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -37,7 +36,6 @@ export function CinematicHero() {
   const [inputUrl, setInputUrl] = React.useState("")
   const [isScanning, setIsScanning] = React.useState(false)
   const [scanResult, setScanResult] = React.useState<HeroScanResult | null>(null)
-  const [scanError, setScanError] = React.useState<string | null>(null)
 
   const handleScan = async (e?: React.FormEvent) => {
     if (e) e.preventDefault()
@@ -46,7 +44,6 @@ export function CinematicHero() {
 
     setIsScanning(true)
     setScanResult(null)
-    setScanError(null)
 
     const startTime = Date.now()
     const localStructure = analyzeUrlStructure(target)
@@ -91,7 +88,7 @@ export function CinematicHero() {
               : "High-risk phishing or malicious vector detected. Connection blocked.",
         })
       } else {
-        // Fallback to local heuristic scoring if backend is offline
+        // Fallback to client-side lexical scoring if backend is offline
         const isSuspicious =
           localStructure.structuralRiskPoints >= 20 ||
           localStructure.hasHomoglyphs ||
@@ -113,7 +110,6 @@ export function CinematicHero() {
         })
       }
     } catch {
-      // Local fallback
       const elapsed = Date.now() - startTime
       const isSuspicious =
         localStructure.structuralRiskPoints >= 20 ||
@@ -140,7 +136,12 @@ export function CinematicHero() {
   }
 
   return (
-    <ParallaxScene className="relative w-full min-h-[90vh] lg:min-h-screen bg-[#04070D] flex items-center border-b border-white/10 font-mono overflow-hidden">
+    <ParallaxScene
+      id="hero"
+      enablePointer={true}
+      pointerDamping={0.06}
+      className="relative w-full min-h-[92vh] lg:min-h-screen bg-[#04070D] flex items-center border-b border-white/10 font-mono overflow-hidden"
+    >
       {/* =========================================================================
           LAYER 00: BASE CANVAS & RESTRAINED ARCHITECTURAL GRID (Depth: 0.0)
           ========================================================================= */}
@@ -157,9 +158,14 @@ export function CinematicHero() {
       />
 
       {/* =========================================================================
-          LAYER 01: CLEAN ATMOSPHERIC ENVIRONMENT & MOUNTAIN RIDGE (Depth: 0.10)
+          LAYER 01: CLEAN ATMOSPHERIC ENVIRONMENT & MOUNTAIN RIDGE (Depth: 0.08)
           ========================================================================= */}
-      <ParallaxLayer depth={0.1} pointerFactor={4} className="pointer-events-none absolute inset-0 z-[1]">
+      <ParallaxLayer
+        depth={0.08}
+        pointerFactor={6}
+        scrollFactor={0.04}
+        className="pointer-events-none absolute inset-0 z-[1]"
+      >
         <div className="absolute top-0 right-0 w-full lg:w-[62%] h-full opacity-40">
           <Image
             src="/ageis-x/hero/environment-clean.webp"
@@ -170,114 +176,154 @@ export function CinematicHero() {
             className="object-cover object-right-top filter contrast-[1.1] brightness-[0.70]"
           />
           {/* Smooth left and vertical vignettes */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#04070D] via-[#04070D]/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#04070D] via-[#04070D]/75 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#04070D]/60 via-transparent to-[#04070D]" />
         </div>
       </ParallaxLayer>
 
       {/* =========================================================================
-          LAYER 02: VOLUMETRIC ATMOSPHERE & VISOR LIGHT FALLOFF (Depth: 0.20)
+          LAYER 02: VOLUMETRIC ATMOSPHERE & VISOR LIGHT FALLOFF (Depth: 0.18)
           ========================================================================= */}
-      <ParallaxLayer depth={0.2} pointerFactor={7} className="pointer-events-none absolute inset-0 z-[2]">
+      <ParallaxLayer
+        depth={0.18}
+        pointerFactor={10}
+        scrollFactor={0.09}
+        className="pointer-events-none absolute inset-0 z-[2]"
+      >
         {/* Soft, controlled emerald atmospheric light */}
         <div
-          className="absolute top-1/4 right-[22%] w-[420px] h-[420px] bg-[#39FF14]/[0.03] blur-[140px] rounded-full"
+          className="absolute top-1/4 right-[18%] w-[500px] h-[500px] bg-[#39FF14]/[0.045] blur-[150px] rounded-full animate-hero-glow"
           aria-hidden="true"
         />
         {/* Subtle cyan ambient rim */}
         <div
-          className="absolute top-1/3 right-[8%] w-[350px] h-[350px] bg-[#00E5FF]/[0.02] blur-[150px] rounded-full"
+          className="absolute top-1/3 right-[5%] w-[420px] h-[420px] bg-[#00E5FF]/[0.035] blur-[160px] rounded-full animate-hero-glow"
+          style={{ animationDelay: "2.5s" }}
           aria-hidden="true"
         />
       </ParallaxLayer>
 
       {/* =========================================================================
-          LAYER 03: LARGE MONOCHROMATIC GEOMETRY & TYPOGRAPHY (Depth: 0.32)
+          LAYER 03: LARGE MONOCHROMATIC GEOMETRY & TYPOGRAPHY (Depth: 0.28)
           ========================================================================= */}
-      <ParallaxLayer depth={0.32} pointerFactor={10} className="pointer-events-none absolute inset-0 z-[3]">
+      <ParallaxLayer
+        depth={0.28}
+        pointerFactor={14}
+        scrollFactor={0.14}
+        className="pointer-events-none absolute inset-0 z-[3]"
+      >
         <div
-          className="absolute top-24 right-10 lg:right-20 text-[140px] sm:text-[200px] lg:text-[250px] font-black tracking-tighter text-white/[0.015] uppercase select-none leading-none"
+          className="absolute top-24 right-10 lg:right-20 text-[140px] sm:text-[200px] lg:text-[250px] font-black tracking-tighter text-white/[0.025] uppercase select-none leading-none"
           aria-hidden="true"
         >
           AGEIS
         </div>
         {/* Subtle structural alignment line */}
-        <div className="absolute top-0 right-[40%] bottom-0 w-px bg-white/[0.03] hidden lg:block" aria-hidden="true" />
+        <div
+          className="absolute top-0 right-[40%] bottom-0 w-px bg-white/[0.03] hidden lg:block"
+          aria-hidden="true"
+        />
       </ParallaxLayer>
 
       {/* =========================================================================
-          LAYER 04: PURE ISOLATED AGEIS-X ROBOT GUARDIAN (Depth: 0.55)
+          LAYER 04: PRIMARY AGEIS-X ROBOT GUARDIAN (Depth: 0.52 - Spatial Hero)
           ========================================================================= */}
-      <ParallaxLayer depth={0.55} pointerFactor={15} className="pointer-events-none absolute inset-0 z-[4]">
-        <div className="absolute top-4 lg:top-6 right-0 lg:right-[1%] w-[88%] sm:w-[70%] lg:w-[52%] h-[92%] lg:h-[96%] flex items-end justify-end">
-          <div className="relative w-full h-full max-h-[820px]">
+      <ParallaxLayer
+        depth={0.52}
+        pointerFactor={24}
+        scrollFactor={0.22}
+        className="pointer-events-none absolute inset-0 z-[4]"
+      >
+        <div className="absolute top-0 right-0 w-full sm:w-[85%] md:w-[70%] lg:w-[58%] xl:w-[52%] h-full flex items-end justify-end pointer-events-none">
+          <div className="relative w-full h-[85%] sm:h-[90%] lg:h-[95%] max-h-[860px] animate-hero-float">
+            {/* Robot Image with Priority Load */}
             <Image
               src="/ageis-x/hero/robot-clean.webp"
               alt="AgeIS-X Robotic Security Guardian"
               fill
               priority
-              sizes="(max-width: 768px) 88vw, (max-width: 1200px) 65vw, 52vw"
-              className="object-contain object-bottom-right filter contrast-[1.12] brightness-[0.94]"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 55vw"
+              className="object-contain object-bottom-right filter contrast-[1.12] brightness-[0.96]"
             />
-            {/* Mobile bottom fade */}
+
+            {/* Subtle Materiality Light Sheen */}
+            <div
+              className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#39FF14]/[0.04] to-transparent pointer-events-none mix-blend-screen"
+              aria-hidden="true"
+            />
+
+            {/* Mobile bottom gradient protection */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#04070D] via-transparent to-transparent lg:hidden" />
           </div>
         </div>
       </ParallaxLayer>
 
       {/* =========================================================================
-          LAYER 05: RESTRAINED FOREGROUND REGISTRATION MARKS (Depth: 0.75)
+          LAYER 05: FOREGROUND REGISTRATION MARKS (Depth: 0.70)
           ========================================================================= */}
-      <ParallaxLayer depth={0.75} pointerFactor={20} className="pointer-events-none absolute inset-0 z-[5]">
-        <span className="absolute top-24 left-8 text-[11px] text-white/20 hidden lg:block font-mono select-none" aria-hidden="true">
-          + DEFENSE_CORE
+      <ParallaxLayer
+        depth={0.7}
+        pointerFactor={24}
+        scrollFactor={0.32}
+        className="pointer-events-none absolute inset-0 z-[5]"
+      >
+        <span
+          className="absolute top-24 left-8 text-[11px] text-white/20 hidden lg:block font-mono select-none"
+          aria-hidden="true"
+        >
+          SOVEREIGN HARDWARE ENCLAVE
         </span>
-        <span className="absolute top-24 right-12 text-[11px] text-white/20 hidden lg:block font-mono select-none" aria-hidden="true">
-          + ON_DEVICE_ML
+        <span
+          className="absolute top-24 right-12 text-[11px] text-white/20 hidden lg:block font-mono select-none"
+          aria-hidden="true"
+        >
+          LOCAL INFERENCE ENGINE
         </span>
       </ParallaxLayer>
 
       {/* =========================================================================
-          LAYER 06: CRISP FOREGROUND UI / TYPOGRAPHY / REAL SCANNER (Depth: 0.03)
+          LAYER 06: CRISP FOREGROUND UI / TYPOGRAPHY / REAL SCANNER (Depth: 0.02)
           ========================================================================= */}
-      <ParallaxLayer depth={0.03} pointerFactor={3} className="relative z-[6] w-full pt-20 pb-12 sm:pt-24 sm:pb-16">
+      <div className="relative z-10 w-full pt-20 pb-12 sm:pt-24 sm:pb-16 pointer-events-auto">
         <div className="page-container max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Column: Real Content Hierarchy */}
             <div className="lg:col-span-7 space-y-6">
-              {/* Architecture Label */}
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 text-[10px] text-[#A6A6A0] tracking-widest uppercase">
-                <span className="w-1.5 h-1.5 bg-[#39FF14] inline-block" />
-                <span className="text-[#39FF14] font-bold">SOVEREIGN DEFENSE PLATFORM</span>
-                <span className="text-white/20">/</span>
-                <span>ON-DEVICE INTELLIGENCE</span>
-              </div>
+              {/* Architecture Label with technical tracking reveal */}
+              <TechnicalTrackingReveal delay={100}>
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 text-[10px] text-[#A6A6A0] uppercase">
+                  <span className="w-1.5 h-1.5 bg-[#39FF14] inline-block animate-pulse" />
+                  <span className="text-[#39FF14] font-bold">SOVEREIGN DEFENSE PLATFORM</span>
+                  <span className="text-white/20">/</span>
+                  <span>ON-DEVICE INTELLIGENCE</span>
+                </div>
+              </TechnicalTrackingReveal>
 
-              {/* Primary Display Headline */}
+              {/* Primary Display Headline with Masked Line-by-Line Reveal */}
               <div className="space-y-1">
-                <h1 className="text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tighter text-[#F1F0EB] leading-[0.88] select-none">
-                  ONE SECURITY
-                  <br />
-                  BRAIN.
-                  <br />
-                  <span className="text-[#39FF14]">
-                    YOUR ENTIRE
-                  </span>
-                  <br />
-                  <span className="text-[#39FF14]">
-                    DIGITAL LIFE.
-                  </span>
-                </h1>
+                <MaskedHeading
+                  level={1}
+                  lines={[
+                    "ONE SECURITY",
+                    "BRAIN.",
+                    "YOUR ENTIRE",
+                    "DIGITAL LIFE.",
+                  ]}
+                  accentLineIndex={2}
+                  accentClassName="text-[#39FF14]"
+                  className="text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tighter text-[#F1F0EB] leading-[0.88]"
+                  delay={150}
+                />
               </div>
 
-              {/* Concise Truthful Value Proposition */}
+              {/* Truthful Value Proposition */}
               <p className="text-sm sm:text-base text-[#A6A6A0] max-w-xl font-sans font-normal leading-relaxed">
                 AgeIS-X guards your browsing, communications, identity, and personal endpoints against zero-hour threat vectors using fast on-device machine intelligence. Zero cloud browsing logs. Zero build slowdown.
               </p>
 
               {/* Real URL Intelligence Scanner */}
               <div className="pt-2 max-w-xl">
-                <div className="p-4 sm:p-5 bg-[#080D16]/90 backdrop-blur-md border border-white/15 shadow-2xl space-y-3">
+                <div className="p-4 sm:p-5 bg-[#080D16]/90 backdrop-blur-md border border-white/15 shadow-2xl space-y-3 transition-[border-color,box-shadow] duration-200 focus-within:border-[#39FF14]/50 focus-within:shadow-[0_0_30px_rgba(57,255,20,0.06)]">
                   <div className="flex items-center justify-between text-[10px] uppercase">
                     <span className="flex items-center gap-1.5 font-bold text-[#F1F0EB] tracking-wider font-mono">
                       <Globe className="w-3.5 h-3.5 text-[#39FF14]" />
@@ -300,23 +346,25 @@ export function CinematicHero() {
                         className="w-full bg-[#04070D] border border-white/15 text-xs font-mono text-[#F1F0EB] pl-9 pr-3 py-2.5 focus:outline-none focus:border-[#39FF14] transition-colors rounded-none placeholder:text-[#6F706D]"
                       />
                     </div>
-                    <Button
-                      type="submit"
-                      disabled={isScanning || !inputUrl.trim()}
-                      className="bg-[#39FF14] hover:bg-[#32e012] disabled:opacity-50 text-[#04070D] font-mono font-bold text-xs uppercase tracking-wider rounded-none px-6 h-10 shrink-0 cursor-pointer shadow-[2px_2px_0px_#FFFFFF]"
-                    >
-                      {isScanning ? (
-                        <>
-                          <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
-                          <span>EVALUATING...</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>SCAN NOW</span>
-                          <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-                        </>
-                      )}
-                    </Button>
+                    <MagneticButton strength={4}>
+                      <Button
+                        type="submit"
+                        disabled={isScanning || !inputUrl.trim()}
+                        className="bg-[#39FF14] hover:bg-[#32e012] disabled:opacity-50 text-[#04070D] font-mono font-bold text-xs uppercase tracking-wider rounded-none px-6 h-10 shrink-0 cursor-pointer shadow-[2px_2px_0px_#FFFFFF] w-full sm:w-auto"
+                      >
+                        {isScanning ? (
+                          <>
+                            <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
+                            <span>EVALUATING...</span>
+                          </>
+                        ) : (
+                          <>
+                            <span>SCAN NOW</span>
+                            <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                          </>
+                        )}
+                      </Button>
+                    </MagneticButton>
                   </form>
 
                   {/* Status strip & Hashing */}
@@ -354,7 +402,7 @@ export function CinematicHero() {
 
                   {/* Real-time Scan Result Card */}
                   {scanResult && (
-                    <div className="pt-3 border-t border-white/10 space-y-2 animate-fadeIn">
+                    <div className="pt-3 border-t border-white/10 space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           {scanResult.verdict === "safe" ? (
@@ -391,16 +439,19 @@ export function CinematicHero() {
 
               {/* Primary Call-to-Action Buttons */}
               <div className="flex flex-wrap items-center gap-4 pt-2">
-                <Button
-                  size="lg"
-                  asChild
-                  className="bg-[#39FF14] hover:bg-[#32e012] text-[#04070D] font-mono font-bold text-xs uppercase tracking-wider rounded-none px-7 h-12 shadow-[2px_2px_0px_#FFFFFF]"
-                >
-                  <Link href="/pricing">
-                    <span>COMMISSION SECURITY UNIT</span>
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Link>
-                </Button>
+                <MagneticButton strength={5}>
+                  <Button
+                    size="lg"
+                    asChild
+                    className="bg-[#39FF14] hover:bg-[#32e012] text-[#04070D] font-mono font-bold text-xs uppercase tracking-wider rounded-none px-7 h-12 shadow-[2px_2px_0px_#FFFFFF]"
+                  >
+                    <Link href="/pricing">
+                      <span>COMMISSION SECURITY UNIT</span>
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Link>
+                  </Button>
+                </MagneticButton>
+
                 <Button
                   size="lg"
                   variant="outline"
@@ -442,7 +493,7 @@ export function CinematicHero() {
               </div>
             </div>
 
-            {/* Right Column: Spacer to give prominence to the isolated robot in Layer 04 */}
+            {/* Right Column: Spacer to frame the isolated robot in Layer 04 */}
             <div className="lg:col-span-5 h-[340px] sm:h-[450px] lg:h-[620px] pointer-events-none" />
           </div>
 
@@ -459,7 +510,7 @@ export function CinematicHero() {
             </div>
           </div>
         </div>
-      </ParallaxLayer>
+      </div>
     </ParallaxScene>
   )
 }

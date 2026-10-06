@@ -3,7 +3,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-export interface DepthCardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PointerDepthCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode
   depthLevel?: "subtle" | "medium" | "deep"
   glowColor?: "green" | "cyan" | "white" | "none"
@@ -12,7 +12,12 @@ export interface DepthCardProps extends React.HTMLAttributes<HTMLDivElement> {
   enableTilt?: boolean
 }
 
-export function DepthCard({
+/**
+ * High-precision tactile card with localized cursor tracking.
+ * Updates local rotation, depth translation, and spotlight sheen via CSS variables
+ * outside React rendering.
+ */
+export function PointerDepthCard({
   children,
   depthLevel = "medium",
   glowColor = "none",
@@ -20,7 +25,7 @@ export function DepthCard({
   enableTilt = true,
   className,
   ...props
-}: DepthCardProps) {
+}: PointerDepthCardProps) {
   const cardRef = React.useRef<HTMLDivElement>(null)
   const isReducedMotionRef = React.useRef(false)
   const isTouchRef = React.useRef(false)
@@ -53,7 +58,7 @@ export function DepthCard({
     const normX = (x / rect.width) * 2 - 1
     const normY = (y / rect.height) * 2 - 1
 
-    const maxTilt = depthLevel === "subtle" ? 1.5 : depthLevel === "medium" ? 2.8 : 4.0
+    const maxTilt = depthLevel === "subtle" ? 1.5 : depthLevel === "medium" ? 3.0 : 4.5
     const rotX = -normY * maxTilt
     const rotY = normX * maxTilt
 
@@ -78,9 +83,9 @@ export function DepthCard({
 
   const glowStyles = {
     none: "",
-    green: "hover:shadow-[0_0_28px_rgba(57,255,20,0.12)] hover:border-[#39FF14]/40",
-    cyan: "hover:shadow-[0_0_28px_rgba(0,229,255,0.12)] hover:border-[#00E5FF]/40",
-    white: "hover:shadow-[0_0_28px_rgba(255,255,255,0.08)] hover:border-white/30",
+    green: "hover:shadow-[0_0_30px_rgba(57,255,20,0.14)] hover:border-[#39FF14]/40",
+    cyan: "hover:shadow-[0_0_30px_rgba(0,229,255,0.14)] hover:border-[#00E5FF]/40",
+    white: "hover:shadow-[0_0_30px_rgba(255,255,255,0.10)] hover:border-white/30",
   }
 
   return (
@@ -90,7 +95,7 @@ export function DepthCard({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        "relative bg-[#070707] p-6 sm:p-7 font-mono select-none transition-[border-color,box-shadow] duration-300 group",
+        "relative bg-[#070707] p-6 sm:p-7 font-mono select-none transition-[border-color,box-shadow] duration-300",
         bordered && "border border-white/10",
         glowStyles[glowColor],
         className
@@ -100,13 +105,7 @@ export function DepthCard({
           "--card-rot-x": "0deg",
           "--card-rot-y": "0deg",
           transform: `perspective(800px) rotateX(var(--card-rot-x, 0deg)) rotateY(var(--card-rot-y, 0deg)) ${
-            isHovered
-              ? depthLevel === "subtle"
-                ? "translateY(-2px)"
-                : depthLevel === "medium"
-                ? "translateY(-4px)"
-                : "translateY(-6px)"
-              : "translateY(0)"
+            isHovered ? (depthLevel === "subtle" ? "translateY(-2px)" : depthLevel === "medium" ? "translateY(-4px)" : "translateY(-6px)") : "translateY(0)"
           }`,
           transition: "transform 240ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms ease, box-shadow 200ms ease",
           willChange: "transform",
@@ -118,13 +117,12 @@ export function DepthCard({
       <div
         className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         style={{
-          background:
-            "radial-gradient(400px circle at var(--card-px, 50%) var(--card-py, 50%), rgba(255,255,255,0.035), transparent 70%)",
+          background: "radial-gradient(400px circle at var(--card-px, 50%) var(--card-py, 50%), rgba(255,255,255,0.035), transparent 70%)",
         }}
         aria-hidden="true"
       />
 
-      {/* Corner crosshairs on hover */}
+      {/* Corner crosshairs */}
       <span
         className={cn(
           "absolute top-1.5 left-1.5 text-[8px] transition-opacity duration-300 pointer-events-none select-none",

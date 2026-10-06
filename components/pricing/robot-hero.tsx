@@ -4,6 +4,7 @@ import * as React from "react"
 import Image from "next/image"
 import { AGEIS_ROBOT_PLANS, PlanId } from "./robot-plans-data"
 import { PixelScoutGlyph, PixelGuardGlyph, PixelSentinelGlyph, PixelAegisGlyph, BarcodeGraphic, RegistrationMark } from "./robot-pixel-sprites"
+import { MaskedHeading } from "@/components/cinematic/typography-choreography"
 import { cn } from "@/lib/utils"
 
 export interface RobotHeroProps {
@@ -12,8 +13,6 @@ export interface RobotHeroProps {
 }
 
 export function RobotHero({ selectedPlan, onSelectPlan }: RobotHeroProps) {
-  const currentPlan = AGEIS_ROBOT_PLANS.find((p) => p.id === selectedPlan) || AGEIS_ROBOT_PLANS[0]
-
   return (
     <section className="relative w-full pt-10 pb-16 md:pt-16 md:pb-20 border-b border-white/10 font-mono">
       {/* Top Technical Metadata Bar */}
@@ -27,9 +26,9 @@ export function RobotHero({ selectedPlan, onSelectPlan }: RobotHeroProps) {
           <span className="text-[#A6A6A0]">SELECT YOUR SECURITY UNIT</span>
         </div>
         <div className="flex items-center gap-4 text-[#A6A6A0]">
-          <span className="hidden sm:inline-block">SYS_STATUS: ACTIVE</span>
+          <span className="hidden sm:inline-block">CATALOG SPEC: 2026.4</span>
           <span className="hidden sm:inline-block text-white/20">|</span>
-          <span className="text-[#39FF14]">AUTHENTICATED CAMPAIGN</span>
+          <span className="text-[#39FF14]">ANNUAL EDITIONS</span>
           <RegistrationMark />
         </div>
       </div>
@@ -42,11 +41,13 @@ export function RobotHero({ selectedPlan, onSelectPlan }: RobotHeroProps) {
           <span>AUTONOMOUS CYBERSECURITY FLEET</span>
         </div>
 
-        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-[#F1F0EB] leading-[0.88] select-none">
-          YOUR DIGITAL LIFE
-          <br />
-          <span className="text-[#A6A6A0]">NEEDS A GUARDIAN.</span>
-        </h1>
+        <MaskedHeading
+          level={1}
+          lines={["YOUR DIGITAL LIFE", "NEEDS A GUARDIAN."]}
+          accentLineIndex={1}
+          accentClassName="text-[#A6A6A0]"
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-[#F1F0EB] leading-[0.88]"
+        />
 
         <p className="text-sm sm:text-base md:text-lg text-[#A6A6A0] max-w-2xl font-sans font-normal leading-relaxed">
           You are not simply purchasing a software subscription. You are commissioning an AgeIS-X security unit engineered to guard your endpoints, identity, and network surface.
@@ -54,7 +55,7 @@ export function RobotHero({ selectedPlan, onSelectPlan }: RobotHeroProps) {
       </div>
 
       {/* Panoramic Robot Lineup Banner with Interactive Unit Selectors */}
-      <div className="relative border border-white/15 bg-[#080808] overflow-hidden group">
+      <div className="relative border border-white/15 bg-[#080808] overflow-hidden group shadow-2xl">
         {/* Banner image with priority loading */}
         <div className="relative w-full aspect-[21/9] sm:aspect-[24/9] md:aspect-[32/10] bg-[#050505]">
           <Image
@@ -63,7 +64,7 @@ export function RobotHero({ selectedPlan, onSelectPlan }: RobotHeroProps) {
             fill
             priority
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1240px"
-            className="object-cover object-center opacity-90 transition-transform duration-700 group-hover:scale-[1.01]"
+            className="object-cover object-center opacity-90 transition-transform duration-700 ease-out group-hover:scale-[1.01]"
           />
           {/* Subtle vignette gradient */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/60 pointer-events-none" />
@@ -71,8 +72,8 @@ export function RobotHero({ selectedPlan, onSelectPlan }: RobotHeroProps) {
         </div>
 
         {/* Floating Technical Overlay */}
-        <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 flex items-center gap-2 bg-[#050505]/80 backdrop-blur-md px-3 py-1.5 border border-white/10 text-[10px] text-[#F1F0EB]">
-          <span className="w-1.5 h-1.5 bg-[#39FF14] inline-block" />
+        <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 flex items-center gap-2 bg-[#050505]/85 backdrop-blur-md px-3 py-1.5 border border-white/10 text-[10px] text-[#F1F0EB]">
+          <span className="w-1.5 h-1.5 bg-[#39FF14] inline-block animate-pulse" />
           <span className="font-bold">UNIT ARCHIVE // 2026-X</span>
           <span className="text-[#A6A6A0]">| 4 ACTIVE ARCHETYPES</span>
         </div>
@@ -96,7 +97,7 @@ export function RobotHero({ selectedPlan, onSelectPlan }: RobotHeroProps) {
                   }
                 }}
                 className={cn(
-                  "p-3 sm:p-4 text-left transition-colors flex items-center justify-between group/btn cursor-pointer relative",
+                  "p-3 sm:p-4 text-left transition-all duration-200 flex items-center justify-between group/btn cursor-pointer relative",
                   isSelected
                     ? "bg-[#39FF14]/10 border-b-2 md:border-b-0 md:border-t-2 md:border-t-[#39FF14]"
                     : "hover:bg-white/5"
@@ -105,7 +106,7 @@ export function RobotHero({ selectedPlan, onSelectPlan }: RobotHeroProps) {
                 aria-label={`Select unit ${plan.robotName}`}
               >
                 <div className="flex items-center gap-3">
-                  <div className="shrink-0">
+                  <div className="shrink-0 transition-transform duration-200 group-hover/btn:scale-110">
                     {plan.id === "scout" && (
                       <PixelScoutGlyph size={22} color={isSelected ? "#39FF14" : "#A6A6A0"} />
                     )}
@@ -124,7 +125,7 @@ export function RobotHero({ selectedPlan, onSelectPlan }: RobotHeroProps) {
                       <span className="text-[10px] text-[#A6A6A0]">{plan.index}</span>
                       <span
                         className={cn(
-                          "text-xs sm:text-sm font-bold tracking-tight uppercase",
+                          "text-xs sm:text-sm font-bold tracking-tight uppercase transition-colors",
                           isSelected ? "text-[#39FF14]" : "text-[#F1F0EB]"
                         )}
                       >
@@ -139,7 +140,7 @@ export function RobotHero({ selectedPlan, onSelectPlan }: RobotHeroProps) {
 
                 <span
                   className={cn(
-                    "text-[10px] uppercase font-bold shrink-0 hidden lg:block",
+                    "text-[10px] uppercase font-bold shrink-0 hidden lg:block transition-colors",
                     isSelected ? "text-[#39FF14]" : "text-white/30 group-hover/btn:text-white/70"
                   )}
                 >
