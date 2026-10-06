@@ -29,7 +29,7 @@ export default function PricingPage() {
   return (
     <PublicShell>
       <RobotBackgroundDossier>
-        <div className="page-container max-w-7xl px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-4 sm:py-8">
           {/* 1. EDITORIAL HERO WITH FULL ROSTER BANNER */}
           <RobotHero
             selectedPlan={selectedPlanId}

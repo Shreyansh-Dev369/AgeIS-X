@@ -43,7 +43,7 @@ export function PublicHeader() {
           : "bg-[#050505]/80 backdrop-blur-sm border-white/5"
       )}
     >
-      <div className="page-container">
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12">
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Brand Logo & Technical Stamp */}
           <div className="flex items-center gap-3">
@@ -54,7 +54,7 @@ export function PublicHeader() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1" aria-label="Main Navigation">
+          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1" aria-label="Main Navigation">
             {publicNavLinks.map((link) => {
               const isActive = pathname === link.href
               return (
@@ -62,7 +62,7 @@ export function PublicHeader() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "px-3 py-1 text-xs font-mono tracking-wide transition-all duration-200 relative group",
+                    "px-2.5 xl:px-3 py-1 text-xs font-mono tracking-wide transition-all duration-200 relative group",
                     isActive
                       ? "text-[#39FF14] font-bold"
                       : "text-[#A6A6A0] hover:text-[#F1F0EB]"
@@ -70,7 +70,7 @@ export function PublicHeader() {
                 >
                   <span>{link.label}</span>
                   {isActive && (
-                    <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-[#39FF14] inline-block animate-in fade-in duration-200" />
+                    <span className="absolute bottom-0 left-2.5 right-2.5 xl:left-3 xl:right-3 h-[2px] bg-[#39FF14] inline-block animate-in fade-in duration-200" />
                   )}
                 </Link>
               )
@@ -78,7 +78,7 @@ export function PublicHeader() {
           </nav>
 
           {/* Right Action Buttons */}
-          <div className="hidden sm:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             <Button
               variant="ghost"
               size="sm"
@@ -115,14 +115,28 @@ export function PublicHeader() {
             </MagneticButton>
           </div>
 
-          {/* Mobile Menu Trigger */}
-          <div className="flex md:hidden items-center gap-2">
+          {/* Mobile & Tablet Actions / Trigger */}
+          <div className="flex lg:hidden items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              asChild
+              className="hidden sm:inline-flex border-white/15 bg-transparent hover:bg-white/5 text-[#F1F0EB] text-xs font-mono h-8 px-3 rounded-none"
+            >
+              <Link href="/dashboard">
+                <span className="w-1.5 h-1.5 rounded-none bg-[#39FF14] mr-1.5" />
+                Console
+              </Link>
+            </Button>
             <Button
               size="sm"
               asChild
-              className="text-xs font-mono px-3 h-8 bg-[#39FF14] text-[#050505] font-bold rounded-none"
+              className="text-xs font-mono px-3 h-8 bg-[#39FF14] hover:bg-[#32e012] text-[#050505] font-bold rounded-none shadow-[1px_1px_0px_#FFFFFF]"
             >
-              <Link href="/download">Get App</Link>
+              <Link href="/download">
+                <Download className="w-3.5 h-3.5 mr-1 sm:inline hidden" />
+                <span>Get App</span>
+              </Link>
             </Button>
             <Drawer open={isMobileOpen} onOpenChange={setIsMobileOpen}>
               <DrawerTrigger asChild>

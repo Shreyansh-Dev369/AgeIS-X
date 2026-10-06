@@ -50,14 +50,14 @@ export function Footer() {
   return (
     <footer className="border-t border-white/10 bg-[#050505] text-[#A6A6A0] text-xs font-mono">
       {/* Top Editorial Rule & Status Header */}
-      <div className="border-b border-white/10 py-4 px-4 sm:px-6 md:px-12 flex flex-wrap items-center justify-between gap-4">
+      <div className="border-b border-white/10 py-4 px-4 sm:px-6 lg:px-10 xl:px-12 flex flex-wrap items-center justify-between gap-4 max-w-[1600px] mx-auto">
         <div className="flex items-center gap-4">
           <span className="w-2 h-2 bg-[#39FF14] inline-block" />
           <span className="text-[#F1F0EB] font-bold uppercase tracking-wider text-[11px]">
             CORE AUTONOMOUS ENGINE: ONLINE & STABLE
           </span>
         </div>
-        <div className="flex items-center gap-6 text-[11px] text-[#A6A6A0]">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-[10px] sm:text-[11px] text-[#A6A6A0]">
           <span>LATENCY: 14.8MS</span>
           <span className="text-white/20">|</span>
           <span>MEMORY: 34.2 MB</span>
@@ -66,7 +66,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-12 md:py-16">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-12 md:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 mb-12">
           {/* Brand & Editorial Column */}
           <div className="lg:col-span-4 space-y-4 pr-4">

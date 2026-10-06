@@ -40,9 +40,9 @@ export function EditorialSection({
   }
 
   const widthClasses = {
-    narrow: "max-w-3xl",
-    default: "max-w-6xl",
-    wide: "max-w-7xl",
+    narrow: "max-w-4xl",
+    default: "max-w-[1440px] 2xl:max-w-[1600px]",
+    wide: "max-w-[1600px]",
     full: "max-w-full px-0",
   }
 

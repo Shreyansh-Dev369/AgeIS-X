@@ -213,7 +213,7 @@ export function CinematicHero() {
         className="pointer-events-none absolute inset-0 z-[3]"
       >
         <div
-          className="absolute top-24 right-10 lg:right-20 text-[140px] sm:text-[200px] lg:text-[250px] font-black tracking-tighter text-white/[0.025] uppercase select-none leading-none"
+          className="absolute top-24 right-6 sm:right-10 lg:right-20 2xl:right-24 text-[90px] sm:text-[160px] lg:text-[220px] xl:text-[250px] font-black tracking-tighter text-white/[0.025] uppercase select-none leading-none"
           aria-hidden="true"
         >
           AGEIS
@@ -234,8 +234,8 @@ export function CinematicHero() {
         scrollFactor={0.22}
         className="pointer-events-none absolute inset-0 z-[4]"
       >
-        <div className="absolute top-0 right-0 w-full sm:w-[85%] md:w-[70%] lg:w-[58%] xl:w-[52%] h-full flex items-end justify-end pointer-events-none">
-          <div className="relative w-full h-[85%] sm:h-[90%] lg:h-[95%] max-h-[860px] animate-hero-float">
+        <div className="absolute top-0 right-0 sm:right-2 lg:right-6 xl:right-10 w-full sm:w-[85%] md:w-[70%] lg:w-[54%] xl:w-[48%] 2xl:w-[46%] h-full flex items-end justify-end pointer-events-none">
+          <div className="relative w-full h-[85%] sm:h-[90%] lg:h-[95%] max-h-[860px] animate-hero-float opacity-35 sm:opacity-50 lg:opacity-100 transition-opacity duration-300">
             {/* Robot Image with Priority Load */}
             <Image
               src="/ageis-x/hero/robot-clean.webp"
@@ -267,26 +267,28 @@ export function CinematicHero() {
         scrollFactor={0.32}
         className="pointer-events-none absolute inset-0 z-[5]"
       >
-        <span
-          className="absolute top-24 left-8 text-[11px] text-white/20 hidden lg:block font-mono select-none"
-          aria-hidden="true"
-        >
-          SOVEREIGN HARDWARE ENCLAVE
-        </span>
-        <span
-          className="absolute top-24 right-12 text-[11px] text-white/20 hidden lg:block font-mono select-none"
-          aria-hidden="true"
-        >
-          LOCAL INFERENCE ENGINE
-        </span>
+        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 h-full relative">
+          <span
+            className="absolute top-24 left-4 sm:left-6 lg:left-10 xl:left-12 text-[11px] text-white/20 hidden lg:block font-mono select-none"
+            aria-hidden="true"
+          >
+            SOVEREIGN HARDWARE ENCLAVE
+          </span>
+          <span
+            className="absolute top-24 right-4 sm:right-6 lg:right-10 xl:right-12 text-[11px] text-white/20 hidden lg:block font-mono select-none"
+            aria-hidden="true"
+          >
+            LOCAL INFERENCE ENGINE
+          </span>
+        </div>
       </ParallaxLayer>
 
       {/* =========================================================================
           LAYER 06: CRISP FOREGROUND UI / TYPOGRAPHY / REAL SCANNER (Depth: 0.02)
           ========================================================================= */}
       <div className="relative z-10 w-full pt-20 pb-12 sm:pt-24 sm:pb-16 pointer-events-auto">
-        <div className="page-container max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-center">
             {/* Left Column: Real Content Hierarchy */}
             <div className="lg:col-span-7 space-y-6">
               {/* Architecture Label with technical tracking reveal */}
@@ -304,25 +306,23 @@ export function CinematicHero() {
                 <MaskedHeading
                   level={1}
                   lines={[
-                    "ONE SECURITY",
-                    "BRAIN.",
-                    "YOUR ENTIRE",
-                    "DIGITAL LIFE.",
+                    "ONE SECURITY BRAIN.",
+                    "YOUR ENTIRE DIGITAL LIFE.",
                   ]}
-                  accentLineIndex={2}
+                  accentLineIndex={1}
                   accentClassName="text-[#39FF14]"
-                  className="text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tighter text-[#F1F0EB] leading-[0.88]"
+                  className="text-[26px] xs:text-3xl sm:text-5xl md:text-6xl xl:text-7xl font-black uppercase tracking-tight text-[#F1F0EB] leading-[0.94]"
                   delay={150}
                 />
               </div>
 
               {/* Truthful Value Proposition */}
-              <p className="text-sm sm:text-base text-[#A6A6A0] max-w-xl font-sans font-normal leading-relaxed">
+              <p className="text-sm sm:text-base text-[#A6A6A0] max-w-2xl font-sans font-normal leading-relaxed">
                 AgeIS-X guards your browsing, communications, identity, and personal endpoints against zero-hour threat vectors using fast on-device machine intelligence. Zero cloud browsing logs. Zero build slowdown.
               </p>
 
               {/* Real URL Intelligence Scanner */}
-              <div className="pt-2 max-w-xl">
+              <div className="pt-2 max-w-2xl">
                 <div className="p-4 sm:p-5 bg-[#080D16]/90 backdrop-blur-md border border-white/15 shadow-2xl space-y-3 transition-[border-color,box-shadow] duration-200 focus-within:border-[#39FF14]/50 focus-within:shadow-[0_0_30px_rgba(57,255,20,0.06)]">
                   <div className="flex items-center justify-between text-[10px] uppercase">
                     <span className="flex items-center gap-1.5 font-bold text-[#F1F0EB] tracking-wider font-mono">
@@ -346,7 +346,7 @@ export function CinematicHero() {
                         className="w-full bg-[#04070D] border border-white/15 text-xs font-mono text-[#F1F0EB] pl-9 pr-3 py-2.5 focus:outline-none focus:border-[#39FF14] transition-colors rounded-none placeholder:text-[#6F706D]"
                       />
                     </div>
-                    <MagneticButton strength={4}>
+                    <MagneticButton strength={4} className="w-full sm:w-auto">
                       <Button
                         type="submit"
                         disabled={isScanning || !inputUrl.trim()}
@@ -438,12 +438,12 @@ export function CinematicHero() {
               </div>
 
               {/* Primary Call-to-Action Buttons */}
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                <MagneticButton strength={5}>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2">
+                <MagneticButton strength={5} className="w-full sm:w-auto">
                   <Button
                     size="lg"
                     asChild
-                    className="bg-[#39FF14] hover:bg-[#32e012] text-[#04070D] font-mono font-bold text-xs uppercase tracking-wider rounded-none px-7 h-12 shadow-[2px_2px_0px_#FFFFFF]"
+                    className="w-full sm:w-auto bg-[#39FF14] hover:bg-[#32e012] text-[#04070D] font-mono font-bold text-xs uppercase tracking-wider rounded-none px-7 h-12 shadow-[2px_2px_0px_#FFFFFF]"
                   >
                     <Link href="/pricing">
                       <span>COMMISSION SECURITY UNIT</span>
@@ -456,7 +456,7 @@ export function CinematicHero() {
                   size="lg"
                   variant="outline"
                   asChild
-                  className="border-white/20 bg-transparent hover:bg-white/5 text-[#F1F0EB] font-mono text-xs uppercase tracking-wider rounded-none h-12 px-6"
+                  className="w-full sm:w-auto border-white/20 bg-transparent hover:bg-white/5 text-[#F1F0EB] font-mono text-xs uppercase tracking-wider rounded-none h-12 px-6"
                 >
                   <Link href="/download">
                     <span>DEPLOY ON WORKSTATION</span>
@@ -465,28 +465,28 @@ export function CinematicHero() {
               </div>
 
               {/* Core Real Performance Metrics */}
-              <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/10 max-w-xl">
+              <div className="grid grid-cols-3 gap-2 sm:gap-6 pt-4 border-t border-white/10 max-w-2xl">
                 <div className="space-y-0.5">
-                  <span className="text-xl sm:text-2xl font-black text-[#F1F0EB] block">
+                  <span className="text-base sm:text-xl md:text-2xl font-black text-[#F1F0EB] block">
                     &lt; 20ms
                   </span>
-                  <span className="text-[10px] text-[#A6A6A0] uppercase block">
+                  <span className="text-[8px] sm:text-[10px] text-[#A6A6A0] uppercase block tracking-wider">
                     LOCAL INFERENCE
                   </span>
                 </div>
-                <div className="space-y-0.5 border-l border-white/10 pl-4">
-                  <span className="text-xl sm:text-2xl font-black text-[#39FF14] block">
+                <div className="space-y-0.5 border-l border-white/10 pl-2.5 sm:pl-6">
+                  <span className="text-base sm:text-xl md:text-2xl font-black text-[#39FF14] block">
                     0 BYTES
                   </span>
-                  <span className="text-[10px] text-[#A6A6A0] uppercase block">
+                  <span className="text-[8px] sm:text-[10px] text-[#A6A6A0] uppercase block tracking-wider">
                     CLOUD LOGGING
                   </span>
                 </div>
-                <div className="space-y-0.5 border-l border-white/10 pl-4">
-                  <span className="text-xl sm:text-2xl font-black text-[#F1F0EB] block">
+                <div className="space-y-0.5 border-l border-white/10 pl-2.5 sm:pl-6">
+                  <span className="text-base sm:text-xl md:text-2xl font-black text-[#F1F0EB] block">
                     &lt; 38 MB
                   </span>
-                  <span className="text-[10px] text-[#A6A6A0] uppercase block">
+                  <span className="text-[8px] sm:text-[10px] text-[#A6A6A0] uppercase block tracking-wider">
                     HOST RAM FOOTPRINT
                   </span>
                 </div>
@@ -494,7 +494,7 @@ export function CinematicHero() {
             </div>
 
             {/* Right Column: Spacer to frame the isolated robot in Layer 04 */}
-            <div className="lg:col-span-5 h-[340px] sm:h-[450px] lg:h-[620px] pointer-events-none" />
+            <div className="lg:col-span-5 h-16 sm:h-28 lg:h-[620px] pointer-events-none" />
           </div>
 
           {/* Bottom Scroll Prompt */}

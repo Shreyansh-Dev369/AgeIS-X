@@ -141,6 +141,7 @@ export default function HomePage() {
       <EditorialSection
         id="surfaces"
         mode="dark-lab"
+        containerWidth="wide"
         className="py-20 md:py-28 border-b border-white/10"
       >
         <div className="space-y-12">
@@ -164,10 +165,20 @@ export default function HomePage() {
               const Icon = surface.icon
               return (
                 <RevealOnScroll key={idx} delay={idx * 50} direction="up" distance={16}>
-                  <div className="py-6 px-2 sm:px-4 grid grid-cols-1 md:grid-cols-12 gap-4 items-center hover:bg-white/[0.03] transition-all duration-300 group cursor-default">
-                    <div className="md:col-span-1 text-xs font-bold text-[#39FF14] transition-transform duration-200 group-hover:translate-x-1">
+                  <div className="py-5 sm:py-6 px-3 sm:px-4 grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4 items-start md:items-center hover:bg-white/[0.03] transition-all duration-300 group cursor-default">
+                    {/* Mobile Header: Number & Spec badge together */}
+                    <div className="flex items-center justify-between md:hidden w-full">
+                      <span className="text-xs font-bold text-[#39FF14]">{surface.num}</span>
+                      <span className="inline-block text-[10px] font-mono px-2 py-0.5 bg-white/5 border border-white/10 text-[#39FF14]">
+                        {surface.spec}
+                      </span>
+                    </div>
+
+                    {/* Desktop Number */}
+                    <div className="hidden md:block md:col-span-1 text-xs font-bold text-[#39FF14] transition-transform duration-200 group-hover:translate-x-1">
                       {surface.num}
                     </div>
+
                     <div className="md:col-span-3 space-y-1">
                       <span className="text-[10px] tracking-widest text-[#A6A6A0] uppercase block font-bold">
                         {surface.surface}
@@ -177,10 +188,13 @@ export default function HomePage() {
                         <span>{surface.title}</span>
                       </h3>
                     </div>
+
                     <div className="md:col-span-6 text-xs text-[#A6A6A0] font-sans leading-relaxed group-hover:text-[#E8E7E2] transition-colors">
                       {surface.desc}
                     </div>
-                    <div className="md:col-span-2 text-right">
+
+                    {/* Desktop Spec */}
+                    <div className="hidden md:block md:col-span-2 text-right">
                       <span className="inline-block text-[10px] font-mono px-2 py-0.5 bg-white/5 border border-white/10 text-[#A6A6A0] group-hover:border-[#39FF14]/40 group-hover:text-[#39FF14] transition-colors">
                         {surface.spec}
                       </span>
@@ -197,6 +211,7 @@ export default function HomePage() {
       <EditorialSection
         id="paradigm"
         mode="off-white-editorial"
+        containerWidth="wide"
         className="py-20 md:py-28 border-b border-white/10"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
@@ -256,6 +271,7 @@ export default function HomePage() {
       <EditorialSection
         id="roster"
         mode="dark-lab"
+        containerWidth="wide"
         className="py-20 md:py-28 border-b border-white/10"
       >
         <div className="space-y-12 font-mono">
@@ -349,7 +365,7 @@ export default function HomePage() {
         id="commission"
         className="relative py-16 sm:py-24 bg-[#080D16] border-t border-white/10 font-mono"
       >
-        <div className="page-container max-w-7xl">
+        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12">
           <RevealOnScroll direction="up" distance={24}>
             <div className="p-8 sm:p-12 bg-[#04070D] border border-white/15 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl relative overflow-hidden">
               {/* Subtle ambient glow behind card */}
@@ -373,11 +389,11 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="relative z-10">
-                <MagneticButton strength={5}>
+              <div className="relative z-10 w-full md:w-auto">
+                <MagneticButton strength={5} className="w-full md:w-auto">
                   <Button
                     size="lg"
-                    className="bg-[#39FF14] hover:bg-[#32e012] text-[#04070D] font-mono font-bold text-xs uppercase tracking-wider rounded-none px-8 h-12 shrink-0 shadow-[2px_2px_0px_#FFFFFF]"
+                    className="w-full md:w-auto bg-[#39FF14] hover:bg-[#32e012] text-[#04070D] font-mono font-bold text-xs uppercase tracking-wider rounded-none px-8 h-12 shrink-0 shadow-[2px_2px_0px_#FFFFFF]"
                     asChild
                   >
                     <Link href="/pricing">
