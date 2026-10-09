@@ -36,7 +36,4 @@ JWT_SECRET = os.getenv("JWT_SECRET", "change_this_secret")
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
 JWT_EXPIRE_MINUTES = int(os.getenv("JWT_EXPIRE_MINUTES", 60))
 
-# ---------------------------
-# DEBUG MODE
-# ---------------------------
-DEBUG = os.getenv("DEBUG", "True") == "True"
+DEBUG = os.getenv("DEBUG", "False").lower() in ("true", "1", "t")

@@ -8,6 +8,7 @@ import { MagneticButton } from "./magnetic-button"
 import { MaskedHeading, TechnicalTrackingReveal } from "./typography-choreography"
 import { Button } from "@/components/ui/button"
 import { analyzeUrlStructure } from "@/lib/utils/url-analyzer"
+import { getApiBaseUrl } from "@/lib/config/api"
 import {
   Globe,
   Search,
@@ -49,7 +50,7 @@ export function CinematicHero() {
     const localStructure = analyzeUrlStructure(target)
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/predict", {
+      const res = await fetch(`${getApiBaseUrl()}/predict`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url: target }),

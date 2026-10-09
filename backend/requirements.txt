@@ -1,61 +1,9 @@
-Note: Create the table in PostgreSQL:
-
-CREATE TABLE predictions (
-    id SERIAL PRIMARY KEY,
-    url TEXT,
-    label INT,
-    probability FLOAT,
-    created_at TIMESTAMP DEFAULT NOW()
-);
-
-
-fastapi
-uvicorn
-scikit-learn
-pandas
-numpy
-redis
-psycopg2-binary
-python-jose
-
-
-
-
-UPDATES NEEDED 
-...
-
-
-AgeIS-X
-
-URL Detection
-SMS Scam Detection
-WhatsApp Scam Detection
-Email Phishing Detection
-Social Media Scam Detection
-Call Fraud Detection
-UPI Fraud Detection
-Threat Intelligence
-AI Security Assistant
-
-OCR
-↓
-Text Extraction
-↓
-Scam Detection
-↓
-Risk Score
-
-AgeIS-X
-
-AI Fraud Detection Platform
-
-✔ URL Scams
-✔ SMS Scams
-✔ WhatsApp Scams
-✔ Email Phishing
-✔ Phone Fraud
-✔ UPI Fraud
-✔ Social Media Scams
-✔ Job Scams
-✔ Browser Protection
-✔ AI Security Assistant
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.0.0
+scikit-learn>=1.4.0
+scipy>=1.11.0
+numpy>=1.26.0
+tldextract>=5.1.0
+httpx>=0.27.0
+python-dotenv>=1.0.0

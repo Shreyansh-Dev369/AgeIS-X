@@ -9,6 +9,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { PixelBadge } from "@/components/ui/pixel-badge"
 import { useAuth } from "@/lib/auth/auth-context"
 import { authService } from "@/lib/auth/auth-service"
+import { getApiBaseUrl } from "@/lib/config/api"
 import { UserSession } from "@/types/auth"
 import {
   User,
@@ -453,7 +454,7 @@ export default function SettingsPage() {
                 <div className="space-y-1.5">
                   <label className="text-xs text-slate-400 font-medium block">Local Daemon Ingestion URL</label>
                   <Input
-                    defaultValue="http://127.0.0.1:8000"
+                    defaultValue={getApiBaseUrl()}
                     className="font-mono bg-[#04070d]"
                   />
                   <p className="text-[11px] text-slate-400">Localhost inference daemon port for `/predict` calls.</p>

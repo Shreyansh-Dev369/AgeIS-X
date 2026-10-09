@@ -4,15 +4,18 @@ import React, { useState } from "react"
 import { Search, CheckCircle2, AlertTriangle, AlertOctagon, Loader2, Globe, Lock, ShieldCheck, ArrowRight, ShieldAlert, AlertCircle, Info, ChevronDown, ChevronUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { analyzeUrlStructure } from "@/lib/utils/url-analyzer"
+import { getApiBaseUrl } from "@/lib/config/api"
 import { MagneticButton } from "@/components/cinematic/magnetic-button"
 import { SecuritySticker } from "@/components/design-system/pixel-art-system"
 
-export type ScanVerdict = "safe" | "suspicious" | "malicious" | "unknown" | "error"
+export type ScanVerdict = "safe" | "suspicious" | "malicious" | "unknown" | "error" | "PHISHING" | "SUSPICIOUS" | "LIKELY_SAFE" | "INCONCLUSIVE"
 
 export interface ScanResult {
   url: string
   riskScore: number
   verdict: ScanVerdict
+  verdictState?: string
+  confidence?: number
   model: string
   backendOnline: boolean
   responseTime: number
@@ -63,7 +66,7 @@ export function URLScanner() {
     const localStructure = analyzeUrlStructure(inputToScan)
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/predict", {
+      const res = await fetch(`${getApiBaseUrl()}/predict`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url: inputToScan }),
@@ -117,11 +120,13 @@ export function URLScanner() {
         tlsGrade: tlsDisplay,
         domainAge: domainAgeDisplay,
         simpleRecommendation:
-          verdict === "malicious"
+          (verdict === "malicious" || verdict === "PHISHING")
             ? "Dangerous link. Do not visit this website or enter credentials."
-            : verdict === "suspicious"
-            ? "Suspicious link. High-risk keywords or structural anomalies detected. Exercise caution."
-            : "Clean link. No malicious structural indicators or phishing patterns found.",
+            : (verdict === "suspicious" || verdict === "SUSPICIOUS")
+            ? "Suspicious link. Meaningful risk indicators exist, but evidence is inconclusive. Exercise caution."
+            : (verdict === "unknown" || verdict === "INCONCLUSIVE")
+            ? "Inconclusive assessment. Insufficient authoritative evidence or unverified intelligence."
+            : "Likely safe link. Available evidence supports a lower-risk assessment, without guaranteeing safety.",
         evidence: data.evidence && data.evidence.length > 0 ? data.evidence : localStructure.evidence,
         limitations: data.limitations || [
           "Domain age is not verified (RDAP lookup offline)",
@@ -294,11 +299,11 @@ export function URLScanner() {
           {/* Verdict Banner */}
           <div
             className={`p-4 border flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
-              scanResult.verdict === "malicious"
+              scanResult.verdict === "malicious" || scanResult.verdict === "PHISHING"
                 ? "border-[#FF4545] bg-[#FF4545]/10 text-[#FF4545]"
-                : scanResult.verdict === "suspicious"
+                : scanResult.verdict === "suspicious" || scanResult.verdict === "SUSPICIOUS"
                 ? "border-[#FFB800] bg-[#FFB800]/10 text-[#FFB800]"
-                : scanResult.verdict === "unknown"
+                : scanResult.verdict === "unknown" || scanResult.verdict === "INCONCLUSIVE"
                 ? "border-[#00E5FF] bg-[#00E5FF]/10 text-[#00E5FF]"
                 : "border-[#39FF14] bg-[#39FF14]/10 text-[#39FF14]"
             }`}

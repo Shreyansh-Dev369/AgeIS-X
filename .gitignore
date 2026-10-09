@@ -18,6 +18,7 @@ yarn-error.log*
 
 # env files
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +40,8 @@ env/
 *.egg-info/
 dist/
 build/
+
+# Large local ML scratch dumps
+backend/ml/data/processed/clean_dataset.csv
+backend/ml/model_orig.pkl
+backend/ml/vectorizer_orig.pkl

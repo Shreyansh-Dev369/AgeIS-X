@@ -1,0 +1,29 @@
+# ==============================================================================
+# RENDER BLUEPRINT SPECIFICATION — AGEIS-X BACKEND MICROSERVICE
+# ==============================================================================
+# Use this Blueprint to deploy the FastAPI security engine on Render.
+# 
+# Manual Setup Settings (if creating Web Service directly in Render Dashboard):
+#   - Name: ageis-x-api
+#   - Environment: Python 3
+#   - Region: Oregon (US West) or Frankfurt (EU Central)
+#   - Root Directory: backend
+#   - Build Command: pip install -r requirements.txt
+#   - Start Command: uvicorn main:app --host 0.0.0.0 --port $PORT
+#   - Health Check Path: /health
+# ==============================================================================
+
+services:
+  - type: web
+    name: ageis-x-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: DEBUG
+        value: "false"
+      - key: CORS_ORIGINS
+        value: "https://*.vercel.app"

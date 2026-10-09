@@ -767,3 +767,96 @@ Alice
     assert data["risk_score"] <= 20
 
 
+# ---------------------------------------------------------
+# PHISHING DETECTION V2 REGRESSION & SECURITY TESTS
+# ---------------------------------------------------------
+
+def test_ml_v2_model_loaded_and_active():
+    response = client.get("/health")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["ml_model_loaded"] is True
+    assert data["features"]["ml_v2_pipeline"] is True
+
+def test_legitimate_login_url_github():
+    response = client.post("/predict", json={"url": "https://github.com/login"})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["verdict"] == "safe"
+    assert data["verdict_state"] == "LIKELY_SAFE"
+    assert data["risk_score"] <= 25
+
+def test_legitimate_auth_url_google():
+    response = client.post("/predict", json={"url": "https://accounts.google.com/signin"})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["verdict"] == "safe"
+    assert data["verdict_state"] == "LIKELY_SAFE"
+    assert data["risk_score"] <= 25
+
+def test_legitimate_paypal_signin():
+    response = client.post("/predict", json={"url": "https://www.paypal.com/signin"})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["verdict"] == "safe"
+    assert data["verdict_state"] == "LIKELY_SAFE"
+    assert data["risk_score"] <= 25
+
+def test_legitimate_non_whitelisted_domain_cnn():
+    response = client.post("/predict", json={"url": "https://cnn.com"})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["verdict"] == "safe"
+    assert data["risk_score"] <= 25
+
+def test_legitimate_educational_domain_mit():
+    response = client.post("/predict", json={"url": "https://mit.edu/admissions"})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["verdict"] == "safe"
+    assert data["risk_score"] <= 25
+
+def test_brand_impersonation_secondary_domain_paypal():
+    response = client.post("/predict", json={"url": "http://paypal-verification-portal.com/login"})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["verdict"] == "malicious"
+    assert data["verdict_state"] == "PHISHING"
+    assert data["risk_score"] >= 75
+    assert data["features"]["brand_impersonation"] == "paypal"
+
+def test_subdomain_deception_paypal_in_subdomain():
+    response = client.post("/predict", json={"url": "http://paypal.com.security-verify.net/account"})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["verdict"] == "malicious"
+    assert data["verdict_state"] == "PHISHING"
+    assert data["risk_score"] >= 80
+
+def test_crypto_airdrop_phishing_metamask():
+    response = client.post("/predict", json={"url": "http://update-wallet-metamask.top/airdrop"})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["verdict"] == "malicious"
+    assert data["verdict_state"] == "PHISHING"
+    assert data["risk_score"] >= 75
+
+def test_empty_url_rejected():
+    response = client.post("/predict", json={"url": ""})
+    assert response.status_code == 400
+
+def test_short_url_rejected():
+    response = client.post("/predict", json={"url": "ab"})
+    assert response.status_code == 400
+
+def test_explicit_verdict_states_populated():
+    response = client.post("/predict", json={"url": "https://google.com"})
+    assert response.status_code == 200
+    data = response.json()
+    assert "verdict_state" in data
+    assert data["verdict_state"] in ("PHISHING", "SUSPICIOUS", "LIKELY_SAFE", "INCONCLUSIVE")
+    assert "confidence" in data
+    assert "analysis_status" in data
+
+
+

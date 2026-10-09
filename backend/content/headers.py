@@ -1,6 +1,9 @@
 from typing import Dict, Tuple, List
 from .models import SecurityHeadersIntelligence
-from intelligence.models import EvidenceItem
+try:
+    from intelligence.models import EvidenceItem
+except ImportError:
+    from ..intelligence.models import EvidenceItem
 
 def analyze_security_headers(headers: Dict[str, str]) -> Tuple[SecurityHeadersIntelligence, List[EvidenceItem]]:
     """

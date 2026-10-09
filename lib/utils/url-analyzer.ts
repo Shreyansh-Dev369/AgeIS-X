@@ -30,10 +30,40 @@ const TARGETED_BRANDS = [
   "binance", "coinbase", "metamask", "telegram", "whatsapp", "discord"
 ]
 
+const BRAND_DOMAINS: Record<string, string[]> = {
+  google: ["google.com", "youtube.com"],
+  paypal: ["paypal.com"],
+  microsoft: ["microsoft.com", "live.com", "microsoftonline.com", "office.com"],
+  apple: ["apple.com", "icloud.com"],
+  amazon: ["amazon.com", "aws.amazon.com"],
+  netflix: ["netflix.com"],
+  chase: ["chase.com"],
+  wellsfargo: ["wellsfargo.com"],
+  bankofamerica: ["bankofamerica.com"],
+  citi: ["citi.com", "citigroup.com"],
+  facebook: ["facebook.com", "fb.com"],
+  instagram: ["instagram.com"],
+  binance: ["binance.com"],
+  coinbase: ["coinbase.com"],
+  metamask: ["metamask.io"],
+  telegram: ["telegram.org", "t.me"],
+  whatsapp: ["whatsapp.com"],
+  discord: ["discord.com", "discord.gg"],
+  github: ["github.com"],
+  stripe: ["stripe.com"],
+  cloudflare: ["cloudflare.com"],
+  yahoo: ["yahoo.com"],
+  auth0: ["auth0.com"],
+  wikipedia: ["wikipedia.org"],
+  linkedin: ["linkedin.com"],
+}
+
 const KNOWN_BENIGN_APEX = new Set([
   "google.com", "www.google.com", "accounts.google.com", "github.com",
   "microsoft.com", "apple.com", "paypal.com", "amazon.com",
-  "netflix.com", "chase.com", "wikipedia.org", "example.com"
+  "netflix.com", "chase.com", "wikipedia.org", "example.com",
+  "cloudflare.com", "stripe.com", "mit.edu", "nih.gov", "python.org",
+  "stackoverflow.com", "cnn.com", "nytimes.com", "bbc.com", "yahoo.com"
 ])
 
 const SUSPICIOUS_TLDS = new Set([
@@ -173,16 +203,22 @@ export function analyzeUrlStructure(rawUrl: string): StructuralAnalysisResult {
     structuralRiskPoints += 15
   }
 
-  // Brand Impersonation
+  // Brand Impersonation vs Authentic Brand
   let brandImpersonationFound: string | null = null
-  if (parts.length > 2) {
-    for (const brand of TARGETED_BRANDS) {
-      if (hostname.includes(brand) && !hostname.endsWith(`${brand}.${tld}`) && !hostname.endsWith(`${brand}.co.${tld}`)) {
+  let isAuthenticBrand = false
+
+  for (const brand of TARGETED_BRANDS) {
+    if (hostname.includes(brand) || trimmed.toLowerCase().includes(brand)) {
+      const authDoms = BRAND_DOMAINS[brand] || []
+      const isAuth = authDoms.some((d) => hostname === d || hostname.endsWith("." + d))
+      if (isAuth) {
+        isAuthenticBrand = true
+      } else {
         brandImpersonationFound = brand
-        evidence.push(`Brand keyword '${brand}' embedded in secondary domain/subdomain of untrusted root`)
-        structuralRiskPoints += 35
-        break
+        evidence.push(`Brand keyword '${brand}' embedded in domain or path of untrusted root (${hostname})`)
+        structuralRiskPoints += 45
       }
+      break
     }
   }
 
@@ -217,10 +253,10 @@ export function analyzeUrlStructure(rawUrl: string): StructuralAnalysisResult {
 
   // Known Benign Apex Match
   let isKnownBenign = false
-  if (KNOWN_BENIGN_APEX.has(hostname) && !hasHomoglyphs && !isTyposquatPattern && !hasUserinfo) {
+  if ((KNOWN_BENIGN_APEX.has(hostname) || isAuthenticBrand) && !hasHomoglyphs && !isTyposquatPattern && !hasUserinfo && !brandImpersonationFound) {
     isKnownBenign = true
     evidence.length = 0
-    evidence.push("Domain matches known verified apex organization repository.")
+    evidence.push("Domain matches known verified authentic organization repository.")
     structuralRiskPoints = 0
   }
 

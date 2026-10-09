@@ -2,19 +2,54 @@ import math
 import re
 import unicodedata
 from urllib.parse import urlparse, unquote
+import tldextract
 
 # High-profile brand names frequently targeted by phishing
 TARGETED_BRANDS = [
     "google", "paypal", "microsoft", "apple", "amazon", "netflix",
     "chase", "wellsfargo", "bankofamerica", "citi", "facebook", "instagram",
-    "binance", "coinbase", "metamask", "telegram", "whatsapp", "discord"
+    "binance", "coinbase", "metamask", "telegram", "whatsapp", "discord",
+    "github", "stripe", "cloudflare", "yahoo", "auth0"
 ]
+
+# Authentic brand domain mapping
+BRAND_DOMAINS = {
+    'google': {'google.com', 'youtube.com'},
+    'paypal': {'paypal.com'},
+    'microsoft': {'microsoft.com', 'live.com', 'microsoftonline.com', 'office.com'},
+    'apple': {'apple.com', 'icloud.com'},
+    'amazon': {'amazon.com', 'aws.amazon.com'},
+    'netflix': {'netflix.com'},
+    'chase': {'chase.com'},
+    'wellsfargo': {'wellsfargo.com'},
+    'bankofamerica': {'bankofamerica.com'},
+    'citi': {'citi.com', 'citigroup.com'},
+    'facebook': {'facebook.com', 'fb.com'},
+    'instagram': {'instagram.com'},
+    'binance': {'binance.com'},
+    'coinbase': {'coinbase.com'},
+    'metamask': {'metamask.io'},
+    'telegram': {'telegram.org', 't.me'},
+    'whatsapp': {'whatsapp.com'},
+    'discord': {'discord.com', 'discord.gg'},
+    'github': {'github.com'},
+    'stripe': {'stripe.com'},
+    'cloudflare': {'cloudflare.com'},
+    'yahoo': {'yahoo.com'},
+    'auth0': {'auth0.com'},
+    'wikipedia': {'wikipedia.org'},
+    'linkedin': {'linkedin.com'},
+    'twitter': {'twitter.com', 'x.com'},
+    'reddit': {'reddit.com'}
+}
 
 # Established authentic apex domains for reputable platforms
 KNOWN_BENIGN_APEX = {
     "google.com", "www.google.com", "accounts.google.com", "github.com",
     "microsoft.com", "apple.com", "paypal.com", "amazon.com",
-    "netflix.com", "chase.com", "wikipedia.org", "example.com"
+    "netflix.com", "chase.com", "wikipedia.org", "example.com",
+    "cloudflare.com", "stripe.com", "mit.edu", "nih.gov", "python.org",
+    "stackoverflow.com", "cnn.com", "nytimes.com", "bbc.com", "yahoo.com"
 }
 
 # TLDs with disproportionately high malicious registration ratios
@@ -73,7 +108,7 @@ def parse_url_structure(raw_url: str) -> dict:
     has_userinfo = '@' in netloc or '@' in raw_url.split('/')[0]
     if has_userinfo:
         evidence.append("Userinfo credential trick detected (contains '@' symbol redirecting destination)")
-        structural_risk_points += 40
+        structural_risk_points += 45
 
     # Extract hostname & port
     host_port = netloc.split('@')[-1]
@@ -136,44 +171,54 @@ def parse_url_structure(raw_url: str) -> dict:
     if has_homoglyphs:
         unique_matches = list(dict.fromkeys(matched_homoglyphs))[:3]
         evidence.append(f"Cyrillic lookalike homoglyph characters detected: {', '.join(unique_matches)}")
-        structural_risk_points += 50
+        structural_risk_points += 55
 
     # Missing delimiter / typosquatting (e.g. wwwgoogle.com)
     is_typosquat_pattern = False
     if hostname_clean.startswith("www") and len(hostname_clean) > 3 and hostname_clean[3] != '.':
         is_typosquat_pattern = True
         evidence.append(f"Typosquatting pattern: missing dot delimiter after 'www' ({hostname_clean})")
-        structural_risk_points += 40
+        structural_risk_points += 45
 
-    # Subdomain depth & TLD analysis
-    subdomain_parts = [p for p in hostname_clean.split('.') if p]
-    subdomain_depth = max(0, len(subdomain_parts) - 2)
+    # Extract registered domain via tldextract
+    ext = tldextract.extract(url_to_parse)
+    reg_domain = f"{ext.domain}.{ext.suffix}".lower() if (ext.domain and ext.suffix) else ext.domain.lower()
+    tld = ext.suffix.lower() if ext.suffix else ""
+    subdomain_parts = [p for p in ext.subdomain.split('.') if p]
+    subdomain_depth = len(subdomain_parts)
+
     if subdomain_depth >= 3:
         evidence.append(f"Excessive subdomain nesting depth ({subdomain_depth} levels)")
         structural_risk_points += 15
 
     # TLD Analysis
-    tld = subdomain_parts[-1] if len(subdomain_parts) > 1 else ""
     is_suspicious_tld = tld in SUSPICIOUS_TLDS
     if is_suspicious_tld:
         evidence.append(f"High-risk top-level domain (.{tld})")
-        structural_risk_points += 15
+        structural_risk_points += 20
 
-    # Brand Impersonation in subdomain/path
+    # Authentic Brand vs Brand Impersonation
+    is_authentic_brand = False
     brand_impersonation_found = None
-    if len(subdomain_parts) > 2:
-        for brand in TARGETED_BRANDS:
-            if brand in hostname_clean and not hostname_clean.endswith(f"{brand}.{tld}") and not hostname_clean.endswith(f"{brand}.co.{tld}"):
+    for brand, auth_doms in BRAND_DOMAINS.items():
+        if brand in hostname_clean or brand in path.lower():
+            if reg_domain in auth_doms:
+                is_authentic_brand = True
+            else:
                 brand_impersonation_found = brand
-                evidence.append(f"Brand keyword '{brand}' present in secondary domain/subdomain of untrusted root")
-                structural_risk_points += 35
-                break
+                evidence.append(f"Brand keyword '{brand}' present in domain or path of untrusted root ({reg_domain})")
+                structural_risk_points += 45
+            break
 
     # Keyword Density
     found_keywords = [kw for kw in SUSPICIOUS_KEYWORDS if kw in raw_url.lower()]
     if found_keywords:
-        evidence.append(f"Suspicious security/phishing keywords present: {', '.join(found_keywords[:3])}")
-        structural_risk_points += min(20, len(found_keywords) * 8)
+        if not is_authentic_brand:
+            evidence.append(f"Suspicious security/phishing keywords on untrusted domain: {', '.join(found_keywords[:3])}")
+            structural_risk_points += min(25, len(found_keywords) * 10)
+        else:
+            # On authentic domain, keywords like login/signin are normal
+            pass
 
     # Shannon Entropy
     entropy = calculate_entropy(raw_url)
@@ -191,18 +236,20 @@ def parse_url_structure(raw_url: str) -> dict:
 
     # Check for authentic known apex
     is_known_benign = False
-    if hostname_clean in KNOWN_BENIGN_APEX and not has_homoglyphs and not is_typosquat_pattern and not has_userinfo:
+    if (reg_domain in KNOWN_BENIGN_APEX or is_authentic_brand) and not has_homoglyphs and not is_typosquat_pattern and not has_userinfo and not brand_impersonation_found:
         is_known_benign = True
-        evidence = ["Domain matches known verified apex organization repository."]
+        evidence = ["Domain matches known verified authentic organization repository."]
         structural_risk_points = 0
 
     return {
         "scheme": scheme,
         "hostname": hostname_clean,
+        "registered_domain": reg_domain,
         "port": int(port_str) if port_str.isdigit() else (443 if scheme == "https" else 80),
         "is_https": scheme == "https",
         "is_ip_literal": is_ip_literal,
         "is_known_benign": is_known_benign,
+        "is_authentic_brand": is_authentic_brand,
         "has_userinfo": has_userinfo,
         "has_homoglyphs": has_homoglyphs,
         "homoglyph_details": matched_homoglyphs[:5],
