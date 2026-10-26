@@ -82,7 +82,7 @@ export function ScrollProgressRail({
       {/* Tiny vertical track */}
       <div className="relative w-px h-28 bg-white/10 my-1 self-end mr-[5px]">
         <div
-          className="absolute top-0 w-full bg-[#39FF14] transition-all duration-150 ease-out"
+          className="absolute top-0 w-full bg-[#00E575] transition-all duration-150 ease-out"
           style={{ height: `${scrollPercent}%` }}
         />
       </div>
@@ -96,8 +96,8 @@ export function ScrollProgressRail({
               type="button"
               onClick={() => scrollToSection(s.id)}
               className={cn(
-                "group flex items-center gap-2 text-right transition-colors duration-200 cursor-pointer outline-none focus-visible:text-[#39FF14]",
-                isActive ? "text-[#39FF14]" : "text-[#6F706D] hover:text-[#A6A6A0]"
+                "group flex items-center gap-2 text-right transition-colors duration-200 cursor-pointer outline-none focus-visible:text-[#00E575]",
+                isActive ? "text-[#00E575]" : "text-[#64748B] hover:text-[#94A3B8]"
               )}
               aria-current={isActive ? "step" : undefined}
             >
@@ -114,7 +114,7 @@ export function ScrollProgressRail({
                 className={cn(
                   "w-1.5 h-1.5 transition-all duration-200 inline-block",
                   isActive
-                    ? "bg-[#39FF14] scale-125 shadow-[0_0_8px_#39FF14]"
+                    ? "bg-[#00E575] scale-125 shadow-[0_0_8px_#00E575]"
                     : "bg-white/20 group-hover:bg-white/50"
                 )}
               />

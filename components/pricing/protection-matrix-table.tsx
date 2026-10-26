@@ -30,7 +30,7 @@ export function ProtectionMatrixTable({
     if (statusOrText === "AVAILABLE") {
       return (
         <div className="flex items-center justify-center">
-          <span className="inline-flex items-center justify-center w-5 h-5 bg-[#39FF14]/15 border border-[#39FF14]/40 text-[#39FF14]">
+          <span className="inline-flex items-center justify-center w-5 h-5 bg-[#00E575]/15 border border-[#00E575]/40 text-[#00E575]">
             <Check className="w-3.5 h-3.5 stroke-[3]" />
           </span>
           <span className="sr-only">Available</span>
@@ -61,7 +61,7 @@ export function ProtectionMatrixTable({
     if (statusOrText === "PLANNED") {
       return (
         <div className="flex items-center justify-center">
-          <span className="px-1.5 py-0.5 text-[9px] font-mono text-[#6F706D] bg-white/5 border border-white/10 uppercase tracking-wider">
+          <span className="px-1.5 py-0.5 text-[9px] font-mono text-[#64748B] bg-white/5 border border-white/10 uppercase tracking-wider">
             PLANNED
           </span>
         </div>
@@ -82,7 +82,7 @@ export function ProtectionMatrixTable({
       <span
         className={cn(
           "text-xs font-mono font-bold text-center block",
-          isCurrentColSelected ? "text-[#39FF14]" : "text-[#D4D4D0]"
+          isCurrentColSelected ? "text-[#00E575]" : "text-[#CBD5E1]"
         )}
       >
         {statusOrText}
@@ -94,19 +94,19 @@ export function ProtectionMatrixTable({
     <section className="relative w-full py-16 md:py-24 border-b border-white/10 font-mono">
       {/* Section Heading */}
       <div className="space-y-4 mb-12">
-        <div className="flex items-center gap-2 text-xs text-[#39FF14]">
+        <div className="flex items-center gap-2 text-xs text-[#00E575]">
           <span>02</span>
           <span className="text-white/20">/</span>
-          <span className="text-[#A6A6A0] uppercase tracking-widest">
+          <span className="text-[#94A3B8] uppercase tracking-widest">
             TECHNICAL MATRIX
           </span>
         </div>
 
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-[#F1F0EB]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-[#F8FAFC]">
             COMPARE PROTECTION
           </h2>
-          <p className="text-xs sm:text-sm text-[#A6A6A0] font-sans max-w-md">
+          <p className="text-xs sm:text-sm text-[#94A3B8] font-sans max-w-md">
             Granular breakdown of defense capabilities, telemetry throughput, and supported modules across the AgeIS-X unit roster.
           </p>
         </div>
@@ -117,8 +117,8 @@ export function ProtectionMatrixTable({
         <table className="w-full text-left border-collapse min-w-[700px]">
           {/* Table Header with Robot Headers */}
           <thead>
-            <tr className="border-b border-white/15 bg-[#050505]">
-              <th className="p-4 sm:p-5 text-xs text-[#A6A6A0] font-mono uppercase tracking-wider w-[36%] sticky left-0 bg-[#050505] z-20 border-r border-white/10">
+            <tr className="border-b border-white/15 bg-[#07090E]">
+              <th className="p-4 sm:p-5 text-xs text-[#94A3B8] font-mono uppercase tracking-wider w-[36%] sticky left-0 bg-[#07090E] z-20 border-r border-white/10">
                 CAPABILITY / SUBSYSTEM
               </th>
               {AGEIS_ROBOT_PLANS.map((plan) => {
@@ -130,23 +130,23 @@ export function ProtectionMatrixTable({
                     className={cn(
                       "p-4 sm:p-5 text-center cursor-pointer transition-colors w-[16%]",
                       isSelected
-                        ? "bg-[#39FF14]/10 border-t-2 border-t-[#39FF14]"
+                        ? "bg-[#00E575]/10 border-t-2 border-t-[#00E575]"
                         : "hover:bg-white/5"
                     )}
                   >
                     <div className="space-y-1 flex flex-col items-center">
-                      <span className="text-[9px] text-[#6F706D] block">
+                      <span className="text-[9px] text-[#64748B] block">
                         UNIT {plan.index}
                       </span>
                       <span
                         className={cn(
                           "text-xs sm:text-sm font-black uppercase tracking-tight block",
-                          isSelected ? "text-[#39FF14]" : "text-[#F1F0EB]"
+                          isSelected ? "text-[#00E575]" : "text-[#F8FAFC]"
                         )}
                       >
                         {plan.robotName}
                       </span>
-                      <span className="text-[10px] text-[#A6A6A0] font-mono block">
+                      <span className="text-[10px] text-[#94A3B8] font-mono block">
                         {plan.priceFormatted}
                       </span>
                     </div>
@@ -164,7 +164,7 @@ export function ProtectionMatrixTable({
                 <tr className="bg-[#0A0A0A] border-y border-white/10">
                   <td
                     colSpan={5}
-                    className="py-2.5 px-4 sm:px-5 text-[10px] font-bold text-[#39FF14] tracking-wider uppercase sticky left-0 z-10 bg-[#0A0A0A]"
+                    className="py-2.5 px-4 sm:px-5 text-[10px] font-bold text-[#00E575] tracking-wider uppercase sticky left-0 z-10 bg-[#0A0A0A]"
                   >
                     {cat.categoryName}
                   </td>
@@ -179,10 +179,10 @@ export function ProtectionMatrixTable({
                     {/* Feature Description Sticky Col */}
                     <td className="p-4 sm:p-5 text-xs sticky left-0 bg-[#070707] z-10 border-r border-white/10">
                       <div className="space-y-1">
-                        <span className="font-bold text-[#F1F0EB] block font-mono uppercase text-[11px] sm:text-xs">
+                        <span className="font-bold text-[#F8FAFC] block font-mono uppercase text-[11px] sm:text-xs">
                           {feat.name}
                         </span>
-                        <p className="text-[10px] text-[#6F706D] font-sans leading-relaxed">
+                        <p className="text-[10px] text-[#64748B] font-sans leading-relaxed">
                           {feat.description}
                         </p>
                       </div>
@@ -192,7 +192,7 @@ export function ProtectionMatrixTable({
                     <td
                       className={cn(
                         "p-4 text-center border-r border-white/5",
-                        selectedPlan === "scout" && "bg-[#39FF14]/[0.03]"
+                        selectedPlan === "scout" && "bg-[#00E575]/[0.03]"
                       )}
                     >
                       {renderStatusCell(feat.scout, selectedPlan === "scout")}
@@ -202,7 +202,7 @@ export function ProtectionMatrixTable({
                     <td
                       className={cn(
                         "p-4 text-center border-r border-white/5",
-                        selectedPlan === "guard" && "bg-[#39FF14]/[0.03]"
+                        selectedPlan === "guard" && "bg-[#00E575]/[0.03]"
                       )}
                     >
                       {renderStatusCell(feat.guard, selectedPlan === "guard")}
@@ -212,7 +212,7 @@ export function ProtectionMatrixTable({
                     <td
                       className={cn(
                         "p-4 text-center border-r border-white/5",
-                        selectedPlan === "sentinel" && "bg-[#39FF14]/[0.03]"
+                        selectedPlan === "sentinel" && "bg-[#00E575]/[0.03]"
                       )}
                     >
                       {renderStatusCell(feat.sentinel, selectedPlan === "sentinel")}
@@ -222,7 +222,7 @@ export function ProtectionMatrixTable({
                     <td
                       className={cn(
                         "p-4 text-center",
-                        selectedPlan === "aegis" && "bg-[#39FF14]/[0.03]"
+                        selectedPlan === "aegis" && "bg-[#00E575]/[0.03]"
                       )}
                     >
                       {renderStatusCell(feat.aegis, selectedPlan === "aegis")}
@@ -236,11 +236,11 @@ export function ProtectionMatrixTable({
       </div>
 
       {/* Legend & Verification Note */}
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-4 text-[10px] text-[#A6A6A0]">
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4 text-[10px] text-[#94A3B8]">
         <div className="flex flex-wrap items-center gap-4">
-          <span className="text-[#6F706D] uppercase font-bold">STATUS KEY:</span>
+          <span className="text-[#64748B] uppercase font-bold">STATUS KEY:</span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-3.5 h-3.5 bg-[#39FF14]/20 border border-[#39FF14]/50 inline-flex items-center justify-center text-[#39FF14] text-[9px] font-bold">
+            <span className="w-3.5 h-3.5 bg-[#00E575]/20 border border-[#00E575]/50 inline-flex items-center justify-center text-[#00E575] text-[9px] font-bold">
               ✓
             </span>
             <span>AVAILABLE NOW</span>
@@ -258,7 +258,7 @@ export function ProtectionMatrixTable({
             <span>IN-FLIGHT PROTOTYPE</span>
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <Minus className="w-3.5 h-3.5 text-[#6F706D]" />
+            <Minus className="w-3.5 h-3.5 text-[#64748B]" />
             <span>NOT INCLUDED</span>
           </span>
         </div>

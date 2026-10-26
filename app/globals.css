@@ -5,41 +5,46 @@
 
 :root {
   /* ==========================================================================
-     AGEIS-X EDITORIAL ART-DIRECTION DESIGN SYSTEM (Reference-Driven)
+     AGEIS-X HIGH-IMPACT EDITORIAL & SPATIAL PARALLAX DESIGN SYSTEM
+     Vibrant electric signal green, high-contrast typography, and layered
+     spatial depth architecture.
      ========================================================================== */
-  --background: #050505;
-  --background-alt: #080808;
+  color-scheme: dark;
+  accent-color: #39FF14;
+
+  --background: #04060A;
+  --background-alt: #080D14;
   --foreground: #F1F0EB;
   --foreground-muted: #A6A6A0;
   
-  /* Layered Surface System */
-  --surface-0: #050505;
-  --surface-1: #080808;
-  --surface-2: #0B0B0B;
-  --surface-3: #141414;
-  --surface-4: #242424;
+  /* Layered Architectural Surface System */
+  --surface-0: #04060A;
+  --surface-1: #080D14;
+  --surface-2: #0F1722;
+  --surface-3: #162232;
+  --surface-4: #203146;
 
-  --card: #080808;
+  --card: #080D14;
   --card-foreground: #F1F0EB;
-  --popover: #0B0B0B;
+  --popover: #0F1722;
   --popover-foreground: #F1F0EB;
 
-  /* Primary Interactive Brand: AgeIS-X Signal Green */
+  /* Primary Interactive Brand: AgeIS-X Vibrant Signal Green */
   --primary: #39FF14;
-  --primary-hover: #32e012;
-  --primary-foreground: #050505;
+  --primary-hover: #32E012;
+  --primary-foreground: #04060A;
 
   /* Secondary Actions */
-  --secondary: #141414;
+  --secondary: #0F1722;
   --secondary-foreground: #F1F0EB;
 
   /* Muted Text & Elements */
-  --muted: #141414;
+  --muted: #0F1722;
   --muted-foreground: #A6A6A0;
 
-  /* Diagnostic Accent Tone */
+  /* Diagnostic Accent Tone: Electric Cyan / Sapphire */
   --accent: #00E5FF;
-  --accent-foreground: #050505;
+  --accent-foreground: #04060A;
 
   /* Security Status Colors */
   --destructive: #FF4545;
@@ -56,9 +61,9 @@
   --status-offline: #6F706D;
 
   /* Borders & Focus Rings */
-  --border-subtle: rgba(255, 255, 255, 0.05);
-  --border: rgba(255, 255, 255, 0.10);
-  --border-strong: rgba(255, 255, 255, 0.20);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.22);
   --border-signal: rgba(57, 255, 20, 0.40);
   --input: rgba(255, 255, 255, 0.08);
   --ring: #39FF14;
@@ -70,20 +75,20 @@
   --chart-4: #B55FE6;
   --chart-5: #FF4545;
 
-  /* Radii - Minimal, Precise, Non-Pill */
+  /* Radii - Minimal, Precise */
   --radius-sm: 0.125rem;
   --radius-md: 0.25rem;
   --radius-lg: 0.375rem;
   --radius-xl: 0.5rem;
 
   /* Sidebar Tokens */
-  --sidebar: #050505;
-  --sidebar-foreground: #E8E7E2;
+  --sidebar: #04060A;
+  --sidebar-foreground: #F1F0EB;
   --sidebar-primary: #39FF14;
-  --sidebar-primary-foreground: #050505;
-  --sidebar-accent: #0B0B0B;
+  --sidebar-primary-foreground: #04060A;
+  --sidebar-accent: #0F1722;
   --sidebar-accent-foreground: #FFFFFF;
-  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-border: rgba(255, 255, 255, 0.10);
   --sidebar-ring: #39FF14;
 }
 
@@ -168,6 +173,10 @@
     border-color: var(--border);
     outline-color: var(--ring);
   }
+  html {
+    color-scheme: dark;
+    accent-color: var(--primary);
+  }
   html, body {
     width: 100%;
     min-height: 100%;
@@ -175,15 +184,25 @@
     padding: 0;
     background-color: var(--background);
     color: var(--foreground);
+    line-height: 1.5;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
   body {
     overflow-x: hidden;
   }
+  h1, h2, h3, h4, th {
+    text-wrap: balance;
+  }
+  p, blockquote {
+    text-wrap: pretty;
+  }
+  article, p {
+    max-width: 75ch;
+  }
 }
 
 /* ==========================================================================
-   BACKGROUND MODES & EDITORIAL UTILITIES
+   SPATIAL PARALLAX, EDITORIAL & MOTION UTILITIES
    ========================================================================== */
 
 /* Page container */
@@ -218,30 +237,24 @@
   }
 }
 
-/* Fine Technical Grid (Mode A - Dark Lab) */
+/* Fine Technical Grid */
 .technical-grid {
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
-/* Subtle Paper Texture Overlay */
+/* Subtle Micro Texture */
 .paper-texture {
-  background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 16px 16px;
 }
 
-/* 1-Bit Bitmap Texture */
-.bitmap-texture {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 12px 12px;
-}
-
-/* Editorial Heading Styling */
+/* High-Impact Editorial Heading */
 .editorial-hero-text {
   font-size: clamp(2.5rem, 7vw, 5.5rem);
-  line-height: 0.92;
+  line-height: 0.94;
   letter-spacing: -0.04em;
   font-weight: 900;
   text-transform: uppercase;
@@ -249,28 +262,38 @@
 
 /* Razor 1px Rule */
 .editorial-border {
-  border-color: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Laser Glow & Phosphor Highlights */
+.glow-signal {
+  box-shadow: 0 0 25px rgba(57, 255, 20, 0.25);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 25px rgba(0, 229, 255, 0.25);
 }
 
 /* Refined Dark Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: #04060A;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #242424;
+  background: #162232;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #39FF14;
 }
 
-/* Organic Hero Floating & Sheen Animations */
+/* Keyframe Animations */
 @keyframes hero-float {
   0%, 100% {
     transform: translateY(0px) scale(1);
@@ -286,8 +309,22 @@
     transform: scale(1);
   }
   50% {
-    opacity: 0.6;
+    opacity: 0.65;
     transform: scale(1.06);
+  }
+}
+
+@keyframes laser-sweep {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(1000%);
+    opacity: 0;
   }
 }
 
@@ -297,6 +334,10 @@
 
 .animate-hero-glow {
   animation: hero-glow-pulse 5s ease-in-out infinite;
+}
+
+.animate-laser-sweep {
+  animation: laser-sweep 4s ease-in-out infinite;
 }
 
 /* Strict Reduced Motion */

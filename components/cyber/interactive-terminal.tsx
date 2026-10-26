@@ -481,7 +481,7 @@ export function InteractiveTerminal() {
         <Button
           size="sm"
           onClick={() => executeCommand(inputVal)}
-          className="bg-[#00ff66] hover:bg-[#39ff14] text-[#040608] font-bold text-xs px-4 min-h-[38px] uppercase font-mono shrink-0"
+          className="bg-[#00ff66] hover:bg-[#00E575] text-[#040608] font-bold text-xs px-4 min-h-[38px] uppercase font-mono shrink-0"
         >
           <Send className="w-3.5 h-3.5 mr-1" />
           EXEC

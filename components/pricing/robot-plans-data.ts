@@ -79,7 +79,7 @@ export const AGEIS_ROBOT_PLANS: RobotPlan[] = [
       avatar: "/robots/scout-avatar.webp",
     },
     visualAttributes: {
-      bgStyle: "bg-[#050505]",
+      bgStyle: "bg-[#07090E]",
       accentClass: "text-[#39FF14]",
       verticalTitleLetters: ["S", "C", "O", "U", "T"],
       splitLetters: ["SCO", "UT"],
@@ -130,7 +130,7 @@ export const AGEIS_ROBOT_PLANS: RobotPlan[] = [
       avatar: "/robots/guard-avatar.webp",
     },
     visualAttributes: {
-      bgStyle: "bg-[#080808]",
+      bgStyle: "bg-[#090C12]",
       accentClass: "text-[#39FF14]",
       verticalTitleLetters: ["G", "U", "A", "R", "D"],
       splitLetters: ["GUA", "RD"],
@@ -182,7 +182,7 @@ export const AGEIS_ROBOT_PLANS: RobotPlan[] = [
       avatar: "/robots/sentinel-avatar.webp",
     },
     visualAttributes: {
-      bgStyle: "bg-[#060606]",
+      bgStyle: "bg-[#0B0E14]",
       accentClass: "text-[#39FF14]",
       verticalTitleLetters: ["S", "E", "N", "T", "I", "N", "E", "L"],
       splitLetters: ["SENTI", "NEL"],
@@ -237,7 +237,7 @@ export const AGEIS_ROBOT_PLANS: RobotPlan[] = [
       avatar: "/robots/aegis-avatar.webp",
     },
     visualAttributes: {
-      bgStyle: "bg-[#040404]",
+      bgStyle: "bg-[#0D1118]",
       accentClass: "text-[#39FF14]",
       verticalTitleLetters: ["A", "E", "G", "I", "S"],
       splitLetters: ["AEG", "IS"],

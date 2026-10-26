@@ -76,6 +76,9 @@ def calculate_entropy(text: str) -> float:
     entropy = -sum([p * math.log2(p) for p in prob if p > 0])
     return round(entropy, 3)
 
+# Canonical scaling multiplier for tabular structural features when combined with TF-IDF n-grams
+STRUCTURAL_FEATURE_SCALE: float = 3.0
+
 def canonicalize_for_ml(raw_url: str) -> str:
     """
     Strips protocol scheme and www prefix so n-gram features evaluate true domain/path semantics
@@ -247,8 +250,8 @@ class AgeisPhishingClassifier:
             raw_feat = extract_features_vector(raw_url).reshape(1, -1)
             X_feat = self.scaler.transform(raw_feat)
             
-            # Combine text and scaled structural features (weighting structural features)
-            X_comb = hstack([X_text, csr_matrix(X_feat * 3.0)]).tocsr()
+            # Combine text and scaled structural features using canonical multiplier
+            X_comb = hstack([X_text, csr_matrix(X_feat * STRUCTURAL_FEATURE_SCALE)]).tocsr()
             
             prob = float(self.model.predict_proba(X_comb)[0][1])
             label = 1 if prob >= 0.5 else 0

@@ -29,7 +29,7 @@ export function TelemetryTrendChart() {
       title="INGRESS TELEMETRY & VECTOR MITIGATION"
       subtitle="Clean socket streams vs isolated threat payloads"
       action={
-        <div className="flex items-center gap-1 bg-[#050505] p-0.5 border border-white/10 font-mono text-[11px]">
+        <div className="flex items-center gap-1 bg-[#07090E] p-0.5 border border-white/10 font-mono text-[11px]">
           {(["24h", "7d", "30d", "90d"] as TimeRange[]).map((range) => (
             <button
               key={range}
@@ -37,8 +37,8 @@ export function TelemetryTrendChart() {
               onClick={() => setTimeRange(range)}
               className={`px-2.5 py-1 text-[11px] font-mono transition-colors uppercase ${
                 timeRange === range
-                  ? "bg-[#39FF14]/15 text-[#39FF14] font-bold"
-                  : "text-[#A6A6A0] hover:text-[#F1F0EB]"
+                  ? "bg-[#00E575]/15 text-[#00E575] font-bold"
+                  : "text-[#94A3B8] hover:text-[#F8FAFC]"
               }`}
             >
               {range}
@@ -54,8 +54,8 @@ export function TelemetryTrendChart() {
             <AreaChart data={data}>
               <defs>
                 <linearGradient id="colorRequests" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#39FF14" stopOpacity={0.2} />
-                  <stop offset="95%" stopColor="#39FF14" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#00E575" stopOpacity={0.2} />
+                  <stop offset="95%" stopColor="#00E575" stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="colorThreats" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#ef4444" stopOpacity={0.35} />
@@ -65,32 +65,32 @@ export function TelemetryTrendChart() {
               <CartesianGrid strokeDasharray="2 2" stroke="rgba(255,255,255,0.06)" vertical={false} />
               <XAxis
                 dataKey="time"
-                stroke="#6F706D"
+                stroke="#64748B"
                 fontSize={10}
                 tickLine={false}
                 axisLine={{ stroke: "rgba(255,255,255,0.1)" }}
               />
               <YAxis
-                stroke="#6F706D"
+                stroke="#64748B"
                 fontSize={10}
                 tickLine={false}
                 axisLine={{ stroke: "rgba(255,255,255,0.1)" }}
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "#080808",
+                  backgroundColor: "#0B0E14",
                   borderColor: "rgba(255,255,255,0.2)",
                   borderRadius: "0px",
                   fontSize: "11px",
                   fontFamily: "monospace",
-                  color: "#F1F0EB",
+                  color: "#F8FAFC",
                 }}
               />
               <Area
                 type="monotone"
                 dataKey="cleanRequests"
                 name="Clean Telemetry"
-                stroke="#39FF14"
+                stroke="#00E575"
                 strokeWidth={1.5}
                 fillOpacity={1}
                 fill="url(#colorRequests)"
@@ -110,16 +110,16 @@ export function TelemetryTrendChart() {
 
         {/* Clean Metrics Summary */}
         <div className="grid grid-cols-3 gap-px bg-white/10 border border-white/10 text-center text-xs">
-          <div className="p-2.5 bg-[#050505]">
-            <span className="text-[10px] text-[#6F706D] block uppercase">TOTAL INGRESS</span>
-            <span className="text-xs sm:text-sm font-bold text-[#F1F0EB] mt-0.5 block">{totalClean.toLocaleString()}</span>
+          <div className="p-2.5 bg-[#07090E]">
+            <span className="text-[10px] text-[#64748B] block uppercase">TOTAL INGRESS</span>
+            <span className="text-xs sm:text-sm font-bold text-[#F8FAFC] mt-0.5 block">{totalClean.toLocaleString()}</span>
           </div>
-          <div className="p-2.5 bg-[#050505]">
-            <span className="text-[10px] text-[#6F706D] block uppercase">ISOLATED VECTORS</span>
-            <span className="text-xs sm:text-sm font-bold text-[#39FF14] mt-0.5 block">{totalThreats.toLocaleString()}</span>
+          <div className="p-2.5 bg-[#07090E]">
+            <span className="text-[10px] text-[#64748B] block uppercase">ISOLATED VECTORS</span>
+            <span className="text-xs sm:text-sm font-bold text-[#00E575] mt-0.5 block">{totalThreats.toLocaleString()}</span>
           </div>
-          <div className="p-2.5 bg-[#050505]">
-            <span className="text-[10px] text-[#6F706D] block uppercase">ANOMALIES</span>
+          <div className="p-2.5 bg-[#07090E]">
+            <span className="text-[10px] text-[#64748B] block uppercase">ANOMALIES</span>
             <span className="text-xs sm:text-sm font-bold text-amber-400 mt-0.5 block">{totalAnomalies.toLocaleString()}</span>
           </div>
         </div>

@@ -25,7 +25,7 @@ export function AppShell({ title, breadcrumbs, children }: AppShellProps) {
 
   return (
     <AuthGuard requireVerified={true} requireOnboarded={true}>
-      <div className="min-h-screen bg-[#050505] technical-grid text-[#F1F0EB] flex font-mono antialiased selection:bg-[#39FF14]/20 selection:text-[#39FF14]">
+      <div className="min-h-screen bg-[#07090E] technical-grid text-[#F8FAFC] flex font-mono antialiased selection:bg-[#00E575]/20 selection:text-[#00E575]">
         {/* Fixed Desktop Sidebar */}
         <div className="hidden lg:block h-screen sticky top-0 z-20 shrink-0">
           <AppSidebar />

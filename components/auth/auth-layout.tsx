@@ -23,7 +23,7 @@ export function AuthLayout({
   footerPrompt,
 }: AuthLayoutProps) {
   return (
-    <div className="min-h-screen bg-[#050505] technical-grid text-[#F1F0EB] flex flex-col justify-between items-center p-4 sm:p-6 select-none relative font-mono text-xs">
+    <div className="min-h-screen bg-[#07090E] technical-grid text-[#F8FAFC] flex flex-col justify-between items-center p-4 sm:p-6 select-none relative font-mono text-xs">
       {/* Top Header */}
       <header className="w-full max-w-4xl flex items-center justify-between py-4 border-b border-white/10 text-xs relative z-10">
         <div className="flex items-center gap-3">
@@ -32,7 +32,7 @@ export function AuthLayout({
           <SignalMarker status="active" label="AUTH GATEWAY" />
         </div>
         <div className="flex items-center gap-4 text-[11px]">
-          <span className="hidden md:inline text-[#6F706D]">TLS 1.3 / AES-256-GCM</span>
+          <span className="hidden md:inline text-[#64748B]">TLS 1.3 / AES-256-GCM</span>
           <SecuritySticker type="lock_it_up" size="sm" />
         </div>
       </header>
@@ -41,25 +41,25 @@ export function AuthLayout({
       <main className="w-full max-w-md my-auto py-8 relative z-10">
         <div className="text-center space-y-2 mb-6">
           <TechnicalLabel>IDENTITY ENCLAVE</TechnicalLabel>
-          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[#F1F0EB] uppercase">
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[#F8FAFC] uppercase">
             {title}
           </h1>
           {subtitle && (
-            <p className="text-xs text-[#A6A6A0] leading-relaxed max-w-sm mx-auto font-sans">
+            <p className="text-xs text-[#94A3B8] leading-relaxed max-w-sm mx-auto font-sans">
               {subtitle}
             </p>
           )}
         </div>
 
-        <div className="p-6 sm:p-8 border border-white/10 bg-[#080808] space-y-5">
+        <div className="p-6 sm:p-8 border border-white/10 bg-[#0B0E14] space-y-5">
           {children}
 
           {footerPrompt && (
-            <div className="pt-4 border-t border-white/10 text-center text-xs text-[#A6A6A0]">
+            <div className="pt-4 border-t border-white/10 text-center text-xs text-[#94A3B8]">
               <span>{footerPrompt.text} </span>
               <Link
                 href={footerPrompt.href}
-                className="text-[#39FF14] hover:underline font-bold transition-colors uppercase ml-1"
+                className="text-[#00E575] hover:underline font-bold transition-colors uppercase ml-1"
               >
                 {footerPrompt.linkText}
               </Link>
@@ -69,15 +69,15 @@ export function AuthLayout({
       </main>
 
       {/* Footer */}
-      <footer className="w-full max-w-4xl pt-4 pb-2 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-[11px] text-[#6F706D] relative z-10 font-mono">
+      <footer className="w-full max-w-4xl pt-4 pb-2 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-[11px] text-[#64748B] relative z-10 font-mono">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5">
-            <Lock className="w-3 h-3 text-[#39FF14]" />
+            <Lock className="w-3 h-3 text-[#00E575]" />
             <span>AES-256 GCM ATTESTATION</span>
           </div>
           <span className="text-white/20">•</span>
           <div className="flex items-center gap-1.5">
-            <ShieldCheck className="w-3 h-3 text-[#39FF14]" />
+            <ShieldCheck className="w-3 h-3 text-[#00E575]" />
             <span>ZERO-KNOWLEDGE CORE</span>
           </div>
         </div>

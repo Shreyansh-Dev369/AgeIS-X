@@ -1,7 +1,8 @@
 import * as React from "react"
+import { Shield, ShieldCheck, Lock, Activity, Radio, Cpu, Key } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-export interface PixelArtProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface SecurityStatusProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
   signalColor?: string
   title?: string
@@ -11,100 +12,68 @@ export interface PixelArtProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * Reference A: 1-Bit Pixel Sleeping Cat under Lightbulb
- * Expressive, minimalist idle & empty state with huge negative space.
+ * Institutional Tactical Radar & Enclave Status.
+ * Replaces gimmicky pixel stickers with a precision concentric sweep radar
+ * displaying cryptographic perimeter integrity.
  */
-export function PixelSleepingCatState({
+export function TacticalRadarState({
   className,
   title,
   subtitle,
   label,
   sublabel,
   ...props
-}: PixelArtProps) {
-  const displayTitle = label || title || "waiting for something to happen?"
-  const displaySubtitle = sublabel || subtitle || "All monitored security surfaces are quiet. No active incidents detected."
+}: SecurityStatusProps) {
+  const displayTitle = label || title || "PERIMETER SECURE // ZERO INCIDENTS"
+  const displaySubtitle =
+    sublabel ||
+    subtitle ||
+    "All monitored threat ingress surfaces are quiet. Deterministic inference engine active."
 
   return (
     <div
       className={cn(
-        "py-12 px-4 flex flex-col items-center justify-center text-center select-none space-y-5",
+        "py-10 px-4 flex flex-col items-center justify-center text-center select-none space-y-4",
         className
       )}
       {...props}
     >
-      {/* Hanging Lightbulb SVG */}
-      <div className="flex flex-col items-center space-y-0.5">
-        <div className="w-0.5 h-10 bg-white/40" />
-        <svg
-          width="24"
-          height="32"
-          viewBox="0 0 14 18"
-          fill="none"
-          shapeRendering="crispEdges"
-          className="text-white"
-        >
-          {/* Bulb cap */}
-          <rect x="5" y="0" width="4" height="2" fill="currentColor" />
-          <rect x="4" y="2" width="6" height="2" fill="currentColor" />
-          {/* Filament rays */}
-          <rect x="1" y="2" width="1" height="2" fill="currentColor" opacity="0.6" />
-          <rect x="12" y="2" width="1" height="2" fill="currentColor" opacity="0.6" />
-          <rect x="0" y="6" width="2" height="1" fill="currentColor" opacity="0.6" />
-          <rect x="12" y="6" width="2" height="1" fill="currentColor" opacity="0.6" />
-          {/* Bulb body */}
-          <rect x="3" y="4" width="8" height="6" fill="currentColor" />
-          <rect x="2" y="5" width="10" height="4" fill="currentColor" />
-          <rect x="4" y="10" width="6" height="3" fill="currentColor" />
-          <rect x="5" y="13" width="4" height="2" fill="currentColor" />
-          <rect x="6" y="15" width="2" height="2" fill="currentColor" />
-          {/* Inner dark notch */}
-          <rect x="6" y="6" width="2" height="3" fill="#050505" />
-        </svg>
+      {/* Precision Concentric Vector Sweep Radar */}
+      <div className="relative w-28 h-28 flex items-center justify-center">
+        {/* Outer Ring */}
+        <div className="absolute inset-0 rounded-full border border-white/10 animate-pulse" />
+        {/* Mid Ring with tick marks */}
+        <div className="absolute inset-3 rounded-full border border-white/15" />
+        {/* Core Ring */}
+        <div className="absolute inset-7 rounded-full border border-[var(--primary)]/30" />
+        
+        {/* Axis Crosshairs */}
+        <div className="absolute inset-x-0 top-1/2 h-px bg-white/10" />
+        <div className="absolute inset-y-0 left-1/2 w-px bg-white/10" />
+
+        {/* Center Node Pulse */}
+        <div className="relative z-10 w-3 h-3 rounded-full bg-[var(--primary)] shadow-[0_0_12px_var(--primary)]" />
+
+        {/* Subtle Conic Radar Sweep */}
+        <div
+          className="absolute inset-0 rounded-full pointer-events-none opacity-40 animate-spin"
+          style={{
+            animationDuration: "6s",
+            background:
+              "conic-gradient(from 0deg, transparent 0deg, transparent 270deg, rgba(0, 229, 117, 0.25) 360deg)",
+          }}
+          aria-hidden="true"
+        />
       </div>
 
-      {/* Sleeping Cat Pixel Art */}
-      <div className="relative py-3">
-        {/* ZZZ Floating animation */}
-        <div className="absolute right-0 -top-1 text-xs font-mono tracking-widest text-white/70">
-          z <span className="text-[10px] text-white/50">z</span> <span className="text-[8px] text-[#39FF14]">z</span>
+      {/* Narrative Telemetry Label */}
+      <div className="space-y-1.5 max-w-md">
+        <div className="inline-flex items-center gap-2 px-2.5 py-0.5 bg-white/[0.04] border border-white/10 text-[10px] font-mono text-[var(--primary)] uppercase tracking-wider">
+          <span className="w-1.5 h-1.5 rounded-full bg-[var(--primary)] animate-pulse" />
+          <span>{displayTitle}</span>
         </div>
-
-        <svg
-          width="80"
-          height="46"
-          viewBox="0 0 32 18"
-          fill="none"
-          shapeRendering="crispEdges"
-          className="text-white mx-auto"
-        >
-          {/* Ears */}
-          <rect x="8" y="2" width="3" height="3" fill="currentColor" />
-          <rect x="20" y="2" width="3" height="3" fill="currentColor" />
-          <rect x="9" y="3" width="1" height="1" fill="#050505" />
-          <rect x="21" y="3" width="1" height="1" fill="#050505" />
-          {/* Head & Body outline */}
-          <rect x="6" y="5" width="19" height="10" fill="currentColor" />
-          <rect x="7" y="6" width="17" height="8" fill="#050505" />
-          {/* Closed eyes (horizontal slits) */}
-          <rect x="10" y="9" width="3" height="1" fill="currentColor" />
-          <rect x="18" y="9" width="3" height="1" fill="currentColor" />
-          {/* Tail */}
-          <rect x="1" y="9" width="6" height="3" fill="currentColor" />
-          <rect x="2" y="10" width="4" height="1" fill="#050505" />
-          {/* Paws */}
-          <rect x="8" y="14" width="4" height="2" fill="currentColor" />
-          <rect x="19" y="14" width="4" height="2" fill="currentColor" />
-        </svg>
-      </div>
-
-      {/* Narrative Label */}
-      <div className="space-y-1 max-w-sm">
-        <p className="font-mono text-xs sm:text-sm tracking-wider text-white uppercase font-bold">
-          {displayTitle}
-        </p>
         {displaySubtitle && (
-          <p className="text-[11px] text-[#A6A6A0] leading-relaxed font-sans">
+          <p className="text-xs text-[#A6A6A0] leading-relaxed font-sans max-w-sm mx-auto">
             {displaySubtitle}
           </p>
         )}
@@ -113,22 +82,33 @@ export function PixelSleepingCatState({
   )
 }
 
+/** Backward compatible alias for previously imported pixel sleeping cat */
+export const PixelSleepingCatState = TacticalRadarState
+
+export type AttestationType =
+  | "access_granted"
+  | "trust_no_one"
+  | "encryption_freedom"
+  | "stay_curious"
+  | "lock_it_up"
+
 /**
- * Reference D: Cybersecurity Graphic Stickers & Stamps
+ * Institutional Attestation & Security Enclave Badges.
+ * Replaces meme stickers with authoritative, mathematically grounded trust markers.
  */
 export function SecuritySticker({
   type = "access_granted",
   size = "md",
   className,
 }: {
-  type: "access_granted" | "trust_no_one" | "encryption_freedom" | "stay_curious" | "lock_it_up"
+  type: AttestationType
   size?: "sm" | "md" | "lg"
   className?: string
 }) {
   const sizeClasses = {
-    sm: "px-2 py-0.5 text-[9px]",
-    md: "px-2.5 py-1 text-[10px]",
-    lg: "px-3.5 py-1.5 text-xs font-bold",
+    sm: "px-2 py-0.5 text-[9px] gap-1.5",
+    md: "px-2.5 py-1 text-[10px] gap-2",
+    lg: "px-3 py-1.5 text-xs font-semibold gap-2.5",
   }
 
   switch (type) {
@@ -136,63 +116,65 @@ export function SecuritySticker({
       return (
         <div
           className={cn(
-            "inline-flex items-center gap-1.5 rounded-none bg-[#050505] border border-white/20 text-[#39FF14] font-mono tracking-wider uppercase select-none shadow-[2px_2px_0px_#242424]",
+            "inline-flex items-center bg-[#07090E] border border-[var(--primary)]/30 text-[var(--primary)] font-mono tracking-wider uppercase select-none transition-colors hover:border-[var(--primary)]/60",
             sizeClasses[size],
             className
           )}
         >
-          <span className="w-1.5 h-1.5 bg-[#39FF14] inline-block" />
-          <span>&gt; ACCESS GRANTED</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-[var(--primary)] animate-pulse" />
+          <span>EAL6+ ATTESTED // VERIFIED</span>
         </div>
       )
     case "trust_no_one":
       return (
         <div
           className={cn(
-            "inline-flex items-center rounded-none bg-[#E8E7E2] border border-black text-[#050505] font-mono font-bold tracking-wider uppercase select-none shadow-[2px_2px_0px_#242424]",
+            "inline-flex items-center bg-[#07090E] border border-white/15 text-[#F1F0EB] font-mono tracking-wider uppercase select-none hover:border-white/30",
             sizeClasses[size],
             className
           )}
         >
-          <span>TRUST NO ONE</span>
+          <Shield className="w-3 h-3 text-[#00E5FF]" />
+          <span>ZERO-TRUST // RFC 8446</span>
         </div>
       )
     case "encryption_freedom":
       return (
         <div
           className={cn(
-            "inline-flex items-center gap-1.5 rounded-none bg-[#080808] border border-[#39FF14]/40 text-[#F1F0EB] font-mono tracking-wider uppercase select-none shadow-[2px_2px_0px_rgba(57,255,20,0.2)]",
+            "inline-flex items-center bg-[#07090E] border border-white/15 text-[#A6A6A0] font-mono tracking-wider uppercase select-none hover:border-[var(--primary)]/40",
             sizeClasses[size],
             className
           )}
         >
-          <span className="text-[#39FF14]">🔒</span>
-          <span>ENCRYPTION IS FREEDOM</span>
+          <Lock className="w-3 h-3 text-[var(--primary)]" />
+          <span>AES-256-GCM HARDWARE BOUND</span>
         </div>
       )
     case "stay_curious":
       return (
         <div
           className={cn(
-            "inline-flex items-center rounded-none bg-[#050505] border border-white/20 text-[#F1F0EB] font-mono tracking-wider select-none",
+            "inline-flex items-center bg-[#07090E] border border-white/15 text-[#A6A6A0] font-mono tracking-wider uppercase select-none hover:border-white/30",
             sizeClasses[size],
             className
           )}
         >
-          <span>stay curious</span>
+          <Activity className="w-3 h-3 text-[#00E5FF]" />
+          <span>HEURISTIC SIGNAL SCANNER</span>
         </div>
       )
     case "lock_it_up":
       return (
         <div
           className={cn(
-            "inline-flex items-center gap-1 rounded-none bg-[#050505] border border-white/15 text-[#A6A6A0] font-mono select-none",
+            "inline-flex items-center bg-[#07090E] border border-white/15 text-[#A6A6A0] font-mono tracking-wider uppercase select-none hover:border-[var(--primary)]/40",
             sizeClasses[size],
             className
           )}
         >
-          <span>keep your data. lock it up.</span>
-          <span className="text-[#39FF14]">♥</span>
+          <Key className="w-3 h-3 text-[var(--primary)]" />
+          <span>TPM 2.0 ENCLAVE ISOLATION</span>
         </div>
       )
   }

@@ -85,20 +85,20 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           <div className="lg:col-span-4 space-y-3">
             <TechnicalLabel className="text-[#6F706D] font-bold">01 / THE CONTRADICTION</TechnicalLabel>
-            <h2 className="font-mono text-2xl sm:text-3xl font-extrabold text-[#050505] tracking-tight leading-tight uppercase">
+            <h2 className="font-mono text-2xl sm:text-3xl font-extrabold text-[#07090E] tracking-tight leading-tight uppercase">
               THE COMMERCIAL SECURITY INDUSTRY IS BROKEN.
             </h2>
           </div>
 
           <div className="lg:col-span-8 space-y-6 text-[#242424] text-base sm:text-lg leading-relaxed font-sans">
-            <p className="font-medium text-[#050505]">
+            <p className="font-medium text-[#07090E]">
               Modern security companies became ad-tech brokers: collecting user telemetry, injecting root certificates, and consuming gigabytes of system memory while failing to block modern social engineering attacks.
             </p>
             <p className="text-sm sm:text-base text-[#6F706D] leading-relaxed">
               AgeIS-X was founded on a simple mathematical conviction: machine learning models for lexical threat analysis are compact enough to run entirely on the CPU of an endpoint device without ever uploading URL strings or documents to a centralized server.
             </p>
 
-            <div className="pt-4 border-t border-[#242424]/15 font-mono text-xs text-[#050505] flex flex-wrap items-center justify-between gap-4">
+            <div className="pt-4 border-t border-[#242424]/15 font-mono text-xs text-[#07090E] flex flex-wrap items-center justify-between gap-4">
               <span>ZERO LOG RETENTION POLICY</span>
               <span>100% EXPLAINABLE HEURISTICS</span>
             </div>
@@ -119,7 +119,7 @@ export default function AboutPage() {
               const Icon = p.icon
               return (
                 <RevealOnScroll key={idx} delay={idx * 80}>
-                  <DepthCard depthLevel="medium" glowColor="green" className="p-8 bg-[#050505] space-y-4">
+                  <DepthCard depthLevel="medium" glowColor="green" className="p-8 bg-[#07090E] space-y-4">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold text-[#39FF14]">{p.num}</span>
                       <Icon className="w-5 h-5 text-[#A6A6A0]" />
@@ -144,7 +144,7 @@ export default function AboutPage() {
       </EditorialSection>
 
       {/* 4. CALL TO ACTION */}
-      <section className="py-16 sm:py-20 bg-[#080808] text-center font-mono">
+      <section className="py-16 sm:py-20 bg-[#0B0E14] text-center font-mono">
         <div className="page-container max-w-xl space-y-6">
           <h3 className="text-2xl sm:text-3xl font-black text-[#F1F0EB] uppercase">
             JOIN THE DEFENSE REVOLUTION
@@ -154,7 +154,7 @@ export default function AboutPage() {
           </p>
           <div className="flex justify-center gap-4 pt-2">
             <Button
-              className="bg-[#39FF14] hover:bg-[#32e012] text-[#050505] font-mono font-bold text-xs uppercase tracking-wider rounded-none px-8 h-11 shadow-[2px_2px_0px_#FFFFFF]"
+              className="bg-[#39FF14] hover:bg-[#32E012] text-[#07090E] font-mono font-bold text-xs uppercase tracking-wider rounded-none px-8 h-11 shadow-[0_1px_3px_rgba(0,0,0,0.4),0_0_12px_rgba(0,229,117,0.2)]"
               asChild
             >
               <Link href="/pricing">

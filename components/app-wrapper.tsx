@@ -8,7 +8,7 @@ import { Preloader } from "@/components/preloader"
 
 export function AppWrapper({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false)
-  const [showPreloader, setShowPreloader] = useState(true)
+  const [showPreloader, setShowPreloader] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -19,11 +19,6 @@ export function AppWrapper({ children }: { children: React.ReactNode }) {
         setShowPreloader(true)
         return
       }
-    }
-    // Check if upgraded preloader v2 has already run in this session
-    const hasLoaded = sessionStorage.getItem("ageis_preloader_seen_v2")
-    if (hasLoaded === "true") {
-      setShowPreloader(false)
     }
 
     const handleReplayShortcut = (e: KeyboardEvent) => {

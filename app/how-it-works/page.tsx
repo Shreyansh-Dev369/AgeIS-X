@@ -77,7 +77,7 @@ export default function HowItWorksPage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#242424]/15 pb-6">
             <div className="space-y-2">
               <TechnicalLabel className="text-[#6F706D] font-bold">01 / FORENSIC WALKTHROUGH</TechnicalLabel>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#050505] tracking-tight leading-tight uppercase">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#07090E] tracking-tight leading-tight uppercase">
                 CASE STUDY: INTERCEPTING A PHISHING ATTACK
               </h2>
             </div>
@@ -88,14 +88,14 @@ export default function HowItWorksPage() {
             {walkthroughSteps.map((s, idx) => (
               <RevealOnScroll key={idx} delay={idx * 80}>
                 <div className="py-8 px-2 sm:px-4 grid grid-cols-1 md:grid-cols-12 gap-6 items-start font-mono">
-                  <div className="md:col-span-1 text-xl font-bold text-[#050505]">
+                  <div className="md:col-span-1 text-xl font-bold text-[#07090E]">
                     {s.step}
                   </div>
                   <div className="md:col-span-4 space-y-1">
                     <span className="text-[10px] tracking-widest text-[#6F706D] uppercase block font-bold">
                       {s.phase}
                     </span>
-                    <h3 className="text-base font-bold text-[#050505] uppercase">
+                    <h3 className="text-base font-bold text-[#07090E] uppercase">
                       {s.title}
                     </h3>
                   </div>
@@ -136,7 +136,7 @@ export default function HowItWorksPage() {
       </EditorialSection>
 
       {/* 5. COMMISSION CALL TO ACTION */}
-      <section className="py-16 sm:py-20 bg-[#080808] text-center font-mono border-t border-white/10">
+      <section className="py-16 sm:py-20 bg-[#0B0E14] text-center font-mono border-t border-white/10">
         <div className="page-container max-w-xl space-y-6">
           <h3 className="text-2xl sm:text-3xl font-black text-[#F1F0EB] uppercase">
             CHOOSE YOUR DEFENSE UNIT
@@ -146,7 +146,7 @@ export default function HowItWorksPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4 pt-2">
             <Button
-              className="bg-[#39FF14] hover:bg-[#32e012] text-[#050505] font-mono font-bold text-xs uppercase tracking-wider rounded-none px-7 h-11 shadow-[2px_2px_0px_#FFFFFF]"
+              className="bg-[#39FF14] hover:bg-[#32E012] text-[#07090E] font-mono font-bold text-xs uppercase tracking-wider rounded-none px-7 h-11 shadow-[0_1px_3px_rgba(0,0,0,0.4),0_0_12px_rgba(0,229,117,0.2)]"
               asChild
             >
               <Link href="/pricing">

@@ -15,7 +15,7 @@ export interface GlyphProps extends React.SVGAttributes<SVGElement> {
 export function PixelScoutGlyph({
   className,
   size = 28,
-  color = "#39FF14",
+  color = "#00E575",
   ...props
 }: GlyphProps) {
   return (
@@ -35,7 +35,7 @@ export function PixelScoutGlyph({
       <rect x="5" y="3" width="6" height="1" fill={color} />
       <rect x="4" y="4" width="8" height="3" fill={color} />
       {/* Central eye sensor (dark pupil with bright center) */}
-      <rect x="6" y="5" width="4" height="2" fill="#050505" />
+      <rect x="6" y="5" width="4" height="2" fill="#07090E" />
       <rect x="7" y="5" width="2" height="1" fill={color} />
       {/* Neck mount */}
       <rect x="7" y="7" width="2" height="1" fill={color} />
@@ -59,7 +59,7 @@ export function PixelScoutGlyph({
 export function PixelGuardGlyph({
   className,
   size = 28,
-  color = "#39FF14",
+  color = "#00E575",
   ...props
 }: GlyphProps) {
   return (
@@ -76,7 +76,7 @@ export function PixelGuardGlyph({
       <rect x="5" y="1" width="6" height="1" fill={color} />
       <rect x="4" y="2" width="8" height="2" fill={color} />
       {/* Visor slit */}
-      <rect x="5" y="4" width="6" height="2" fill="#050505" />
+      <rect x="5" y="4" width="6" height="2" fill="#07090E" />
       <rect x="6" y="4" width="4" height="1" fill={color} />
       {/* Jaw / neck */}
       <rect x="5" y="6" width="6" height="1" fill={color} />
@@ -84,7 +84,7 @@ export function PixelGuardGlyph({
       <rect x="2" y="7" width="12" height="2" fill={color} />
       <rect x="3" y="9" width="10" height="3" fill={color} />
       {/* Center chest badge */}
-      <rect x="7" y="9" width="2" height="2" fill="#050505" />
+      <rect x="7" y="9" width="2" height="2" fill="#07090E" />
       {/* Tactical Belt & Pouches */}
       <rect x="3" y="12" width="3" height="2" fill={color} />
       <rect x="7" y="12" width="2" height="2" fill={color} />
@@ -102,7 +102,7 @@ export function PixelGuardGlyph({
 export function PixelSentinelGlyph({
   className,
   size = 28,
-  color = "#39FF14",
+  color = "#00E575",
   ...props
 }: GlyphProps) {
   return (
@@ -121,8 +121,8 @@ export function PixelSentinelGlyph({
       {/* Helmet skull */}
       <rect x="5" y="2" width="6" height="3" fill={color} />
       {/* Asymmetric optics array */}
-      <rect x="6" y="4" width="2" height="1" fill="#050505" />
-      <rect x="9" y="4" width="2" height="2" fill="#050505" />
+      <rect x="6" y="4" width="2" height="1" fill="#07090E" />
+      <rect x="9" y="4" width="2" height="2" fill="#07090E" />
       <rect x="9" y="4" width="1" height="1" fill={color} />
       {/* Heavy Shoulder Pauldrons */}
       <rect x="1" y="6" width="4" height="3" fill={color} />
@@ -130,7 +130,7 @@ export function PixelSentinelGlyph({
       <rect x="5" y="6" width="6" height="3" fill={color} />
       {/* Reinforced Exoskeleton Torso */}
       <rect x="3" y="9" width="10" height="3" fill={color} />
-      <rect x="6" y="9" width="4" height="2" fill="#050505" />
+      <rect x="6" y="9" width="4" height="2" fill="#07090E" />
       <rect x="7" y="10" width="2" height="1" fill={color} />
       {/* Waist & Modular Leg Assembly */}
       <rect x="4" y="12" width="8" height="2" fill={color} />
@@ -146,7 +146,7 @@ export function PixelSentinelGlyph({
 export function PixelAegisGlyph({
   className,
   size = 28,
-  color = "#39FF14",
+  color = "#00E575",
   ...props
 }: GlyphProps) {
   return (
@@ -165,19 +165,19 @@ export function PixelAegisGlyph({
       <rect x="10" y="1" width="2" height="2" fill={color} />
       {/* Sleek Helmet Visor */}
       <rect x="5" y="2" width="6" height="4" fill={color} />
-      <rect x="6" y="3" width="4" height="2" fill="#050505" />
+      <rect x="6" y="3" width="4" height="2" fill="#07090E" />
       <rect x="7" y="3" width="3" height="1" fill={color} />
       {/* Flowing Mantle / Armor Collar */}
       <rect x="2" y="6" width="12" height="3" fill={color} />
-      <rect x="3" y="7" width="10" height="1" fill="#050505" />
+      <rect x="3" y="7" width="10" height="1" fill="#07090E" />
       {/* Armored Chest Apex Plate */}
       <rect x="3" y="9" width="10" height="3" fill={color} />
-      <rect x="7" y="9" width="2" height="2" fill="#050505" />
+      <rect x="7" y="9" width="2" height="2" fill="#07090E" />
       {/* Flowing Cape & Lower Lattice */}
       <rect x="2" y="12" width="4" height="4" fill={color} />
       <rect x="10" y="12" width="4" height="4" fill={color} />
       <rect x="6" y="12" width="4" height="3" fill={color} />
-      <rect x="7" y="14" width="2" height="2" fill="#050505" />
+      <rect x="7" y="14" width="2" height="2" fill="#07090E" />
     </svg>
   )
 }
@@ -205,7 +205,7 @@ export function BarcodeGraphic({
           )
         )}
       </div>
-      <span className="text-[8px] text-[#A6A6A0] tracking-widest uppercase">{code}</span>
+      <span className="text-[8px] text-[#94A3B8] tracking-widest uppercase">{code}</span>
     </div>
   )
 }

@@ -35,7 +35,7 @@ PROCESSED_FILE = os.path.join(DATA_DIR, "processed", "clean_dataset.csv")
 EVAL_DIR = os.path.join(DATA_DIR, "eval")
 ARTIFACTS_V2_DIR = os.path.join(BASE_DIR, "artifacts_v2")
 
-from pipeline import canonicalize_for_ml, extract_features_vector
+from pipeline import canonicalize_for_ml, extract_features_vector, STRUCTURAL_FEATURE_SCALE
 
 def extract_batch_features(urls):
     return np.vstack([extract_features_vector(u) for u in urls])
@@ -119,9 +119,9 @@ def train_production_model():
     X_train_feat_s = scaler.fit_transform(X_train_feat)
     X_test_feat_s = scaler.transform(X_test_feat)
 
-    # Combine text and structural features (weighting structural features)
-    X_train_comb = hstack([X_train_tfidf, csr_matrix(X_train_feat_s * 2.0)]).tocsr()
-    X_test_comb = hstack([X_test_tfidf, csr_matrix(X_test_feat_s * 2.0)]).tocsr()
+    # Combine text and structural features (weighting structural features using canonical multiplier)
+    X_train_comb = hstack([X_train_tfidf, csr_matrix(X_train_feat_s * STRUCTURAL_FEATURE_SCALE)]).tocsr()
+    X_test_comb = hstack([X_test_tfidf, csr_matrix(X_test_feat_s * STRUCTURAL_FEATURE_SCALE)]).tocsr()
 
     # 5. Fit Logistic Regression Classifier
     print("[INFO] Fitting regularized Logistic Regression classifier...")
@@ -166,7 +166,7 @@ def train_production_model():
     X_cur_tfidf = tfidf.transform(X_cur_text)
     X_cur_feat = extract_batch_features(curated_urls)
     X_cur_feat_s = scaler.transform(X_cur_feat)
-    X_cur_comb = hstack([X_cur_tfidf, csr_matrix(X_cur_feat_s * 2.0)]).tocsr()
+    X_cur_comb = hstack([X_cur_tfidf, csr_matrix(X_cur_feat_s * STRUCTURAL_FEATURE_SCALE)]).tocsr()
 
     probs_cur = clf.predict_proba(X_cur_comb)[:, 1]
     preds_cur = (probs_cur >= 0.5).astype(int)

@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 const navLinks = [
+  { href: "/demo-lab", label: "Demo Lab (14 Engines)" },
   { href: "#home", label: "Home" },
   { href: "#features", label: "Features" },
   { href: "#how-it-works", label: "How It Works" },

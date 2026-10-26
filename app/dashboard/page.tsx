@@ -108,7 +108,7 @@ export default function DashboardOverviewPage() {
         <CriticalAttentionCenter items={MOCK_CRITICAL_ATTENTION_ITEMS} />
 
         {/* 3. Top Key Security Summary Data Strip (Replaces Card Wall) */}
-        <div className="p-4 border border-white/10 bg-[#080808]">
+        <div className="p-4 border border-white/10 bg-[#0B0E14]">
           <DataStrip
             items={[
               { label: "THREATS ISOLATED (24H)", value: "1,429", subtext: "+12.4% vs previous 24h" },
@@ -142,7 +142,7 @@ export default function DashboardOverviewPage() {
 
           {/* Right 5 cols: Active Incidents Table */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="p-5 border border-white/10 bg-[#080808] space-y-3 font-mono">
+            <div className="p-5 border border-white/10 bg-[#0B0E14] space-y-3 font-mono">
               <div className="flex items-center justify-between pb-2 border-b border-white/10">
                 <div className="flex items-center gap-2">
                   <AlertOctagon className="w-4 h-4 text-amber-400" />

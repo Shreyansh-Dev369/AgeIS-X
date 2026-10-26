@@ -48,16 +48,16 @@ const footerSections = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[#050505] text-[#A6A6A0] text-xs font-mono">
+    <footer className="border-t border-white/10 bg-[#07090E] text-[#94A3B8] text-xs font-mono">
       {/* Top Editorial Rule & Status Header */}
       <div className="border-b border-white/10 py-4 px-4 sm:px-6 lg:px-10 xl:px-12 flex flex-wrap items-center justify-between gap-4 max-w-[1600px] mx-auto">
         <div className="flex items-center gap-4">
-          <span className="w-2 h-2 bg-[#39FF14] inline-block" />
-          <span className="text-[#F1F0EB] font-bold uppercase tracking-wider text-[11px]">
+          <span className="w-2 h-2 bg-[#00E575] inline-block" />
+          <span className="text-[#F8FAFC] font-bold uppercase tracking-wider text-[11px]">
             CORE AUTONOMOUS ENGINE: ONLINE & STABLE
           </span>
         </div>
-        <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-[10px] sm:text-[11px] text-[#A6A6A0]">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-[10px] sm:text-[11px] text-[#94A3B8]">
           <span>LATENCY: 14.8MS</span>
           <span className="text-white/20">|</span>
           <span>MEMORY: 34.2 MB</span>
@@ -71,7 +71,7 @@ export function Footer() {
           {/* Brand & Editorial Column */}
           <div className="lg:col-span-4 space-y-4 pr-4">
             <Logo size="md" />
-            <p className="text-xs text-[#A6A6A0] leading-relaxed font-sans font-normal pt-2">
+            <p className="text-xs text-[#94A3B8] leading-relaxed font-sans font-normal pt-2">
               Autonomous cybersecurity operating layer. Defending web ingress, communications, identity, endpoints, and local secrets with zero-knowledge on-device inference.
             </p>
             <div className="pt-2 flex items-center gap-3">
@@ -84,7 +84,7 @@ export function Footer() {
           <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-6">
             {footerSections.map((section, idx) => (
               <div key={idx} className="space-y-3">
-                <h4 className="text-[11px] font-bold text-[#F1F0EB] tracking-wider uppercase border-b border-white/10 pb-2">
+                <h4 className="text-[11px] font-bold text-[#F8FAFC] tracking-wider uppercase border-b border-white/10 pb-2">
                   {section.title}
                 </h4>
                 <ul className="space-y-2">
@@ -92,7 +92,7 @@ export function Footer() {
                     <li key={linkIdx}>
                       <Link
                         href={link.href}
-                        className="text-xs text-[#A6A6A0] hover:text-[#39FF14] transition-colors block py-0.5"
+                        className="text-xs text-[#94A3B8] hover:text-[#00E575] transition-colors block py-0.5"
                       >
                         {link.label}
                       </Link>
@@ -105,7 +105,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Technical Bar */}
-        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#6F706D]">
+        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#64748B]">
           <p>© {new Date().getFullYear()} AGEIS-X AUTONOMOUS SYSTEMS. ZERO-KNOWLEDGE SPEC 2.6.</p>
           <div className="flex flex-wrap items-center gap-6 font-mono">
             <span>RFC-3986 COMPLIANT</span>

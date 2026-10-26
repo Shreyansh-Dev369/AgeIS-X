@@ -20,9 +20,19 @@ export interface StructuralAnalysisResult {
   entropy: number
   hasPercentEncoding: boolean
   hasNonStandardPort: boolean
+  hasExecutableExtension?: boolean
+  hasOpenRedirect?: boolean
+  hasPathTraversal?: boolean
   structuralRiskPoints: number
   evidence: string[]
 }
+
+const HIGH_RISK_EXTENSIONS = new Set([
+  ".exe", ".scr", ".bat", ".cmd", ".ps1", ".vbs", ".msi",
+  ".apk", ".elf", ".iso", ".dmg", ".jar", ".hta", ".dll", ".vbe", ".wsf"
+])
+
+const OPEN_REDIRECT_PARAM_REGEX = /(?:[?&])(?:q|url|target|dest|destination|redirect|redirect_uri|redirect_url|next|return_to|link|r)=((?:https?%3A%2F%2F|https?:\/\/)[^\s&]+)/i
 
 const TARGETED_BRANDS = [
   "google", "paypal", "microsoft", "apple", "amazon", "netflix",
@@ -251,9 +261,57 @@ export function analyzeUrlStructure(rawUrl: string): StructuralAnalysisResult {
     }
   }
 
+  // Path traversal check
+  const path = parsed ? parsed.pathname : trimmed.split("?")[0]
+  const hasPathTraversal = path.includes("..") || trimmed.toLowerCase().includes("%2e%2e")
+  if (hasPathTraversal) {
+    evidence.push("Path traversal sequences ('..' or encoded equivalents) detected")
+    structuralRiskPoints += 35
+  }
+
+  // Executable / dropper file extension check
+  const pathLower = path.toLowerCase().split("?")[0].split("#")[0]
+  let hasExecutableExtension = false
+  for (const ext of HIGH_RISK_EXTENSIONS) {
+    if (pathLower.endsWith(ext) || trimmed.toLowerCase().includes(`${ext}?`) || trimmed.toLowerCase().includes(`${ext}#`)) {
+      hasExecutableExtension = true
+      evidence.push(`High-risk executable payload extension (${ext}) detected in URL path`)
+      structuralRiskPoints += 55
+      break
+    }
+  }
+
+  // Open redirect parameter detection
+  let hasOpenRedirect = false
+  const openRedirectMatch = OPEN_REDIRECT_PARAM_REGEX.exec(trimmed)
+  if (openRedirectMatch && openRedirectMatch[1]) {
+    try {
+      const targetParam = decodeURIComponent(openRedirectMatch[1])
+      const targetParsed = new URL(targetParam.startsWith("http") ? targetParam : "http://" + targetParam)
+      const targetHost = targetParsed.hostname.toLowerCase()
+      if (targetHost && targetHost !== hostname && !targetHost.endsWith("." + hostname)) {
+        hasOpenRedirect = true
+        evidence.push(`Open redirect parameter pointing to external host (${targetHost}) detected`)
+        structuralRiskPoints += 40
+      }
+    } catch {
+      // Ignore URL parse error on query param
+    }
+  }
+
   // Known Benign Apex Match
+  const hasThreatFlags =
+    hasHomoglyphs ||
+    isTyposquatPattern ||
+    hasUserinfo ||
+    !!brandImpersonationFound ||
+    hasExecutableExtension ||
+    hasOpenRedirect ||
+    hasPathTraversal ||
+    hasNonStandardPort
+
   let isKnownBenign = false
-  if ((KNOWN_BENIGN_APEX.has(hostname) || isAuthenticBrand) && !hasHomoglyphs && !isTyposquatPattern && !hasUserinfo && !brandImpersonationFound) {
+  if ((KNOWN_BENIGN_APEX.has(hostname) || isAuthenticBrand) && !hasThreatFlags) {
     isKnownBenign = true
     evidence.length = 0
     evidence.push("Domain matches known verified authentic organization repository.")
@@ -280,6 +338,9 @@ export function analyzeUrlStructure(rawUrl: string): StructuralAnalysisResult {
     entropy,
     hasPercentEncoding,
     hasNonStandardPort,
+    hasExecutableExtension,
+    hasOpenRedirect,
+    hasPathTraversal,
     structuralRiskPoints,
     evidence
   }

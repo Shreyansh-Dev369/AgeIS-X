@@ -28,15 +28,13 @@ export function EditorialSection({
   children,
   ...props
 }: EditorialSectionProps) {
-  const isLight = mode === "off-white" || mode === "off-white-editorial"
-
   const modeClasses: Record<BackgroundMode, string> = {
-    "dark-lab": "bg-[#050505] technical-grid text-[#F1F0EB]",
-    "editorial-black": "bg-[#080808] text-[#F1F0EB]",
-    "off-white": "bg-[#F1F0EB] paper-texture text-[#050505]",
-    "off-white-editorial": "bg-[#F1F0EB] paper-texture text-[#050505]",
-    "pixel-system": "bg-[#050505] bitmap-texture text-[#FFFFFF]",
-    "pixel-system-state": "bg-[#050505] bitmap-texture text-[#FFFFFF]",
+    "dark-lab": "bg-[#07090E] technical-grid text-[#F1F0EB]",
+    "editorial-black": "bg-[#0B0E14] text-[#F1F0EB]",
+    "off-white": "bg-[#0F141C] text-[#F1F0EB]",
+    "off-white-editorial": "bg-[#0F141C] text-[#F1F0EB]",
+    "pixel-system": "bg-[#07090E] technical-grid text-[#F1F0EB]",
+    "pixel-system-state": "bg-[#07090E] technical-grid text-[#F1F0EB]",
   }
 
   const widthClasses = {
@@ -51,7 +49,7 @@ export function EditorialSection({
       className={cn(
         "py-12 md:py-20 relative overflow-hidden",
         modeClasses[mode] || modeClasses["editorial-black"],
-        bordered && (isLight ? "border-b border-[#242424]/15" : "border-b border-white/10"),
+        bordered && "border-b border-white/10",
         className
       )}
       {...props}
@@ -64,7 +62,7 @@ export function EditorialSection({
 }
 
 /**
- * Editorial Heading with aggressive scale contrast, section numbers, and kicker.
+ * Editorial Heading with deliberate hierarchy, section numbers, and kicker.
  */
 export interface EditorialHeadingProps {
   number?: string
@@ -91,66 +89,52 @@ export function EditorialHeading({
   mode = "editorial-black",
   className,
 }: EditorialHeadingProps) {
-  const isLight = mode === "off-white" || mode === "off-white-editorial"
-
-  const effectiveSize = size || (level === 1 ? "hero" : level === 2 ? "xl" : level === 3 ? "lg" : "md")
+  const effectiveSize =
+    size || (level === 1 ? "hero" : level === 2 ? "xl" : level === 3 ? "lg" : "md")
 
   const sizeClasses = {
-    sm: "text-lg sm:text-xl font-bold tracking-tight font-mono",
-    md: "text-xl sm:text-2xl font-bold tracking-tight font-mono",
-    lg: "text-2xl sm:text-3xl font-extrabold tracking-tight font-mono",
-    xl: "text-3xl sm:text-4xl md:text-5xl font-black tracking-tight font-mono uppercase",
-    hero: "text-4xl sm:text-6xl md:text-7xl font-black tracking-tighter uppercase leading-[0.92] font-mono",
+    sm: "text-lg sm:text-xl font-bold tracking-tight font-sans text-balance",
+    md: "text-xl sm:text-2xl font-bold tracking-tight font-sans text-balance",
+    lg: "text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight font-sans text-balance",
+    xl: "text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight font-sans text-balance",
+    hero: "editorial-hero-text text-balance",
   }
 
+  const alignClasses = {
+    left: "text-left",
+    center: "text-center items-center",
+    right: "text-right items-end",
+  }
+
+  const Tag = (`h${Math.min(Math.max(level, 1), 6)}` as unknown) as React.ElementType
   const content = children || title
 
-  const Tag: React.ElementType = level === 1 ? "h1" : level === 2 ? "h2" : level === 3 ? "h3" : "h4"
-
   return (
-    <div
-      className={cn(
-        "space-y-3",
-        align === "center" && "text-center mx-auto",
-        align === "right" && "text-right ml-auto",
-        className
-      )}
-    >
+    <div className={cn("space-y-2.5 flex flex-col", alignClasses[align], className)}>
       {(number || kicker) && (
         <div className="flex items-center gap-2.5 text-xs font-mono">
           {number && (
-            <span className={cn("font-bold text-[#39FF14]", isLight && "text-[#050505]")}>
+            <span className="font-bold text-[#39FF14]">
               {number}
             </span>
           )}
-          {number && kicker && <span className={cn("text-white/20", isLight && "text-black/20")}>/</span>}
+          {number && kicker && <span className="text-white/20">/</span>}
           {kicker && (
-            <span
-              className={cn(
-                "uppercase tracking-widest text-[11px] font-semibold",
-                isLight ? "text-[#6F706D]" : "text-[#A6A6A0]"
-              )}
-            >
+            <span className="uppercase tracking-widest text-[11px] font-semibold text-[#A6A6A0]">
               {kicker}
             </span>
           )}
         </div>
       )}
 
-      <Tag
-        className={cn(
-          sizeClasses[effectiveSize],
-          isLight ? "text-[#050505]" : "text-[#F1F0EB]"
-        )}
-      >
+      <Tag className={cn(sizeClasses[effectiveSize], "text-[#F1F0EB]")}>
         {content}
       </Tag>
 
       {subtitle && (
         <p
           className={cn(
-            "text-xs sm:text-sm leading-relaxed max-w-2xl font-sans font-normal",
-            isLight ? "text-[#6F706D]" : "text-[#A6A6A0]",
+            "text-xs sm:text-sm leading-relaxed max-w-2xl font-sans font-normal text-[#A6A6A0]",
             align === "center" && "mx-auto"
           )}
         >
@@ -175,13 +159,25 @@ export function EditorialRule({
 }) {
   return (
     <div className={cn("relative my-6 flex items-center gap-3 select-none", className)}>
-      <div className={cn("flex-1 h-px", color === "signal" ? "bg-[#39FF14]/40" : color === "dark" ? "bg-black/15" : "bg-white/10")} />
+      <div
+        className={cn(
+          "flex-1 h-px",
+          color === "signal" ? "bg-[#39FF14]/40" : "bg-white/10"
+        )}
+      />
       {label && (
         <span className="text-[10px] font-mono uppercase tracking-widest text-[#A6A6A0] px-1 shrink-0">
           {label}
         </span>
       )}
-      {label && <div className={cn("flex-1 h-px", color === "signal" ? "bg-[#39FF14]/40" : color === "dark" ? "bg-black/15" : "bg-white/10")} />}
+      {label && (
+        <div
+          className={cn(
+            "flex-1 h-px",
+            color === "signal" ? "bg-[#39FF14]/40" : "bg-white/10"
+          )}
+        />
+      )}
     </div>
   )
 }
@@ -205,7 +201,9 @@ export function TechnicalLabel({
         className
       )}
     >
-      {signal && <span className="w-1.5 h-1.5 rounded-none bg-[#39FF14] inline-block animate-pulse" />}
+      {signal && (
+        <span className="w-1.5 h-1.5 rounded-full bg-[#39FF14] inline-block animate-pulse" />
+      )}
       <span>{children}</span>
     </div>
   )
@@ -225,8 +223,8 @@ export function SignalMarker({
 }) {
   const colors = {
     active: "bg-[#39FF14]",
-    warning: "bg-[#FFB800]",
-    critical: "bg-[#FF4545]",
+    warning: "bg-[#FFB020]",
+    critical: "bg-[#FF334B]",
     neutral: "bg-[#6F706D]",
   }
 
@@ -234,7 +232,7 @@ export function SignalMarker({
     <div className={cn("inline-flex items-center gap-2 font-mono text-[11px]", className)}>
       <span
         className={cn(
-          "w-2 h-2 rounded-none inline-block shrink-0",
+          "w-2 h-2 rounded-full inline-block shrink-0",
           colors[status]
         )}
       />
@@ -268,7 +266,7 @@ export function DataStrip({
   return (
     <div
       className={cn(
-        "grid grid-cols-2 sm:grid-cols-4 border-y border-white/10 divide-x divide-white/10 bg-[#050505] py-2",
+        "grid grid-cols-2 sm:grid-cols-4 border-y border-white/10 divide-x divide-white/10 bg-[#07090E] py-2",
         className
       )}
     >

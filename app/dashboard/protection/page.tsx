@@ -6,6 +6,7 @@ import { PixelBadge } from "@/components/ui/pixel-badge"
 import { Toggle } from "@/components/ui/toggle"
 import { Button } from "@/components/ui/button"
 import { Drawer, DrawerContent } from "@/components/ui/drawer"
+import { URLScanner } from "@/components/url-scanner"
 import { MOCK_PROTECTION_DOMAINS } from "@/lib/mock/security-data"
 import { ProtectionDomainItem } from "@/types/security"
 import {
@@ -25,7 +26,9 @@ import {
   Info,
   Cpu,
   Zap,
+  Sparkles,
 } from "lucide-react"
+import Link from "next/link"
 
 const DOMAIN_ICONS: Record<string, any> = {
   "web-phishing": Globe,
@@ -41,6 +44,7 @@ const DOMAIN_ICONS: Record<string, any> = {
 }
 
 export default function ProtectionDashboardPage() {
+  const [activeTab, setActiveTab] = useState<"surfaces" | "scanner">("surfaces")
   const [domains, setDomains] = useState<ProtectionDomainItem[]>(MOCK_PROTECTION_DOMAINS)
   const [selectedDomain, setSelectedDomain] = useState<ProtectionDomainItem | null>(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -101,8 +105,46 @@ export default function ProtectionDashboardPage() {
           </div>
         </div>
 
-        {/* 10 Domains Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Tab Navigation */}
+        <div className="flex border-b border-white/10 gap-2">
+          <button
+            type="button"
+            onClick={() => setActiveTab("surfaces")}
+            className={`px-4 py-2 text-xs font-mono font-bold transition-colors border-b-2 cursor-pointer ${
+              activeTab === "surfaces"
+                ? "border-[#39FF14] text-[#39FF14]"
+                : "border-transparent text-[#A6A6A0] hover:text-[#F1F0EB]"
+            }`}
+          >
+            01 // DEFENSE SURFACES ({domains.length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("scanner")}
+            className={`px-4 py-2 text-xs font-mono font-bold transition-colors border-b-2 cursor-pointer ${
+              activeTab === "scanner"
+                ? "border-[#39FF14] text-[#39FF14]"
+                : "border-transparent text-[#A6A6A0] hover:text-[#F1F0EB]"
+            }`}
+          >
+            02 // LIVE MULTI-VECTOR SCANNER
+          </button>
+          <Link
+            href="/demo-lab"
+            className="ml-auto flex items-center gap-1.5 px-3 py-1 mb-1.5 bg-[#00E575]/10 hover:bg-[#00E575]/20 text-[#00E575] border border-[#00E575]/30 rounded text-xs font-mono font-bold transition-all"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>DEMO LAB (14 ENGINES) &rarr;</span>
+          </Link>
+        </div>
+
+        {activeTab === "scanner" ? (
+          <div className="border border-white/10 bg-[#0B0E14] p-4">
+            <URLScanner />
+          </div>
+        ) : (
+          /* 10 Domains Grid */
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {domains.map((domain) => {
             const Icon = DOMAIN_ICONS[domain.id] || ShieldCheck
             const isActive = domain.status === "ACTIVE"
@@ -177,6 +219,7 @@ export default function ProtectionDashboardPage() {
             )
           })}
         </div>
+        )}
       </div>
 
       {/* Domain Inspector Drawer */}

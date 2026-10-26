@@ -13,7 +13,7 @@ export function RobotBackgroundDossier({
   return (
     <div
       className={cn(
-        "relative w-full min-h-screen bg-[#050505] text-[#F1F0EB] overflow-hidden selection:bg-[#39FF14] selection:text-[#050505]",
+        "relative w-full min-h-screen bg-[#07090E] text-[#F8FAFC] overflow-hidden selection:bg-[#00E575] selection:text-[#07090E]",
         className
       )}
     >
@@ -45,7 +45,7 @@ export function RobotBackgroundDossier({
 
       {/* 3. Very faint green atmospheric light at strategic coordinates */}
       <div
-        className="pointer-events-none absolute -top-40 left-1/4 w-[600px] h-[500px] bg-[#39FF14]/[0.03] blur-[140px] rounded-full"
+        className="pointer-events-none absolute -top-40 left-1/4 w-[600px] h-[500px] bg-[#00E575]/[0.03] blur-[140px] rounded-full"
         aria-hidden="true"
       />
       <div
@@ -53,7 +53,7 @@ export function RobotBackgroundDossier({
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute bottom-1/4 -left-20 w-[600px] h-[600px] bg-[#39FF14]/[0.025] blur-[150px] rounded-full"
+        className="pointer-events-none absolute bottom-1/4 -left-20 w-[600px] h-[600px] bg-[#00E575]/[0.025] blur-[150px] rounded-full"
         aria-hidden="true"
       />
 

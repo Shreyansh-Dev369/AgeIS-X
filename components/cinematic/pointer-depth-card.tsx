@@ -83,7 +83,7 @@ export function PointerDepthCard({
 
   const glowStyles = {
     none: "",
-    green: "hover:shadow-[0_0_30px_rgba(57,255,20,0.14)] hover:border-[#39FF14]/40",
+    green: "hover:shadow-[0_0_30px_rgba(57,255,20,0.14)] hover:border-[#00E575]/40",
     cyan: "hover:shadow-[0_0_30px_rgba(0,229,255,0.14)] hover:border-[#00E5FF]/40",
     white: "hover:shadow-[0_0_30px_rgba(255,255,255,0.10)] hover:border-white/30",
   }
@@ -126,7 +126,7 @@ export function PointerDepthCard({
       <span
         className={cn(
           "absolute top-1.5 left-1.5 text-[8px] transition-opacity duration-300 pointer-events-none select-none",
-          isHovered ? "text-[#39FF14] opacity-100" : "text-white/20 opacity-40"
+          isHovered ? "text-[#00E575] opacity-100" : "text-white/20 opacity-40"
         )}
         aria-hidden="true"
       >
@@ -135,7 +135,7 @@ export function PointerDepthCard({
       <span
         className={cn(
           "absolute top-1.5 right-1.5 text-[8px] transition-opacity duration-300 pointer-events-none select-none",
-          isHovered ? "text-[#39FF14] opacity-100" : "text-white/20 opacity-40"
+          isHovered ? "text-[#00E575] opacity-100" : "text-white/20 opacity-40"
         )}
         aria-hidden="true"
       >

@@ -2,7 +2,8 @@ import time
 import pickle
 import os
 import sys
-from fastapi import FastAPI, HTTPException
+from urllib.parse import urlparse
+from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
@@ -26,6 +27,20 @@ try:
         MessageIntelligence
     )
     from .ml.pipeline import get_classifier
+    from .engines.common import StandardEngineResponse
+    from .engines.m02_content import analyze_web_content, ContentAnalysisRequest
+    from .engines.m04_endpoint import analyze_endpoint_events, EndpointAnalysisRequest
+    from .engines.m05_network import analyze_network_events, NetworkAnalysisRequest
+    from .engines.m06_identity import analyze_identity_events, IdentityAnalysisRequest
+    from .engines.m07_payment_scam import analyze_payment_scam, PaymentScamRequest
+    from .engines.m08_file_malware import analyze_file_request, analyze_file_content, FileAnalysisRequest
+    from .engines.m09_visual_threat import analyze_visual_threat, analyze_image_bytes, VisualAnalysisRequest
+    from .engines.m10_threat_intel import analyze_threat_intelligence, ThreatIntelLookupRequest
+    from .engines.m11_privacy import analyze_privacy_report, PrivacyAnalysisRequest
+    from .engines.m12_ai_security import analyze_ai_security, AISecurityRequest
+    from .engines.m13_behavioural import analyze_behavioural_correlation, BehaviouralAnalysisRequest
+    from .engines.m14_unified_risk import analyze_unified_risk, UnifiedRiskRequest
+    from .engines.scenarios import execute_scenario, SCENARIO_CATALOG, ScenarioMetadata, ScenarioExecutionResult
 except ImportError:
     import config
     from utils import parse_url_structure
@@ -40,6 +55,20 @@ except ImportError:
         MessageIntelligence
     )
     from ml.pipeline import get_classifier
+    from engines.common import StandardEngineResponse
+    from engines.m02_content import analyze_web_content, ContentAnalysisRequest
+    from engines.m04_endpoint import analyze_endpoint_events, EndpointAnalysisRequest
+    from engines.m05_network import analyze_network_events, NetworkAnalysisRequest
+    from engines.m06_identity import analyze_identity_events, IdentityAnalysisRequest
+    from engines.m07_payment_scam import analyze_payment_scam, PaymentScamRequest
+    from engines.m08_file_malware import analyze_file_request, analyze_file_content, FileAnalysisRequest
+    from engines.m09_visual_threat import analyze_visual_threat, analyze_image_bytes, VisualAnalysisRequest
+    from engines.m10_threat_intel import analyze_threat_intelligence, ThreatIntelLookupRequest
+    from engines.m11_privacy import analyze_privacy_report, PrivacyAnalysisRequest
+    from engines.m12_ai_security import analyze_ai_security, AISecurityRequest
+    from engines.m13_behavioural import analyze_behavioural_correlation, BehaviouralAnalysisRequest
+    from engines.m14_unified_risk import analyze_unified_risk, UnifiedRiskRequest
+    from engines.scenarios import execute_scenario, SCENARIO_CATALOG, ScenarioMetadata, ScenarioExecutionResult
 
 # -------------------------------
 # FASTAPI INIT
@@ -171,7 +200,13 @@ def health():
             "ssrf_protection": True,
             "email_intelligence": True,
             "messaging_intelligence": True,
-            "ml_v2_pipeline": ml_classifier.is_loaded
+            "ml_v2_pipeline": ml_classifier.is_loaded,
+            "demo_lab_m01_m14": True,
+            "engines_available": [
+                "M-01", "M-02", "M-03", "M-04", "M-05", "M-06",
+                "M-07", "M-08", "M-09", "M-10", "M-11", "M-12",
+                "M-13", "M-14"
+            ]
         },
         "version": "2.0.0"
     }
@@ -187,6 +222,16 @@ def predict(request: PredictRequest):
 
     if not raw_url or len(raw_url) < 3:
         raise HTTPException(status_code=400, detail="Invalid URL: String too short")
+
+    if len(raw_url) > 2048:
+        raise HTTPException(status_code=400, detail="Invalid URL: String exceeds maximum length of 2048 characters")
+
+    parsed_check = urlparse(raw_url if "://" in raw_url else "http://" + raw_url)
+    if parsed_check.scheme and parsed_check.scheme.lower() not in ("http", "https"):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unsupported URL scheme '{parsed_check.scheme}'. Only HTTP and HTTPS schemes are supported for security analysis."
+        )
 
     # 1. Deterministic Structural & Unicode Analysis
     structural = parse_url_structure(raw_url)
@@ -209,8 +254,9 @@ def predict(request: PredictRequest):
             evidence.append(item.description)
 
     # 4. SSRF-Safe HTTP Acquisition & DOM/Headers/JS Analysis
+    # Only initiate HTTP socket connections if DNS resolved successfully and host is safe
     http_res: Optional[HTTPResponseIntelligence] = None
-    if rdap_res.status != "blocked" and dns_res.status != "blocked" and tls_res.status != "blocked":
+    if dns_res.status == "available" and rdap_res.status != "blocked" and tls_res.status != "blocked":
         try:
             http_res, http_evidence = fetch_and_analyze_http(raw_url)
             for item in http_evidence:
@@ -248,14 +294,25 @@ def predict(request: PredictRequest):
         verdict = "malicious"
         verdict_state = "PHISHING"
         analysis_status = "blocked"
-    elif structural.get("is_known_benign") and not (http_res and http_res.dom and http_res.dom.brand_impersonation_suspected):
-        # Known verified authentic apex or brand
-        combined_risk = 2
-        verdict = "safe"
-        verdict_state = "LIKELY_SAFE"
     else:
         # Base risk from ML model probability (0-100)
         base_ml_risk = round(ml_probability * 100)
+
+        # Calibrate authentic brand portals / known benign:
+        # Discount spurious login/signin n-gram risk on verified authentic roots when structure is clean
+        has_critical_structural_threats = bool(
+            structural.get("has_executable_extension")
+            or structural.get("has_open_redirect")
+            or structural.get("has_path_traversal")
+            or structural.get("has_homoglyphs")
+            or structural.get("has_userinfo")
+            or structural.get("is_typosquat_pattern")
+            or structural.get("brand_impersonation")
+            or structural.get("has_non_standard_port")
+        )
+        if (structural.get("is_authentic_brand") or structural.get("is_known_benign")) and not has_critical_structural_threats:
+            base_ml_risk = min(base_ml_risk, 10)
+
         structural_boost = structural.get("structural_risk_points", 0)
 
         # Authoritative Intelligence Adjustments
@@ -307,7 +364,7 @@ def predict(request: PredictRequest):
         )
 
         # High-confidence ML probability must not be diluted below malicious threshold
-        if base_ml_risk >= 85:
+        if base_ml_risk >= 85 and not (structural.get("is_authentic_brand") or structural.get("is_known_benign")):
             weighted_score = max(weighted_score, base_ml_risk)
 
         combined_risk = min(100, max(0, weighted_score))
@@ -322,6 +379,12 @@ def predict(request: PredictRequest):
             or (tls_res.connected and not tls_res.hostname_match)
         ):
             combined_risk = max(combined_risk, 88)
+        elif structural.get("has_executable_extension"):
+            combined_risk = max(combined_risk, 85)
+        elif structural.get("has_open_redirect"):
+            combined_risk = max(combined_risk, 72)
+        elif structural.get("has_path_traversal"):
+            combined_risk = max(combined_risk, 70)
         elif http_res and http_res.dom and http_res.dom.has_off_domain_form_submission:
             combined_risk = max(combined_risk, 90)
         elif structural.get("is_ip_literal") and structural.get("has_non_standard_port"):
@@ -339,8 +402,8 @@ def predict(request: PredictRequest):
         else:
             # Check for insufficient external evidence
             intel_missing = (rdap_res.status == "unavailable" and dns_res.status == "unavailable")
-            if intel_missing and not structural.get("is_authentic_brand"):
-                verdict = "safe"
+            if intel_missing and not (structural.get("is_authentic_brand") or structural.get("is_known_benign")):
+                verdict = "inconclusive"
                 verdict_state = "INCONCLUSIVE"
                 analysis_status = "inconclusive"
             else:
@@ -396,7 +459,11 @@ def predict(request: PredictRequest):
             "is_suspicious_tld": structural.get("is_suspicious_tld"),
             "brand_impersonation": structural.get("brand_impersonation"),
             "entropy": structural.get("entropy"),
-            "suspicious_keywords": structural.get("suspicious_keywords")
+            "suspicious_keywords": structural.get("suspicious_keywords"),
+            "is_known_benign": structural.get("is_known_benign"),
+            "has_executable_extension": structural.get("has_executable_extension"),
+            "has_open_redirect": structural.get("has_open_redirect"),
+            "has_path_traversal": structural.get("has_path_traversal")
         },
         "rdap": rdap_res,
         "dns": dns_res,
@@ -437,3 +504,134 @@ def analyze_message_endpoint(request: MessageAnalysisRequest):
     if not message_text or not message_text.strip():
         raise HTTPException(status_code=400, detail="Empty message text provided")
     return analyze_message_text(message_text, sender=request.sender)
+
+
+# ------------------------------------------------------------------------------
+# DEMO LAB: MODULAR INTELLIGENCE ENGINES (M-02 THROUGH M-14)
+# ------------------------------------------------------------------------------
+
+@app.post("/api/m02/content", response_model=StandardEngineResponse)
+def api_m02_content(request: ContentAnalysisRequest):
+    """M-02: Web Content Intelligence Engine."""
+    return analyze_web_content(request)
+
+
+@app.post("/api/m04/endpoint", response_model=StandardEngineResponse)
+def api_m04_endpoint(request: EndpointAnalysisRequest):
+    """M-04: Endpoint Security Lab (Synthetic Telemetry Analyzer)."""
+    return analyze_endpoint_events(request)
+
+
+@app.post("/api/m05/network", response_model=StandardEngineResponse)
+def api_m05_network(request: NetworkAnalysisRequest):
+    """M-05: Network Intelligence Lab (Beaconing & DNS DGA Analyzer)."""
+    return analyze_network_events(request)
+
+
+@app.post("/api/m06/identity", response_model=StandardEngineResponse)
+def api_m06_identity(request: IdentityAnalysisRequest):
+    """M-06: Identity Security Lab (Impossible Travel & Auth Tampering)."""
+    return analyze_identity_events(request)
+
+
+@app.post("/api/m07/scam", response_model=StandardEngineResponse)
+def api_m07_scam(request: PaymentScamRequest):
+    """M-07: Payment & Scam Intelligence (BEC, Crypto & Urgency Heuristics)."""
+    return analyze_payment_scam(request)
+
+
+@app.post("/api/m08/file", response_model=StandardEngineResponse)
+def api_m08_file(request: FileAnalysisRequest):
+    """M-08: File & Malware Analysis (Signature & Static String Inspection)."""
+    return analyze_file_request(request)
+
+
+MAX_UPLOAD_SIZE = 10 * 1024 * 1024  # 10 MiB limit
+UPLOAD_CHUNK_SIZE = 64 * 1024  # 64 KiB buffer
+
+async def read_bounded_upload(file: UploadFile, max_bytes: int = MAX_UPLOAD_SIZE) -> bytes:
+    """Reads uploaded file stream in bounded chunks enforcing a strict maximum size limit."""
+    total_bytes = 0
+    chunks = []
+    while True:
+        chunk = await file.read(UPLOAD_CHUNK_SIZE)
+        if not chunk:
+            break
+        total_bytes += len(chunk)
+        if total_bytes > max_bytes:
+            raise HTTPException(
+                status_code=413,
+                detail=f"Uploaded file exceeds maximum permitted size of {max_bytes // (1024 * 1024)} MiB"
+            )
+        chunks.append(chunk)
+    return b"".join(chunks)
+
+
+@app.post("/api/m08/upload", response_model=StandardEngineResponse)
+async def api_m08_upload(file: UploadFile = File(...)):
+    """M-08: Safe Live File Upload for SHA-256 and Extension-Magic Verification."""
+    contents = await read_bounded_upload(file)
+    return analyze_file_content(file.filename or "uploaded_sample.bin", contents, is_live_upload=True)
+
+
+@app.post("/api/m09/visual", response_model=StandardEngineResponse)
+def api_m09_visual(request: VisualAnalysisRequest):
+    """M-09: Visual Threat Intelligence (Geometry & Color Distribution Analyzer)."""
+    return analyze_visual_threat(request)
+
+
+@app.post("/api/m09/upload", response_model=StandardEngineResponse)
+async def api_m09_upload(file: UploadFile = File(...)):
+    """M-09: Safe Live Screenshot Upload for Visual Phishing/Scareware Inspection."""
+    contents = await read_bounded_upload(file)
+    return analyze_image_bytes(file.filename or "uploaded_screenshot.png", contents, is_live_upload=True)
+
+
+@app.post("/api/m10/threat-intel", response_model=StandardEngineResponse)
+def api_m10_threat_intel(request: ThreatIntelLookupRequest):
+    """M-10: Threat Intelligence IoC Lookup (Domains, IPs & Hashes)."""
+    return analyze_threat_intelligence(request)
+
+
+@app.post("/api/m11/privacy", response_model=StandardEngineResponse)
+def api_m11_privacy(request: PrivacyAnalysisRequest):
+    """M-11: Privacy Intelligence (Canvas Fingerprinting & Data Broker Audits)."""
+    return analyze_privacy_report(request)
+
+
+@app.post("/api/m12/ai-security", response_model=StandardEngineResponse)
+def api_m12_ai_security(request: AISecurityRequest):
+    """M-12: AI Security Lab (Prompt Injection & Jailbreak Defense Guardrails)."""
+    return analyze_ai_security(request)
+
+
+@app.post("/api/m13/behavioural", response_model=StandardEngineResponse)
+def api_m13_behavioural(request: BehaviouralAnalysisRequest):
+    """M-13: Behavioural Analysis (Multi-Stage Chronological Correlation)."""
+    return analyze_behavioural_correlation(request)
+
+
+@app.post("/api/m14/unified-risk", response_model=StandardEngineResponse)
+def api_m14_unified_risk(request: UnifiedRiskRequest):
+    """M-14: Unified Risk & Meta Decision (Explainable Category-Weighted Aggregation)."""
+    return analyze_unified_risk(request)
+
+
+# ------------------------------------------------------------------------------
+# DEMO LAB: PRESENTATION SCENARIOS (A, B, C, D)
+# ------------------------------------------------------------------------------
+
+@app.get("/api/scenarios", response_model=Dict[str, ScenarioMetadata])
+def api_list_scenarios():
+    """Lists the 4 presentation-ready academic demonstration scenarios."""
+    return SCENARIO_CATALOG
+
+
+class RunScenarioRequest(BaseModel):
+    scenario_id: str = "scenario_d"
+
+
+@app.post("/api/scenarios/run", response_model=ScenarioExecutionResult)
+def api_run_scenario(request: RunScenarioRequest):
+    """Executes a complete demonstration scenario through the real backend logic."""
+    return execute_scenario(request.scenario_id)

@@ -295,18 +295,18 @@ export function Preloader({ onComplete, duration = 2200 }: PreloaderProps) {
 
           {/* Precision Sweeping Emerald Laser Line */}
           <motion.div
-            className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#39FF14] to-transparent shadow-[0_0_15px_#39FF14] pointer-events-none opacity-75 z-10"
+            className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00E575] to-transparent shadow-[0_0_15px_#00E575] pointer-events-none opacity-75 z-10"
             animate={{ top: ["0%", "100%"] }}
             transition={{ duration: 3.2, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
           />
 
           {/* Volumetric Dual Emerald / Cyan Atmosphere Glows */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#39FF14]/[0.035] blur-[180px] rounded-full pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#00E575]/[0.035] blur-[180px] rounded-full pointer-events-none" />
           <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] bg-[#00E5FF]/[0.025] blur-[160px] rounded-full pointer-events-none" />
 
           {/* Precision Corner Reticles */}
           <div className="absolute top-3 left-3 sm:top-5 sm:left-5 text-white/30 text-[10px] pointer-events-none flex items-center gap-2">
-            <span className="text-[#39FF14] font-bold">[+]</span>
+            <span className="text-[#00E575] font-bold">[+]</span>
             <span>SEC-SYS // BOOT-2026.4</span>
           </div>
           <div className="absolute top-3 right-3 sm:top-5 right-5 text-white/30 text-[10px] pointer-events-none hidden sm:flex items-center gap-2">
@@ -314,18 +314,18 @@ export function Preloader({ onComplete, duration = 2200 }: PreloaderProps) {
             <span className="text-[#00E5FF]">{hexMemory}</span>
           </div>
           <div className="absolute bottom-3 left-3 sm:bottom-5 sm:left-5 text-white/30 text-[10px] pointer-events-none hidden sm:flex items-center gap-2">
-            <span className="w-1.5 h-1.5 bg-[#39FF14] rounded-full animate-ping" />
+            <span className="w-1.5 h-1.5 bg-[#00E575] rounded-full animate-ping" />
             <span>ENCLAVE: HARDWARE_ISOLATED</span>
           </div>
           <div className="absolute bottom-3 right-3 sm:bottom-5 sm:right-5 text-white/30 text-[10px] pointer-events-none hidden sm:flex items-center gap-2">
             <span>ZERO_CLOUD_TELEMETRY:</span>
-            <span className="text-[#39FF14] font-bold">0_BYTES</span>
+            <span className="text-[#00E575] font-bold">0_BYTES</span>
           </div>
 
           {/* Shockwave Expansion Ring on 100% */}
           {shockwaveActive && (
             <motion.div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#39FF14] pointer-events-none z-40"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#00E575] pointer-events-none z-40"
               initial={{ width: 120, height: 120, opacity: 1 }}
               animate={{ width: 1400, height: 1400, opacity: 0 }}
               transition={{ duration: 0.55, ease: "easeOut" }}
@@ -337,12 +337,12 @@ export function Preloader({ onComplete, duration = 2200 }: PreloaderProps) {
               ========================================================================= */}
           <div className="relative z-30 flex items-center justify-between w-full border-b border-white/10 pb-3 sm:pb-4">
             <div className="flex items-center gap-2 sm:gap-3">
-              <span className="w-2 h-2 bg-[#39FF14] inline-block shadow-[0_0_10px_#39FF14] animate-pulse" />
-              <span className="font-bold text-[#F1F0EB] text-xs sm:text-sm tracking-wider uppercase">
+              <span className="w-2 h-2 bg-[#00E575] inline-block shadow-[0_0_10px_#00E575] animate-pulse" />
+              <span className="font-bold text-[#F8FAFC] text-xs sm:text-sm tracking-wider uppercase">
                 AGEIS-X // AUTONOMOUS SECURITY CORE
               </span>
               <span className="text-white/20 hidden md:inline">|</span>
-              <span className="text-[#39FF14] text-[10px] font-bold hidden md:inline">
+              <span className="text-[#00E575] text-[10px] font-bold hidden md:inline">
                 STAGE {activeStage.step} OF 04
               </span>
             </div>
@@ -352,17 +352,17 @@ export function Preloader({ onComplete, duration = 2200 }: PreloaderProps) {
               <button
                 type="button"
                 onClick={toggleSound}
-                className="px-2.5 py-1 sm:px-3 sm:py-1.5 border border-white/15 bg-white/5 hover:bg-white/10 text-[#A6A6A0] hover:text-[#39FF14] text-[10px] sm:text-[11px] font-mono transition-colors flex items-center gap-1.5 cursor-pointer"
+                className="px-2.5 py-1 sm:px-3 sm:py-1.5 border border-white/15 bg-white/5 hover:bg-white/10 text-[#94A3B8] hover:text-[#00E575] text-[10px] sm:text-[11px] font-mono transition-colors flex items-center gap-1.5 cursor-pointer"
                 aria-label={isAudioEnabled ? "Mute audio" : "Enable audio"}
               >
                 {isAudioEnabled ? (
                   <>
-                    <Volume2 className="w-3.5 h-3.5 text-[#39FF14]" />
+                    <Volume2 className="w-3.5 h-3.5 text-[#00E575]" />
                     <span className="hidden sm:inline">AUDIO ON</span>
                   </>
                 ) : (
                   <>
-                    <VolumeX className="w-3.5 h-3.5 text-[#6F706D]" />
+                    <VolumeX className="w-3.5 h-3.5 text-[#64748B]" />
                     <span className="hidden sm:inline">MUTED</span>
                   </>
                 )}
@@ -372,10 +372,10 @@ export function Preloader({ onComplete, duration = 2200 }: PreloaderProps) {
               <button
                 type="button"
                 onClick={skipIntro}
-                className="px-3 py-1 sm:px-3.5 sm:py-1.5 border border-[#39FF14]/40 bg-[#39FF14]/10 hover:bg-[#39FF14]/20 text-[#F1F0EB] hover:text-[#39FF14] text-[10px] sm:text-[11px] font-bold tracking-widest uppercase transition-all duration-200 cursor-pointer flex items-center gap-1.5 shadow-[2px_2px_0px_#39FF14] active:translate-y-0.5"
+                className="px-3 py-1 sm:px-3.5 sm:py-1.5 border border-[#00E575]/40 bg-[#00E575]/10 hover:bg-[#00E575]/20 text-[#F8FAFC] hover:text-[#00E575] text-[10px] sm:text-[11px] font-bold tracking-widest uppercase transition-all duration-200 cursor-pointer flex items-center gap-1.5 shadow-[0_1px_3px_rgba(0,0,0,0.4),0_0_12px_rgba(0,229,117,0.2)] active:translate-y-0.5"
               >
                 <span>[ SKIP // ESC ]</span>
-                <SkipForward className="w-3.5 h-3.5 text-[#39FF14]" />
+                <SkipForward className="w-3.5 h-3.5 text-[#00E575]" />
               </button>
             </div>
           </div>
@@ -407,7 +407,7 @@ export function Preloader({ onComplete, duration = 2200 }: PreloaderProps) {
               <motion.div
                 className="absolute w-40 h-40 sm:w-52 sm:h-52 rounded-full border-2 border-transparent"
                 style={{
-                  borderTopColor: "#39FF14",
+                  borderTopColor: "#00E575",
                   borderLeftColor: "#00E5FF",
                   filter: "drop-shadow(0 0 10px rgba(57,255,20,0.5))",
                 }}
@@ -417,27 +417,27 @@ export function Preloader({ onComplete, duration = 2200 }: PreloaderProps) {
 
               {/* Inner Pulsing Hexagonal Shield Center */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative w-24 h-24 sm:w-28 sm:h-28 bg-[#040812] border-2 border-[#39FF14]/80 flex flex-col items-center justify-center shadow-[0_0_40px_rgba(57,255,20,0.25)] transition-all duration-300">
+                <div className="relative w-24 h-24 sm:w-28 sm:h-28 bg-[#040812] border-2 border-[#00E575]/80 flex flex-col items-center justify-center shadow-[0_0_40px_rgba(57,255,20,0.25)] transition-all duration-300">
                   {/* Corner Crosshair Pips */}
-                  <span className="absolute -top-1.5 -left-1.5 text-[9px] text-[#39FF14] font-mono leading-none">+</span>
-                  <span className="absolute -top-1.5 -right-1.5 text-[9px] text-[#39FF14] font-mono leading-none">+</span>
-                  <span className="absolute -bottom-1.5 -left-1.5 text-[9px] text-[#39FF14] font-mono leading-none">+</span>
-                  <span className="absolute -bottom-1.5 -right-1.5 text-[9px] text-[#39FF14] font-mono leading-none">+</span>
+                  <span className="absolute -top-1.5 -left-1.5 text-[9px] text-[#00E575] font-mono leading-none">+</span>
+                  <span className="absolute -top-1.5 -right-1.5 text-[9px] text-[#00E575] font-mono leading-none">+</span>
+                  <span className="absolute -bottom-1.5 -left-1.5 text-[9px] text-[#00E575] font-mono leading-none">+</span>
+                  <span className="absolute -bottom-1.5 -right-1.5 text-[9px] text-[#00E575] font-mono leading-none">+</span>
 
                   {/* Laser Visor Line sweeping inside icon */}
                   <motion.div
-                    className="absolute left-1 right-1 h-0.5 bg-[#39FF14] shadow-[0_0_8px_#39FF14] pointer-events-none"
+                    className="absolute left-1 right-1 h-0.5 bg-[#00E575] shadow-[0_0_8px_#00E575] pointer-events-none"
                     animate={{ top: ["10%", "85%", "10%"] }}
                     transition={{ duration: 1.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
                   />
 
                   {progress >= 98 ? (
-                    <ShieldCheck className="w-12 h-12 text-[#39FF14] animate-in zoom-in-75 duration-300 drop-shadow-[0_0_12px_#39FF14]" />
+                    <ShieldCheck className="w-12 h-12 text-[#00E575] animate-in zoom-in-75 duration-300 drop-shadow-[0_0_12px_#00E575]" />
                   ) : (
-                    <Lock className="w-10 h-10 text-[#39FF14] animate-pulse drop-shadow-[0_0_8px_#39FF14]" />
+                    <Lock className="w-10 h-10 text-[#00E575] animate-pulse drop-shadow-[0_0_8px_#00E575]" />
                   )}
 
-                  <span className="text-[8px] font-mono font-bold tracking-widest text-[#39FF14] mt-1 uppercase">
+                  <span className="text-[8px] font-mono font-bold tracking-widest text-[#00E575] mt-1 uppercase">
                     {progress >= 98 ? "SECURED" : "ARMING"}
                   </span>
                 </div>
@@ -447,18 +447,18 @@ export function Preloader({ onComplete, duration = 2200 }: PreloaderProps) {
             {/* Giant Monochromatic Rolling Counter */}
             <div className="space-y-1 sm:space-y-2">
               <div className="flex items-baseline justify-center gap-1 sm:gap-2">
-                <span className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tighter text-[#F1F0EB] leading-none font-mono drop-shadow-[0_0_25px_rgba(255,255,255,0.1)]">
+                <span className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tighter text-[#F8FAFC] leading-none font-mono drop-shadow-[0_0_25px_rgba(255,255,255,0.1)]">
                   {formattedProgress}
                 </span>
-                <span className="text-2xl sm:text-4xl font-black text-[#39FF14] font-mono animate-pulse">
+                <span className="text-2xl sm:text-4xl font-black text-[#00E575] font-mono animate-pulse">
                   %
                 </span>
               </div>
 
-              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-[#A6A6A0] flex items-center justify-center gap-2">
-                <span className="text-[#39FF14] font-bold">SOVEREIGN DEFENSE PLATFORM</span>
+              <div className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-[#94A3B8] flex items-center justify-center gap-2">
+                <span className="text-[#00E575] font-bold">SOVEREIGN DEFENSE PLATFORM</span>
                 <span className="text-white/20">/</span>
-                <span className="text-[#F1F0EB]">LOCAL ENCLAVE</span>
+                <span className="text-[#F8FAFC]">LOCAL ENCLAVE</span>
               </div>
             </div>
 
@@ -466,8 +466,8 @@ export function Preloader({ onComplete, duration = 2200 }: PreloaderProps) {
             <div className="w-full bg-[#050A14]/90 border border-white/15 p-4 sm:p-5 text-left space-y-3 shadow-2xl relative">
               <div className="flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-[#39FF14] inline-block animate-ping" />
-                  <span className="text-[#39FF14] font-bold tracking-wider">
+                  <span className="w-2 h-2 bg-[#00E575] inline-block animate-ping" />
+                  <span className="text-[#00E575] font-bold tracking-wider">
                     [{activeStage.step}] // {activeStage.name}
                   </span>
                 </div>
@@ -476,7 +476,7 @@ export function Preloader({ onComplete, duration = 2200 }: PreloaderProps) {
                 </span>
               </div>
 
-              <p className="text-xs text-[#D4D4D0] font-sans leading-relaxed">
+              <p className="text-xs text-[#CBD5E1] font-sans leading-relaxed">
                 {activeStage.detail}
               </p>
 
@@ -484,19 +484,19 @@ export function Preloader({ onComplete, duration = 2200 }: PreloaderProps) {
               <div className="space-y-1.5 pt-1">
                 <div className="h-2 w-full bg-white/10 relative overflow-hidden">
                   <motion.div
-                    className="h-full bg-gradient-to-r from-[#00E5FF] via-[#39FF14] to-[#39FF14] shadow-[0_0_20px_#39FF14]"
+                    className="h-full bg-gradient-to-r from-[#00E5FF] via-[#00E575] to-[#00E575] shadow-[0_0_20px_#00E575]"
                     style={{ width: `${progress}%` }}
                     transition={{ ease: "easeOut" }}
                   />
                 </div>
 
                 {/* Micro segmented ticks */}
-                <div className="flex justify-between text-[8px] text-[#6F706D] font-mono pt-0.5">
+                <div className="flex justify-between text-[8px] text-[#64748B] font-mono pt-0.5">
                   <span>00% INITIALIZE</span>
                   <span>25% ATTESTATION</span>
                   <span>50% INGESTION</span>
                   <span>75% LOCAL ML</span>
-                  <span className={progress >= 95 ? "text-[#39FF14] font-bold" : ""}>
+                  <span className={progress >= 95 ? "text-[#00E575] font-bold" : ""}>
                     100% ARMED
                   </span>
                 </div>
@@ -515,34 +515,34 @@ export function Preloader({ onComplete, duration = 2200 }: PreloaderProps) {
                     className={cn(
                       "p-2.5 sm:p-3 border text-left transition-all duration-300 flex items-center justify-between relative overflow-hidden",
                       isOnline
-                        ? "border-[#39FF14]/60 bg-[#39FF14]/[0.08] text-[#F1F0EB] shadow-[0_0_20px_rgba(57,255,20,0.12)]"
-                        : "border-white/10 bg-white/[0.015] text-[#6F706D] opacity-60"
+                        ? "border-[#00E575]/60 bg-[#00E575]/[0.08] text-[#F8FAFC] shadow-[0_0_20px_rgba(57,255,20,0.12)]"
+                        : "border-white/10 bg-white/[0.015] text-[#64748B] opacity-60"
                     )}
                   >
                     {isOnline && (
-                      <span className="absolute top-0 right-0 w-1.5 h-1.5 bg-[#39FF14]" />
+                      <span className="absolute top-0 right-0 w-1.5 h-1.5 bg-[#00E575]" />
                     )}
 
                     <div className="space-y-0.5 min-w-0">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-[9px] text-[#A6A6A0]">{guardian.id}</span>
+                        <span className="text-[9px] text-[#94A3B8]">{guardian.id}</span>
                         <span className="text-xs font-bold uppercase tracking-tight truncate">
                           {guardian.name}
                         </span>
                       </div>
                       <div className="flex items-center gap-1 text-[9px]">
-                        <span className={isOnline ? "text-[#39FF14] font-bold" : "text-[#6F706D]"}>
+                        <span className={isOnline ? "text-[#00E575] font-bold" : "text-[#64748B]"}>
                           {isOnline ? "ONLINE" : "STANDBY"}
                         </span>
                         <span>•</span>
-                        <span className="text-[#A6A6A0] uppercase">{guardian.role}</span>
+                        <span className="text-[#94A3B8] uppercase">{guardian.role}</span>
                       </div>
                     </div>
 
                     <div className="shrink-0 pl-2">
                       <Glyph
                         size={22}
-                        color={isOnline ? "#39FF14" : "#6F706D"}
+                        color={isOnline ? "#00E575" : "#64748B"}
                       />
                     </div>
                   </div>
@@ -554,19 +554,19 @@ export function Preloader({ onComplete, duration = 2200 }: PreloaderProps) {
           {/* =========================================================================
               3. DOCKED BOTTOM TELEMETRY BAR
               ========================================================================= */}
-          <div className="relative z-30 flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 sm:pt-4 border-t border-white/10 text-[10px] text-[#6F706D]">
+          <div className="relative z-30 flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 sm:pt-4 border-t border-white/10 text-[10px] text-[#64748B]">
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 sm:gap-4">
-              <span className="flex items-center gap-1.5 text-[#F1F0EB]">
-                <span className="w-1.5 h-1.5 bg-[#39FF14] inline-block animate-pulse" />
+              <span className="flex items-center gap-1.5 text-[#F8FAFC]">
+                <span className="w-1.5 h-1.5 bg-[#00E575] inline-block animate-pulse" />
                 <span className="font-bold">REAL-TIME TELEMETRY</span>
               </span>
               <span>•</span>
               <span>INFERENCE: &lt; 18MS LOCAL</span>
               <span>•</span>
-              <span className="text-[#39FF14] font-bold">SHA-256 VERIFIED</span>
+              <span className="text-[#00E575] font-bold">SHA-256 VERIFIED</span>
             </div>
 
-            <div className="flex items-center gap-4 text-[#A6A6A0]">
+            <div className="flex items-center gap-4 text-[#94A3B8]">
               <BarcodeGraphic code="SX-AGEIS-INITIALIZE" />
               <RegistrationMark size={12} />
             </div>

@@ -21,7 +21,7 @@ export function MaskedHeading({
   lines,
   level = 1,
   accentLineIndex,
-  accentClassName = "text-[#39FF14]",
+  accentClassName = "text-[#00E575]",
   className,
   delay = 0,
   ...props

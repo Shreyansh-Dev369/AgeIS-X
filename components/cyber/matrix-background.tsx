@@ -85,7 +85,7 @@ export function MatrixBackground() {
             trail: "#00ff66",
             lead: "#f0fff4",
             glow: "rgba(0, 255, 102, 0.5)",
-            accent: "#39ff14",
+            accent: "#00E575",
           }
       }
     }

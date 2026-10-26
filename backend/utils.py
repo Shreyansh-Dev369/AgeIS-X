@@ -65,6 +65,18 @@ SUSPICIOUS_KEYWORDS = [
     "recover", "validate", "suspended", "confirm", "security", "passcode"
 ]
 
+# High-risk executable and script extensions indicative of malicious payloads / droppers
+HIGH_RISK_EXTENSIONS = {
+    ".exe", ".scr", ".bat", ".cmd", ".ps1", ".vbs", ".msi",
+    ".apk", ".elf", ".iso", ".dmg", ".jar", ".hta", ".dll", ".vbe", ".wsf"
+}
+
+# Open redirect query parameters frequently abused on reputable platforms
+OPEN_REDIRECT_PARAM_REGEX = re.compile(
+    r'(?:[?&])(?:q|url|target|dest|destination|redirect|redirect_uri|redirect_url|next|return_to|link|r)=((?:https?%3A%2F%2F|https?://)[^\s&]+)',
+    re.IGNORECASE
+)
+
 # Confusable / Homoglyph Cyrillic and Greek characters commonly used in IDN spoofing
 CYRILLIC_LOOKALIKES = {
     '\u0430': 'a', '\u0441': 'c', '\u0435': 'e', '\u043e': 'o',
@@ -234,9 +246,51 @@ def parse_url_structure(raw_url: str) -> dict:
             evidence.append("URL contains percent-encoded characters")
             structural_risk_points += 5
 
+    # Path traversal check
+    has_path_traversal = ".." in path or "%2e%2e" in raw_url.lower()
+    if has_path_traversal:
+        evidence.append("Path traversal sequences ('..' or encoded equivalents) detected")
+        structural_risk_points += 35
+
+    # Executable / dropper file extension check
+    path_lower = path.lower().split("?")[0].split("#")[0]
+    has_executable_extension = any(
+        path_lower.endswith(ext) or f"{ext}?" in raw_url.lower() or f"{ext}#" in raw_url.lower()
+        for ext in HIGH_RISK_EXTENSIONS
+    )
+    if has_executable_extension:
+        matched_ext = next((ext for ext in HIGH_RISK_EXTENSIONS if path_lower.endswith(ext) or f"{ext}?" in raw_url.lower() or f"{ext}#" in raw_url.lower()), ".exe")
+        evidence.append(f"High-risk executable payload extension ({matched_ext}) detected in URL path")
+        structural_risk_points += 55
+
+    # Open redirect parameter detection
+    has_open_redirect = False
+    open_redirect_match = OPEN_REDIRECT_PARAM_REGEX.search(raw_url)
+    if open_redirect_match:
+        target_param = open_redirect_match.group(1)
+        try:
+            target_parsed = urlparse(unquote(target_param))
+            target_host = (target_parsed.netloc or "").split(":")[0].lower()
+            if target_host and target_host != hostname_clean and not target_host.endswith("." + reg_domain):
+                has_open_redirect = True
+                evidence.append(f"Open redirect parameter pointing to external host ({target_host}) detected")
+                structural_risk_points += 40
+        except Exception:
+            pass
+
     # Check for authentic known apex
+    has_threat_flags = (
+        has_homoglyphs
+        or is_typosquat_pattern
+        or has_userinfo
+        or bool(brand_impersonation_found)
+        or has_executable_extension
+        or has_open_redirect
+        or has_path_traversal
+        or has_non_standard_port
+    )
     is_known_benign = False
-    if (reg_domain in KNOWN_BENIGN_APEX or is_authentic_brand) and not has_homoglyphs and not is_typosquat_pattern and not has_userinfo and not brand_impersonation_found:
+    if (reg_domain in KNOWN_BENIGN_APEX or is_authentic_brand) and not has_threat_flags:
         is_known_benign = True
         evidence = ["Domain matches known verified authentic organization repository."]
         structural_risk_points = 0
@@ -264,6 +318,9 @@ def parse_url_structure(raw_url: str) -> dict:
         "entropy": entropy,
         "has_percent_encoding": has_percent_encoding,
         "has_non_standard_port": has_non_standard_port,
+        "has_executable_extension": has_executable_extension,
+        "has_open_redirect": has_open_redirect,
+        "has_path_traversal": has_path_traversal,
         "structural_risk_points": structural_risk_points,
         "evidence": evidence
     }

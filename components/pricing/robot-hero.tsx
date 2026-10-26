@@ -55,9 +55,9 @@ export function RobotHero({ selectedPlan, onSelectPlan }: RobotHeroProps) {
       </div>
 
       {/* Panoramic Robot Lineup Banner with Interactive Unit Selectors */}
-      <div className="relative border border-white/15 bg-[#080808] overflow-hidden group shadow-2xl">
+      <div className="relative border border-white/15 bg-[#0B0E14] overflow-hidden group shadow-2xl">
         {/* Banner image with priority loading */}
-        <div className="relative w-full aspect-[21/9] sm:aspect-[24/9] md:aspect-[32/10] bg-[#050505]">
+        <div className="relative w-full aspect-[21/9] sm:aspect-[24/9] md:aspect-[32/10] bg-[#07090E]">
           <Image
             src="/robots/lineup-hero.webp"
             alt="AgeIS-X Security Units: Scout, Guard, Sentinel, and Aegis in art-directed lineup"
@@ -67,23 +67,23 @@ export function RobotHero({ selectedPlan, onSelectPlan }: RobotHeroProps) {
             className="object-cover object-center opacity-90 transition-transform duration-700 ease-out group-hover:scale-[1.01]"
           />
           {/* Subtle vignette gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/60 pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-[#050505]/80 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#07090E] via-transparent to-[#07090E]/60 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#07090E]/80 via-transparent to-[#07090E]/80 pointer-events-none" />
         </div>
 
         {/* Floating Technical Overlay */}
-        <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 flex items-center gap-2 bg-[#050505]/85 backdrop-blur-md px-3 py-1.5 border border-white/10 text-[10px] text-[#F1F0EB]">
+        <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 flex items-center gap-2 bg-[#07090E]/85 backdrop-blur-md px-3 py-1.5 border border-white/10 text-[10px] text-[#F1F0EB]">
           <span className="w-1.5 h-1.5 bg-[#39FF14] inline-block animate-pulse" />
           <span className="font-bold">UNIT ARCHIVE // 2026-X</span>
           <span className="text-[#A6A6A0]">| 4 ACTIVE ARCHETYPES</span>
         </div>
 
         <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 hidden sm:block">
-          <BarcodeGraphic code="AGEIS-X-FLEET-ROBOTIC" className="bg-[#050505]/80 p-1.5 border border-white/10" />
+          <BarcodeGraphic code="AGEIS-X-FLEET-ROBOTIC" className="bg-[#07090E]/80 p-1.5 border border-white/10" />
         </div>
 
         {/* 4 Unit Quick Switcher bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/10 border-t border-white/10 bg-[#050505]/95 backdrop-blur-md">
+        <div className="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/10 border-t border-white/10 bg-[#07090E]/95 backdrop-blur-md">
           {AGEIS_ROBOT_PLANS.map((plan) => {
             const isSelected = plan.id === selectedPlan
             return (

@@ -27,9 +27,9 @@ const CyberThemeContext = createContext<CyberThemeContextType | undefined>(undef
 
 export function CyberThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<CyberThemeMode>("matrix")
-  const [crtScanlines, setCrtScanlinesState] = useState<boolean>(true)
-  const [matrixRain, setMatrixRainState] = useState<boolean>(true)
-  const [audioEnabled, setAudioEnabled] = useState<boolean>(true)
+  const [crtScanlines, setCrtScanlinesState] = useState<boolean>(false)
+  const [matrixRain, setMatrixRainState] = useState<boolean>(false)
+  const [audioEnabled, setAudioEnabled] = useState<boolean>(false)
   const [defconLevel, setDefconLevelState] = useState<DefconLevel>(5)
   const [isGlitching, setIsGlitching] = useState<boolean>(false)
 

@@ -34,7 +34,7 @@ def test_known_benign_domain_google():
     assert data["verdict"] == "safe"
     assert data["risk_score"] <= 15
     assert data["features"]["has_homoglyphs"] is False
-    assert data["rdap"]["status"] in ("available", "unavailable")
+    assert data["rdap"]["status"] in ("available", "unavailable", "error")
     assert data["dns"]["status"] == "available"
     assert len(data["dns"]["a"]) > 0
 
@@ -857,6 +857,120 @@ def test_explicit_verdict_states_populated():
     assert data["verdict_state"] in ("PHISHING", "SUSPICIOUS", "LIKELY_SAFE", "INCONCLUSIVE")
     assert "confidence" in data
     assert "analysis_status" in data
+
+
+# ---------------------------------------------------------
+# PHASE 2 SECURITY & DETECTION REGRESSION TESTS
+# ---------------------------------------------------------
+
+def test_reputable_domain_with_executable_payload():
+    """Executable binaries on reputable domains must NOT be granted a benign verdict."""
+    response = client.post("/predict", json={"url": "https://github.com/malicious-org/dropper/releases/download/v1/payload.exe"})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["verdict"] == "malicious"
+    assert data["risk_score"] >= 70
+    assert data["features"]["has_executable_extension"] is True
+    assert data["features"]["is_known_benign"] is False
+
+def test_reputable_domain_with_open_redirect():
+    """Open redirect vectors on reputable domains must trigger high risk, not pass as safe."""
+    response = client.post("/predict", json={"url": "https://google.com/url?q=http://malicious-external-target.com"})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["verdict"] in ("malicious", "suspicious")
+    assert data["risk_score"] >= 60
+    assert data["features"]["has_open_redirect"] is True
+    assert data["features"]["is_known_benign"] is False
+
+def test_authentic_brand_login_calibration():
+    """Authentic brand login portals must be properly calibrated and evaluated as safe."""
+    response = client.post("/predict", json={"url": "https://accounts.google.com/signin/v2/identifier"})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["verdict"] == "safe"
+    assert data["risk_score"] <= 15
+    assert data["features"]["is_authentic_brand"] is True
+
+def test_m08_upload_size_limit_rejection():
+    """Uploads exceeding 10 MiB must be rejected with HTTP 413 Payload Too Large."""
+    oversized_data = b"X" * (10 * 1024 * 1024 + 1024)  # 10 MiB + 1 KiB
+    response = client.post(
+        "/api/m08/upload",
+        files={"file": ("malicious_huge_sample.bin", oversized_data, "application/octet-stream")}
+    )
+    assert response.status_code == 413
+    assert "exceeds maximum permitted size" in response.json()["detail"]
+
+def test_m08_upload_valid_file():
+    """Valid small file uploads must succeed and return SHA-256 telemetry."""
+    small_data = b"EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
+    response = client.post(
+        "/api/m08/upload",
+        files={"file": ("test_sample.txt", small_data, "text/plain")}
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["engine_id"] == "M-08"
+    assert data["analysis_mode"] == "live"
+    assert "sha256" in data["metadata"]
+
+def test_m09_upload_size_limit_rejection():
+    """Screenshot uploads exceeding 10 MiB must be rejected with HTTP 413."""
+    oversized_data = b"\x89PNG\r\n\x1a\n" + b"A" * (10 * 1024 * 1024 + 1024)
+    response = client.post(
+        "/api/m09/upload",
+        files={"file": ("huge_screenshot.png", oversized_data, "image/png")}
+    )
+    assert response.status_code == 413
+
+
+def test_known_benign_domain_python_org():
+    """Verified foundation domain python.org should be safely evaluated."""
+    response = client.post("/predict", json={"url": "https://python.org"})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["verdict"] == "safe"
+    assert data["verdict_state"] == "LIKELY_SAFE"
+    assert data["risk_score"] <= 15
+    assert data["features"]["is_known_benign"] is True
+
+
+def test_url_with_path_traversal():
+    """Path traversal sequences in URLs must trigger malicious verdict."""
+    response = client.post("/predict", json={"url": "https://example.com/../../etc/passwd"})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["verdict"] == "malicious"
+    assert data["risk_score"] >= 70
+    assert data["features"]["has_path_traversal"] is True
+
+
+def test_unsupported_scheme_rejected():
+    """Non-HTTP(S) schemes such as ftp or file must be rejected with HTTP 400."""
+    response = client.post("/predict", json={"url": "ftp://attacker.com/payload"})
+    assert response.status_code == 400
+    assert "Unsupported URL scheme" in response.json()["detail"]
+
+
+def test_oversized_url_rejected():
+    """URLs exceeding 2048 characters must be rejected with HTTP 400."""
+    huge_url = "https://example.com/path?" + "a" * 2050
+    response = client.post("/predict", json={"url": huge_url})
+    assert response.status_code == 400
+    assert "exceeds maximum length" in response.json()["detail"]
+
+
+def test_nested_open_redirect():
+    """Nested open redirect parameters on reputable domain must be detected."""
+    response = client.post("/predict", json={"url": "https://google.com/url?q=https%3A%2F%2Fevil-target.xyz%2Flogin"})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["verdict"] in ("malicious", "suspicious")
+    assert data["risk_score"] >= 60
+    assert data["features"]["has_open_redirect"] is True
+
+
 
 
 

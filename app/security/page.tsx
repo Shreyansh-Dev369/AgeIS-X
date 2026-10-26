@@ -117,7 +117,7 @@ export default function SecurityPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start font-mono">
           <div className="lg:col-span-4 space-y-3">
             <TechnicalLabel className="text-[#6F706D] font-bold">RESPONSIBLE DISCLOSURE</TechnicalLabel>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#050505] tracking-tight leading-tight uppercase">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#07090E] tracking-tight leading-tight uppercase">
               VULNERABILITY REPORTING POLICY.
             </h2>
           </div>
@@ -127,7 +127,7 @@ export default function SecurityPage() {
               We welcome independent security researchers to inspect our public architecture and client binaries. If you discover a potential vulnerability, please report it directly using our PGP key.
             </p>
 
-            <div className="p-4 bg-[#050505] text-[#F1F0EB] text-xs font-mono border border-black space-y-2">
+            <div className="p-4 bg-[#07090E] text-[#F1F0EB] text-xs font-mono border border-black space-y-2">
               <div className="flex justify-between text-[#39FF14]">
                 <span>PGP PUBLIC KEY FINGERPRINT</span>
                 <span>RSA 4096-BIT</span>

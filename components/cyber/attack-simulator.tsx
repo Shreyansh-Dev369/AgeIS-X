@@ -287,7 +287,7 @@ export function AttackSimulator() {
             size="sm"
             onClick={runAttackSimulation}
             disabled={isRunning}
-            className="bg-[#00ff66] hover:bg-[#39ff14] text-[#040608] font-bold text-xs uppercase border border-[#00ff66] min-h-[36px] shadow-[0_0_15px_rgba(0,255,102,0.3)]"
+            className="bg-[#00ff66] hover:bg-[#00E575] text-[#040608] font-bold text-xs uppercase border border-[#00ff66] min-h-[36px] shadow-[0_0_15px_rgba(0,255,102,0.3)]"
           >
             <Play className="w-3.5 h-3.5 mr-1.5 fill-current" />
             {isRunning ? "DEFENDING NOW..." : "[ TEST ATTACK DEFENSE ]"}

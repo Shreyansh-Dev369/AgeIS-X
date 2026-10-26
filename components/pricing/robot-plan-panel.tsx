@@ -22,6 +22,8 @@ export interface RobotPlanPanelProps {
   isSelected: boolean
   onSelect: (id: PlanId) => void
   onOpenDossier?: (id: PlanId) => void
+  onCommission?: (plan: RobotPlan) => void
+  billingCycle?: "annual" | "monthly"
 }
 
 export function RobotPlanPanel({
@@ -29,8 +31,19 @@ export function RobotPlanPanel({
   isSelected,
   onSelect,
   onOpenDossier,
+  onCommission,
+  billingCycle = "annual",
 }: RobotPlanPanelProps) {
   const [isHovered, setIsHovered] = React.useState(false)
+
+  const displayedPrice =
+    billingCycle === "annual"
+      ? plan.priceFormatted
+      : plan.priceAnnual === 0
+      ? "₹0"
+      : `₹${Math.round((plan.priceAnnual * 1.25) / 12)}`
+
+  const displayedPeriod = billingCycle === "annual" ? plan.period : "/ month"
 
   const glyphMap = {
     scout: PixelScoutGlyph,
@@ -60,8 +73,8 @@ export function RobotPlanPanel({
         "relative flex flex-col justify-between p-6 sm:p-7 md:p-8 font-mono transition-all duration-400 ease-out cursor-pointer outline-none select-none group border-t-2",
         plan.visualAttributes.bgStyle,
         isSelected
-          ? "border-t-[#39FF14] bg-[#0A0A0A] shadow-[0_0_35px_rgba(57,255,20,0.10)] ring-1 ring-[#39FF14]/40 scale-[1.015] z-20"
-          : "border-t-white/10 hover:border-t-white/40 hover:bg-[#070707] opacity-85 hover:opacity-100"
+          ? "border-t-[#39FF14] bg-[#0E131A] shadow-[0_0_30px_rgba(0,229,117,0.12)] ring-1 ring-[#39FF14]/40 scale-[1.015] z-20"
+          : "border-t-white/10 hover:border-t-white/40 hover:bg-[#080B10] opacity-90 hover:opacity-100"
       )}
     >
       {/* Background Micro Grid Layer within Panel */}
@@ -95,7 +108,7 @@ export function RobotPlanPanel({
         </div>
 
         {/* Robot Portrait Visual Canvas with Oversized Typography Fragment */}
-        <div className="relative w-full aspect-[4/5] sm:aspect-[3/4] overflow-hidden bg-[#040404] border border-white/10 my-3">
+        <div className="relative w-full aspect-[4/5] sm:aspect-[3/4] overflow-hidden bg-[#07090E] border border-white/10 my-3">
           {/* Oversized Typography Backdrop */}
           <div
             className={cn(
@@ -134,7 +147,7 @@ export function RobotPlanPanel({
           <span className="absolute bottom-1 right-1 text-[8px] text-white/30 pointer-events-none" aria-hidden="true">+</span>
 
           {/* Live Sensor Indicator */}
-          <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2 py-0.5 bg-[#050505]/85 backdrop-blur-sm border border-white/10 text-[9px]">
+          <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2 py-0.5 bg-[#07090E]/85 backdrop-blur-sm border border-white/10 text-[9px]">
             <span
               className={cn(
                 "w-1.5 h-1.5 inline-block transition-colors duration-300",
@@ -147,7 +160,7 @@ export function RobotPlanPanel({
           </div>
 
           {/* Unit Callout Ribbon at bottom of image */}
-          <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent p-3 pt-6 z-10">
+          <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-[#07090E] via-[#07090E]/80 to-transparent p-3 pt-6 z-10">
             <span className="text-[9px] text-[#39FF14] uppercase tracking-wider font-bold block">
               {plan.role}
             </span>
@@ -167,10 +180,10 @@ export function RobotPlanPanel({
             </div>
             <div className="text-right">
               <span className="text-2xl sm:text-3xl font-black text-[#39FF14] tracking-tight">
-                {plan.priceFormatted}
+                {displayedPrice}
               </span>
               <span className="text-[10px] text-[#A6A6A0] uppercase block">
-                {plan.period}
+                {displayedPeriod}
               </span>
             </div>
           </div>
@@ -199,7 +212,7 @@ export function RobotPlanPanel({
                 <span className="text-[#39FF14] font-mono font-bold shrink-0 mt-0.5">
                   -
                 </span>
-                <span className="font-sans text-[#D4D4D0]">{feat.name}</span>
+                <span className="font-sans text-[#CBD5E1]">{feat.name}</span>
                 {feat.status === "BETA" && (
                   <span className="text-[8px] font-mono px-1 py-0.2 bg-[#FFB800]/10 text-[#FFB800] border border-[#FFB800]/30 ml-auto shrink-0">
                     BETA
@@ -245,20 +258,39 @@ export function RobotPlanPanel({
         {/* Primary Commissioning CTA Button */}
         <div className="pt-2 space-y-2">
           <MagneticButton strength={4} className="w-full">
-            <Button
-              className={cn(
-                "w-full font-mono text-xs uppercase tracking-wider h-11 rounded-none font-bold transition-all cursor-pointer",
-                isSelected
-                  ? "bg-[#39FF14] hover:bg-[#32e012] text-[#050505] shadow-[0_0_15px_rgba(57,255,20,0.3)]"
-                  : "border border-white/20 bg-transparent hover:bg-white/10 text-[#F1F0EB]"
-              )}
-              asChild
-            >
-              <Link href={plan.cta.href}>
+            {onCommission ? (
+              <Button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onCommission(plan)
+                }}
+                className={cn(
+                  "w-full font-mono text-xs uppercase tracking-wider h-11 rounded-none font-bold transition-all cursor-pointer shadow-[0_1px_3px_rgba(0,0,0,0.4),0_0_12px_rgba(0,229,117,0.2)]",
+                  isSelected
+                    ? "bg-[#39FF14] hover:bg-[#32E012] text-[#07090E]"
+                    : "border border-white/20 bg-transparent hover:bg-white/10 text-[#F1F0EB]"
+                )}
+              >
                 <span>{plan.cta.label}</span>
                 <ArrowRight className="w-3.5 h-3.5 ml-2 shrink-0" />
-              </Link>
-            </Button>
+              </Button>
+            ) : (
+              <Button
+                className={cn(
+                  "w-full font-mono text-xs uppercase tracking-wider h-11 rounded-none font-bold transition-all cursor-pointer shadow-[0_1px_3px_rgba(0,0,0,0.4),0_0_12px_rgba(0,229,117,0.2)]",
+                  isSelected
+                    ? "bg-[#39FF14] hover:bg-[#32E012] text-[#07090E]"
+                    : "border border-white/20 bg-transparent hover:bg-white/10 text-[#F1F0EB]"
+                )}
+                asChild
+              >
+                <Link href={plan.cta.href}>
+                  <span>{plan.cta.label}</span>
+                  <ArrowRight className="w-3.5 h-3.5 ml-2 shrink-0" />
+                </Link>
+              </Button>
+            )}
           </MagneticButton>
 
           {/* Dossier inspection trigger */}
