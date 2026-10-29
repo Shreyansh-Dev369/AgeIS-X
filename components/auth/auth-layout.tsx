@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Logo } from "@/components/design-system/logo"
 import { TechnicalLabel, SignalMarker } from "@/components/design-system/editorial-primitives"
 import { SecuritySticker } from "@/components/design-system/pixel-art-system"
+import { TacticalAtmosphere } from "@/components/tactical/tactical-atmosphere"
 import { Lock, ShieldCheck } from "lucide-react"
 
 interface AuthLayoutProps {
@@ -23,7 +24,8 @@ export function AuthLayout({
   footerPrompt,
 }: AuthLayoutProps) {
   return (
-    <div className="min-h-screen bg-[#07090E] technical-grid text-[#F8FAFC] flex flex-col justify-between items-center p-4 sm:p-6 select-none relative font-mono text-xs">
+    <div className="min-h-screen bg-[#04060A] text-[#F8FAFC] flex flex-col justify-between items-center p-4 sm:p-6 select-none relative font-mono text-xs overflow-x-hidden">
+      <TacticalAtmosphere variant="auth" />
       {/* Top Header */}
       <header className="w-full max-w-4xl flex items-center justify-between py-4 border-b border-white/10 text-xs relative z-10">
         <div className="flex items-center gap-3">

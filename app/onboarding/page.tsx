@@ -15,6 +15,7 @@ import { StepPrivacyPreferences } from "@/components/onboarding/steps/step-priva
 import { StepAccountSecurity } from "@/components/onboarding/steps/step-account-security"
 import { StepSecurityBaseline } from "@/components/onboarding/steps/step-security-baseline"
 import { StepCompletion } from "@/components/onboarding/steps/step-completion"
+import { TacticalAtmosphere } from "@/components/tactical/tactical-atmosphere"
 import { Shield, Lock } from "lucide-react"
 
 const STEP_TITLES = [
@@ -103,9 +104,9 @@ function OnboardingContent() {
   }
 
   return (
-    <div className="min-h-screen bg-[#04070d] text-slate-100 flex flex-col justify-between relative overflow-hidden">
+    <div className="min-h-screen bg-[#04060A] text-slate-100 flex flex-col justify-between relative overflow-hidden">
       {/* Background Subtle Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none opacity-40" />
+      <TacticalAtmosphere variant="auth" />
 
       {/* Top Header */}
       <header className="border-b border-slate-800 bg-[#080d16]/90 backdrop-blur-md px-4 sm:px-6 py-3 relative z-10">

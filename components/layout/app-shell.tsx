@@ -5,6 +5,7 @@ import { AppSidebar } from "@/components/layout/app-sidebar"
 import { AppHeader } from "@/components/layout/app-header"
 import { AuthGuard } from "@/components/auth/auth-guard"
 import { GlobalCommandPalette } from "@/components/dashboard/global-command-palette"
+import { TacticalAtmosphere } from "@/components/tactical/tactical-atmosphere"
 
 interface AppShellProps {
   title?: string
@@ -25,7 +26,9 @@ export function AppShell({ title, breadcrumbs, children }: AppShellProps) {
 
   return (
     <AuthGuard requireVerified={true} requireOnboarded={true}>
-      <div className="min-h-screen bg-[#07090E] technical-grid text-[#F8FAFC] flex font-mono antialiased selection:bg-[#00E575]/20 selection:text-[#00E575]">
+      <div className="min-h-screen bg-[#04060A] text-[#F8FAFC] flex font-mono antialiased selection:bg-[#00E575]/20 selection:text-[#00E575] relative overflow-x-hidden">
+        <TacticalAtmosphere variant="dashboard" />
+
         {/* Fixed Desktop Sidebar */}
         <div className="hidden lg:block h-screen sticky top-0 z-20 shrink-0">
           <AppSidebar />

@@ -29,12 +29,12 @@ export function EditorialSection({
   ...props
 }: EditorialSectionProps) {
   const modeClasses: Record<BackgroundMode, string> = {
-    "dark-lab": "bg-[#07090E] technical-grid text-[#F1F0EB]",
-    "editorial-black": "bg-[#0B0E14] text-[#F1F0EB]",
-    "off-white": "bg-[#0F141C] text-[#F1F0EB]",
-    "off-white-editorial": "bg-[#0F141C] text-[#F1F0EB]",
-    "pixel-system": "bg-[#07090E] technical-grid text-[#F1F0EB]",
-    "pixel-system-state": "bg-[#07090E] technical-grid text-[#F1F0EB]",
+    "dark-lab": "bg-[#07090E]/85 backdrop-blur-sm technical-grid text-[#F1F0EB]",
+    "editorial-black": "bg-[#04060A]/85 backdrop-blur-sm text-[#F1F0EB]",
+    "off-white": "bg-[#0B0F18]/85 backdrop-blur-sm text-[#F1F0EB]",
+    "off-white-editorial": "bg-[#0B0F18]/85 backdrop-blur-sm text-[#F1F0EB]",
+    "pixel-system": "bg-[#07090E]/85 backdrop-blur-sm technical-grid text-[#F1F0EB]",
+    "pixel-system-state": "bg-[#07090E]/85 backdrop-blur-sm technical-grid text-[#F1F0EB]",
   }
 
   const widthClasses = {

@@ -349,3 +349,71 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   TACTICAL ATMOSPHERE & COMMAND-CENTER AMBIENT KEYFRAMES
+   ========================================================================== */
+@keyframes tactical-radar-sweep {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.35;
+  }
+  85% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes tactical-ambient-drift {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(15px, -12px) scale(1.05);
+    opacity: 0.95;
+  }
+}
+
+@keyframes tactical-beacon-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.animate-tactical-sweep {
+  animation: tactical-radar-sweep 16s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform, opacity;
+}
+
+.animate-ambient-drift {
+  animation: tactical-ambient-drift 24s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-beacon-pulse {
+  animation: tactical-beacon-pulse 6s ease-out infinite;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-tactical-sweep,
+  .animate-ambient-drift,
+  .animate-beacon-pulse {
+    animation: none !important;
+  }
+  .animate-tactical-sweep {
+    display: none !important;
+  }
+}
